@@ -1,0 +1,64 @@
+.h2-add-sustainability{
+    font-family: Poppins;
+    color: white;
+    font-weight: 700 !important;
+    letter-spacing: -1.9px;
+}
+.fadeInContainer{
+    animation-name: fadeInContainer;
+    animation-duration: 0.4s;
+}
+.formAddSustainabilityData{
+    background: linear-gradient(180deg, #2af05b3e, #26833d9e);
+    border-radius: 12px;
+    border: 1px solid #2af05a;
+    padding: 1.1rem;
+}
+.formAddSustainabilityData h3{
+    font-family: "Poppins";
+    color: whitesmoke;
+    font-weight: 700;
+    letter-spacing: -1.4px;
+}
+h5{
+    color: whitesmoke;
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    font-weight: 500;
+}
+label{
+    color: rgb(190,190,190);
+    font-family: "Poppins";
+    letter-spacing: -1.3px;
+}
+select{
+    cursor: pointer;
+    appearance: auto;
+    background-color: #8cffa9;
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    border: none;
+}
+.alert-success{
+    animation: fadeIn 0.6s ease-in-out;
+}
+.btn-submit:hover{
+    background-color: green!important;
+    color: whitesmoke!important;
+}
+@keyframes identifier {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes fadeInContainer {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

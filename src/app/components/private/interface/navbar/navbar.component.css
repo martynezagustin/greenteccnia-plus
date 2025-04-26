@@ -1,0 +1,59 @@
+
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-fluid {
+    padding: 0%;
+}
+.nav-link, .nav-sublink{
+    font-family: "Poppins";
+    color: rgb(20, 20, 20);
+    letter-spacing: -1.2px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+}
+.nav-link {
+    padding: 15px;
+}
+.nav-sublink{
+    padding: 10px 6px 10px 6px;
+    margin: 0px 23px 0px 23px;
+    text-align: end;
+}
+
+.nav-link:hover {
+    background-color: rgb(35, 35, 35);
+    color: whitesmoke;
+}
+.nav-sublink:hover{
+    text-decoration: underline;
+    background-color: none!important;
+}
+
+.btn-light:hover {
+    background-color: rgb(255, 70, 37);
+    color: whitesmoke;
+    border: none;
+}
+
+.my-profile {
+    padding: 0.6rem;
+    border-radius: 90px;
+    background-color: black;
+    color: whitesmoke;
+    margin: 0.5rem;
+    transform: scale(1,1);
+    transition: 0.4s;
+}
+
+.my-profile:hover {
+    background-color: rgb(5, 90, 5);
+    color: whitesmoke;
+    transform: scale(1.1,1.1);
+    transition: 0.4s;
+}

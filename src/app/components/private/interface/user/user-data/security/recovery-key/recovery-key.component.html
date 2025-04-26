@@ -1,0 +1,38 @@
+<div class="container-security-panel p-3">
+    <a routerLink="/dashboard/my-user/security" class="btn btn-danger mb-2"
+        style="font-family: Poppins; letter-spacing: -1.3px;">&#8592;Atrás</a>
+    <h2 class="h2-security"><i class="fa-solid fa-key m-1"></i> Crear mi clave de recuperación</h2>
+    <p style="font-family: Poppins; letter-spacing: -1.3px; font-size: 1.2rem; color: rgb(80,80,80)">Una clave de
+        recuperación puede ser útil para resetear el acceso a tu cuenta sin necesidad de usar tu e-mail.</p>
+    @if(statusRecoveryKey){
+        <div class="alert alert-success text-center d-flex flex-column align-items-center" style="font-family: Poppins; letter-spacing: -1.2px; font-size: 1.6rem;">Tu clave de recuperación ya existe, ¿Deseas verla?
+            <button class="btn btn-success" style="font-family: Poppins; letter-spacing: -1.2px;" (click)="toggleRecoveryKey()">{{!showRecoveryKey ?  "MOSTRAR" : "OCULTAR"}}</button>
+            @if(showRecoveryKey){
+            <p class="mt-2 w-25" style="font-family: Poppins; letter-spacing: -1.2px; border-radius: 10px; padding: 1rem; font-size: 1.6rem; background-color: rgb(80,80,80); color: whitesmoke; font-weight: 600;">{{recoveryKey}}</p>
+            }
+        </div>
+    }@else {
+
+    <div class="form">
+        <form [formGroup]="recoveryKeyForm" class="d-flex p-3 m-2 flex-column align-items-center"
+            style="background-color: whitesmoke; border-radius: 10px; border: 1px solid gray;"
+            (submit)="handleSubmit()">
+            <label for="recoveryKey" class="form-label"
+                style="font-family: Poppins; letter-spacing: -1.2px; font-size: 2rem;">Clave de recuperación</label>
+            <input type="text" class="form-control w-50 text-center" id="recoveryKey" formControlName="recoveryKey"
+                placeholder="Ingrese una clave..." required
+                style="font-family: Poppins; font-size: 1.05rem;background-color: #adffbe">
+            @if(recoveryKeyForm.get('recoveryKey')?.invalid && recoveryKeyForm.get('recoveryKey')?.touched){
+            <div class="alert alert-danger mt-2" style="font-family: Poppins; letter-spacing: -1.3px; font-weight: 600;"
+                [hidden]="recoveryKeyForm.get('recoveryKey')?.valid">
+                La clave de recuperación debe tener 6 caracteres.
+            </div>
+            }
+            <button type="submit" class="btn btn-success p-2 mt-2"
+                style="font-family: Poppins; letter-spacing: -1.2px; font-weight: 700;"
+                [disabled]="recoveryKeyForm.get('recoveryKey')?.invalid">CREAR
+                MI CLAVE</button>
+        </form>
+    </div>
+    }
+</div>

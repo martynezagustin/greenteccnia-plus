@@ -1,0 +1,16 @@
+<section>
+    <div class="d-flex align-items-center m-2 mt-1">
+        <h2 style="font-family: Poppins; color: whitesmoke; font-weight: 800; margin: 0.4rem;">ESTÁS VIENDO: <span [ngStyle]="{'color': typeView == 'active' ? 'rgb(96,255,96)' : 'red'}">{{typeView == 'active' ? 'ACTIVOS' : 'PASIVOS'}}</span></h2>
+        <button (click)="changeViewElement()" class="btn"
+            style="font-weight: 700; letter-spacing: -1.4px; font-family: Montserrat; border: none;"
+            [ngStyle]="{'background-color': typeView == 'passive' ? 'rgb(96, 255, 96)' : 'red', 'color': typeView == 'passive' ? 'black' : 'whitesmoke'}">{{typeView == 'active'?
+            'CAMBIAR A PASIVOS' : 'CAMBIAR A ACTIVOS'}}</button>
+    </div>
+    <div class="grids m-2">
+        <app-composition class="composition" [enterpriseId]="enterpriseId" [loading]="loading"
+            [typeView]="typeView"></app-composition>
+        <app-projection></app-projection>
+        <app-last-registers class="lastRegisters" [enterpriseId]="enterpriseId" [loading]="loading" [typeView]="typeView"></app-last-registers>
+        <app-evolution class="evolution" [enterpriseId]="enterpriseId" [loading]="loading" [typeView]="typeView"></app-evolution>
+    </div>
+</section>

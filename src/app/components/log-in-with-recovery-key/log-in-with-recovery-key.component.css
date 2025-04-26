@@ -1,0 +1,29 @@
+form {
+    padding: 2rem;
+    background: linear-gradient(190deg, #ffffff, #fbffd9);
+    font-family: "Poppins";
+    box-shadow: 0px 0px 14px 2px rgb(140, 140, 140);
+    border-radius: 35px;
+    max-width: 100%;
+    width: 700px;
+    letter-spacing: -1.2px;
+}
+.btn{
+    letter-spacing: -1.5px ;
+    font-size: 1.2rem;
+}
+.fade-in-container{
+    animation-name: fadeInContainer;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+}
+@keyframes fadeInContainer {
+    from{
+        opacity: 0;
+        padding: 30px;
+    }    
+    to{
+        opacity: 1;
+        padding: 0px;
+    }
+}

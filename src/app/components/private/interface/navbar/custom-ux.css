@@ -1,0 +1,51 @@
+*{
+    transition: 0.1s all ease-in;
+}
+.dark-mode{
+    background: linear-gradient(160deg, rgb(40,40,40), rgb(55,55,55));
+}
+.light-mode{
+    background: linear-gradient(160deg, #7ed957, #a2fa7c);
+}
+.monochrome{
+    background-color: rgb(60,60,60);
+    color: white;
+}
+.montserrat-mode h1,.montserrat-mode h2, .montserrat-mode h3, .montserrat-mode h4, .montserrat-mode h5, .montserrat-mode h6, .montserrat-mode p, .montserrat-mode span, .montserrat-mode button, .montserrat-mode label{
+    font-family: "Montserrat"!important;
+}
+.poppins-mode .poppins-mode h1, .poppins-mode h2, .poppins-mode h3, .poppins-mode h4, .poppins-mode h5, .poppins-mode h6, .poppins-mode p, .poppins-mode span, .poppins-mode button, .poppins-mode label{
+    font-family: "Poppins"!important;
+}
+.montserrat-mode .fa, .poppins-mode .fa {
+    font-family: "Font Awesome 5 Free", sans-serif !important;
+}
+.dark-mode #myProfileLabel{
+    color: #7ed957;
+}
+.card-data-light{
+    background-color: whitesmoke!important;
+    color: black!important;
+    border: 1px solid green;
+}
+.card-data-dark {
+    background-color: black!important;
+    color: #a2fa7c!important;
+    border: 1px solid #a2fa7c;
+}
+.card-data-monochrome{
+    background-color: whitesmoke!important;
+    color: black!important;
+    border: gray!important;
+}
+.card-data-monochrome button, .card-data-monochrome a{
+    background-color: rgb(55,55,55);
+    color: white;
+    border: 1px solid rgb(60,60,60);
+}
+.rounded-buttons button, .rounded-buttons a{
+    border-radius: 15px!important
+}
+.square-buttons button, .square-buttons a{
+    border-radius: 0%!important
+}

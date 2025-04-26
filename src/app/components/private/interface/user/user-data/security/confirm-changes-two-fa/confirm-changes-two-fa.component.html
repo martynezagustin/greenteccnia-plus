@@ -1,0 +1,13 @@
+<div class="container-security-panel p-3">
+    <a routerLink="/dashboard/my-user/security" class="btn btn-danger mb-2"
+        style="font-family: Poppins; letter-spacing: -1.3px;">&#8592;Atrás</a>
+        <h2 class="h2-security"><i class="fa-solid fa-check-to-slot m-1"></i> Confirmar cambio</h2>
+        <p style="font-family: Poppins; letter-spacing: -1.3px; font-size: 1.2rem; color: rgb(80,80,80)">Te hemos enviado un código de autenticación multifactor al e-mail para confirmar esta acción. Recuerda que estas acciones deben confirmarse de manera fehaciente para evitar actividad sospechosa en tu cuenta.</p>
+        <div class="d-flex flex-column align-items-center">
+            <form [formGroup]="form2FA" (submit)="handleSubmit()" style="background-color: #2af05a; border-radius: 10px; padding: 1rem; width: 50%; text-align: center;">
+                <label for="2fa-code" class="form-label" style="font-family: Poppins; color: gray; letter-spacing: -1.6px;">Código 2FA</label>
+                <input type="text" class="form-control text-center" style="font-family: Poppins; letter-spacing: -1.5px;" id="2fa-code" placeholder="Introduce tu código 2FA" formControlName="code">
+                <input type="submit" class="btn btn-primary text-center mt-2" style="font-family: Poppins; letter-spacing: -1.6px; font-weight: 600;" value="VALIDAR">
+            </form>
+        </div>
+</div>

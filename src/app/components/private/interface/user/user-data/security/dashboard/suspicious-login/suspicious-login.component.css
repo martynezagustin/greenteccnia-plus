@@ -1,0 +1,11 @@
+.div-login{
+    background-color: whitesmoke;
+    padding: 0.5rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.div-login p{
+    margin: 0%;
+}

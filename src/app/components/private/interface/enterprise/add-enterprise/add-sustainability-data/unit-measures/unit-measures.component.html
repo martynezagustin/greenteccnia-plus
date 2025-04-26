@@ -1,0 +1,110 @@
+<div class="formAddSustainabilityData m-2">
+
+    <form class="p-2" [formGroup]="formUnitMeasures" (submit)='handleSubmit()'>
+        <h3>¿En qué deseas guardar tus datos para los reportes?</h3>
+        <fieldset class="first-row mt-4" style="display: grid;grid-template-columns: 25% 25% 25% 25%;"
+            formGroupName="dataSustainability">
+            <!--kwh-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="consumptionKwh">
+                <h5>Consumo en kWh</h5>
+                <label for="consumptionKwh" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="consumptionKwh" class="form-control" formControlName="unit">
+                    <option disabled selected>Selecciona una medida</option>
+                    <option value="kWh">kWh</option>
+                </select>
+            </fieldset>
+            <!--water-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="waterConsumption">
+                <h5>Consumo de agua</h5>
+                <label for="waterConsumption" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="waterConsumption" class="form-control" formControlName="unit">
+                    <option disabled selected>Selecciona una medida</option>
+                    <option value="litros">litros</option>
+                    <option value="galones">galones</option>
+                    <option value="onzas">onzas</option>
+                    <option value="m³">m³</option>
+                </select>
+            </fieldset>
+            <!--scraps-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="waste">
+                <h5>Residuos generados</h5>
+                <label for="waterConsumption" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="waterConsumption" class="form-control" formControlName="unit">
+                    <option disabled selected>Selecciona una medida</option>
+                    <option value="kg">kg</option>
+                    <option value="lbs">lbs</option>
+                    <option value="t">t</option>
+                </select>
+            </fieldset>
+            <!--co2Emissions-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="CO2emissions">
+                <h5>Emisiones CO2</h5>
+                <label for="CO2emissions" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="CO2emissions" class="form-control" formControlName="unit">
+                    <option selected disabled>Selecciona una medida</option>
+                    <option value="kg">kg</option>
+                </select>
+            </fieldset>
+        </fieldset>
+        <hr style="color: white;">
+        <h3 class="mt-3">¿Y tus datos para el ahorro de impacto?</h3>
+        <fieldset class="second-row mt-4" style="display: grid;grid-template-columns: 25% 25% 25% 25%;"
+            formGroupName="estimatedSavings">
+            <!--kwh-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="consumptionKwh">
+                <h5>Consumo en kWh</h5>
+                <label for="consumptionKwh" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="consumptionKwh" class="form-control" formControlName="unit">
+                    <option value="kWh">kWh</option>
+                </select>
+            </fieldset>
+            <!--water-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="water">
+                <h5>Consumo de agua</h5>
+                <label for="water" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="water" class="form-control" formControlName="unit">
+                    <option value="litros">litros</option>
+                    <option value="galones">galones</option>
+                    <option value="onzas">onzas</option>
+                    <option value="m³">m³</option>
+                </select>
+            </fieldset>
+            <!--scraps-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="waste">
+                <h5>Residuos generados</h5>
+                <label for="waste" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="waste" class="form-control" formControlName="unit">
+                    <option value="kg">kg</option>
+                    <option value="lbs">lbs</option>
+                    <option value="t">t</option>
+                </select>
+            </fieldset>
+            <!--co2Emissions-->
+            <fieldset class="kwh d-flex flex-column p-1 m-1" formGroupName="CO2emissions">
+                <h5>Emisiones CO2</h5>
+                <label for="CO2emissions" class="form-label"><i class="fa-solid fa-leaf m-1"></i> Unidad de
+                    medida</label>
+                <select type="text" id="CO2emissions" class="form-control" formControlName="unit">
+                    <option value="kg">kg</option>
+                </select>
+            </fieldset>
+        </fieldset>
+        <button type="submit" class="btn-submit" class="btn btn-success m-2"
+            style="font-family: Poppins; letter-spacing: -0.7px; font-weight: 700; background-color: whitesmoke; color: green;">SIGUIENTE
+            <i class="fa-solid fa-arrow-right m-1"></i></button>
+        @if(loading){
+        <div class="m-2 mt-2">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        }
+    </form>
+</div>

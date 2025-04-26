@@ -1,0 +1,105 @@
+<div class="container-privacity-panel father-container p-3">
+    <h2 class="h2-privacity"><i class="fa-solid fa-user-lock m-1"></i> Panel de privacidad</h2>
+    <div class="grids mt-2 p-4">
+
+
+        <div class="col-4 export-data">
+            <h3 class="option-h3"><i class="fa-solid fa-circle-info m-1"></i> Exportar mis datos</h3>
+            <p class="adjacent-p-info text-center">Ten el acceso a tus datos en cualquier momento y lugar.</p>
+            <hr style="color: whitesmoke">
+            @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                Cargando...</p>
+            } @else {
+            <div class="d-flex flex-column">
+                <button class="btn btn-success" (click)="exportDataCSV()"><i class="fa-solid fa-circle-info m-1"></i>
+                    Exportar mis datos en CSV</button>
+                <button class="btn btn-light mt-1" (click)="exportDataJSON()"><i
+                        class="fa-solid fa-circle-info m-1"></i>
+                    Exportar mis datos en JSON</button>
+            </div>
+            }
+        </div>
+        <div class="col-6 delete-account">
+            <h3 class="option-h3"><i class="fa-solid fa-user m-1"></i> Mi cuenta</h3>
+            <p class="adjacent-p-info text-center">Tienes garantizado el derecho al olvido y a la
+                modificación de tus datos.</p>
+            <hr style="color: whitesmoke;">
+            @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                Cargando...</p>
+            }
+            <div class="container-button-delete-account d-flex align-items-center flex-column">
+                <button class="btn btn-danger" (click)="deleteAccount()"><i class="fa-solid fa-trash m-1"></i> Deseo
+                    eliminar
+                    mi cuenta
+                </button>
+                <a class="btn btn-info mt-1" routerLink="/dashboard/my-user/personal-info"><i class=" fa-solid
+                    fa-trash m-1"></i> Deseo actualizar
+                    mis datos
+                </a>
+            </div>
+        </div>
+        <div class="col-6 delete-account">
+            <h3 class="option-h3"><i class="fa-solid fa-fingerprint m-1"></i> Eliminar datos por inactividad</h3>
+            <p class="adjacent-p-info text-center">Te garantizamos el control sobre quién accede a tus datos.</p>
+            <hr style="color: whitesmoke;">
+            @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                Cargando...</p>
+            }
+            <update-retention-data [userId]="userId"></update-retention-data>
+        </div>
+        <div class="col-6 delete-account">
+            <h3 class="option-h3"><i class="fa-solid fa-mask m-1"></i> Gestión de consentimiento</h3>
+            <p class="adjacent-p-info text-center">Decide qué datos deseas compartir.</p>
+            <hr style="color: whitesmoke;">
+            @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                Cargando...</p>
+            }
+            <div class="d-flex flex-column m-1"
+                style="font-family: Poppins; color: white; font-weight: 500; letter-spacing: -1.3px;">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Autorizo a compartir mis datos con
+                        empresas asociadas a GreenTeccnia+</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Acepto recibir promociones y
+                        actualizaciones sobre los servicios</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Solo quiero aceptar cookies esenciales
+                        para el funcionamiento del sitio</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Acepto que GreenTeccnia+ analice mi
+                        actividad para mejorar mi experiencia</label>
+                </div>
+            </div>
+        </div>
+    </div>

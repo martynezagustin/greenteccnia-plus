@@ -1,0 +1,12 @@
+.dashboard-container{
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url("https://res.cloudinary.com/dtwek4wxj/image/upload/v1743444017/ChatGPT_Image_31_mar_2025_02_59_39_p.m._rqkf5d.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+}
+
+.content{
+    width: 100%!important;
+}

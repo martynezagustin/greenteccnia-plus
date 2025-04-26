@@ -1,0 +1,36 @@
+<h3 class="option-h3"><i class="fa-solid fa-desktop m-1"></i> Dispositivos registrados</h3>
+<p class="adjacent-p-info text-center">Detecta actividad inusual en tu perfil.</p>
+
+@if(loading){
+<div class="d-flex justify-content-center">
+    <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+    Cargando...</p>
+} @else {
+
+<div class="d-flex flex-column align-items-center">
+    @if(devices.length === 0){
+    <div class="alert-danger alert mt-3 text-center" role="alert" style="font-family: Poppins; ">No se han
+        encontrado dispositivos registrados.</div>
+    } @else {
+
+    @for (device of devices; track device.deviceType) {
+    <div class="card card-device" style="width: 20rem;">
+        <div class="card-body text-center">
+            <p style="font-family: Poppins;">Últ. vez: <b>{{device.lastLogin | dateDevice: 'short'}}</b></p>
+            <h5 class="card-title">@if(device.deviceType == "Escritorio"){<i class="fa-solid fa-desktop"></i>} @else                if(device.deviceType == "Móvil"){<i class="fa-solid fa-mobile-screen"></i>} @else {<i
+                    class="fa-solid fa-tablet-screen-button"></i>} Dispositivo: <b>{{device.deviceType}}</b>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Sistema operativo: <b>{{device.os}}</b></h6>
+            <h6 class="card-text">Navegador: <b>{{device.browser}}</b></h6>
+            <p>MARCADO COMO: @if(!device.isTrusted){<span style="color: red">NO CONFIABLE</span>}
+                @else{<span style="color: green;">CONFIABLE</span>}</p>
+        </div>
+    </div>
+    }
+    }
+</div>
+}

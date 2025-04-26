@@ -1,0 +1,44 @@
+<section class="d-flex container-verify-login flex-direction-column justify-content-center mt-3">
+    <form class="m-5" [formGroup]="verify2FAForm" (submit)="handleSubmit()">
+        <div class="text-start">
+            <button class="btn-back btn btn-dark m-3" (click)="back()">&#8592;Volver a inicio de sesión</button>
+        </div>
+        <div class="container-isotype d-flex flex-column align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+                alt="isotype-greenteccnia" width="50">
+        </div>
+        <div class="container-welcome">
+            <h2 class="text-center mb-4">Ingresa tu 2FA code.</h2>
+            @if(warn){
+            <p style="color: red; font-size: 0.8rem; letter-spacing: -0.6px; font-weight: 700;"
+                class="p-2 m-2 alert alert-danger text-center"><i class="fa-solid fa-triangle-exclamation m-1"></i>
+                {{warn}}</p>
+            }
+            <div class="indication-p">
+                <p class="text-center m-3">Te hemos enviado al e-mail un <b>código de autenticación
+                        multifactor</b> para que lo ingreses. No lo compartas con nadie.</p>
+            </div>
+        </div>
+        <div>
+            <div class="input-group mb-1">
+                <input type="text" class="form-control" id="code" placeholder="Código de autenticación" name="code"
+                    formControlName="code" aria-label="code" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <!--Success-->
+        @if(this.successMessage && !this.errorMessage){
+        <div class="mt-2 text-center success-message" role="alert">
+            <p>{{successMessage}}</p>
+        </div>
+        } @else if ((this.errorMessage && !this.successMessage)) {
+        <div class="mt-2 text-center error-message" role="alert">
+            <p>{{errorMessage}}</p>
+        </div>
+
+        }
+
+        <div class="text-center m-1 mb-4">
+            <button type="submit" class="btn btn-success"><strong>Verificar</strong></button>
+        </div>
+    </form>
+</section>

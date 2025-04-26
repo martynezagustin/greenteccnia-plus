@@ -1,0 +1,39 @@
+<div>
+    <h4 class="text-center h4-grid"><i class="fa-solid fa-chart-pie m-1"></i>COMPOSICIÓN DE {{typeView == "active" ? 'ACTIVOS' : 'PASIVOS'}} POR CATEGORÍA</h4>
+    @if(!loading){
+    <!--Navbar-->
+    <ul class="nav-composition-items nav justify-content-center">
+        @for(period of optionsPeriod; track period.label){
+        <li class="nav-item">
+            <button class="nav-link btn"
+                [ngStyle]="{'background-color': selectedPeriod == period.period ? 'rgb(210,210,210)' : 'whitesmoke', 'color': selectedPeriod == period.period ? 'black' : 'green'}"
+                (click)="selectPeriod(period.period)" aria-current="page" href="#">{{period.label}}</button>
+        </li>
+        }
+
+    </ul>
+    <!--Fin navbar-->
+    <div class="d-flex flex-column align-items-center">
+        @if(!errorMessage){
+            <canvas baseChart [data]="{labels: pieChartLabels, datasets: [{
+                data: pieChartData,
+                backgroundColor: pieChartColors[0].backgroundColor
+            }]}" [type]="pieChartType"></canvas>
+        } @else {
+            <div class="alert alert-danger mt-2" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}</div>
+        }
+    </div>
+    } @else {
+    <div class="d-flex flex-column align-items-center m-5">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+                <span style="font-size: 5rem" class="visually-hidden">Loading...</span>
+            </div>
+            <div>
+                <p class="m-1" style="font-family: Montserrat; font-size: 1.4rem; letter-spacing: -1.2px;">OBTENIENDO
+                    INFORMACIÓN</p>
+            </div>
+        </div>
+    </div>
+    }
+</div>

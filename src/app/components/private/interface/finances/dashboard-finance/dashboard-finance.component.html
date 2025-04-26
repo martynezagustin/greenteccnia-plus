@@ -1,0 +1,9 @@
+<section class="m-1">
+    <button class="btn btn-danger btn-back" (click)="back()">VOLVER</button>
+    <h1>{{title}}</h1>
+    <app-summary [loading]="loading" [enterpriseId]="enterpriseId" [type]="type"></app-summary>
+    @if(type =='netWorth'){
+        <app-dashboard-items-net-worth class="fadeIn"></app-dashboard-items-net-worth>
+    } @else {
+    }
+</section>

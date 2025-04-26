@@ -1,0 +1,71 @@
+<div class="container-security-panel p-3">
+    <h2 class="h2-security"><i class="fa-solid fa-shield-halved m-1"></i> Panel de seguridad</h2>
+    <div class="grids mt-2 p-4">
+        <div class="col-1 two-fa">
+            <app-toggle-two-fa [user]="user" [userId]="userId" [loading]="loading"></app-toggle-two-fa>
+        </div>
+
+        <div class="col-2 devices">
+            <app-registered-devices [user]="user" [userId]="userId" [loading]="loading"></app-registered-devices>
+        </div>
+        <div class="col-3 password">
+            <app-password-and-recovery [loading]="loading"></app-password-and-recovery>
+        </div>
+        <div class="col-5 suspicious-logins">
+            <app-suspicious-login [loading]="loading" [userId]="userId"></app-suspicious-login>
+            <!--
+            </div>
+            <div class="col-6 delete-account">
+            <h3 class="option-h3"><i class="fa-solid fa-trash m-1"></i> ELIMINAR MI CUENTA</h3>
+            <p class="adjacent-p-info text-center">Tienes garantizado el derecho al olvido y a la disponibilidad o
+                modificación de tus datos.</p>
+            <hr style="color: whitesmoke;">
+            @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                Cargando...</p>
+            } @else {
+            <div class="container-button-delete-account d-flex align-items-center flex-column">
+                <button class="btn btn-danger" (click)="deleteAccount()"><i class="fa-solid fa-trash m-1"></i> Deseo
+                    eliminar
+                    mi cuenta
+                </button>
+                <a class="btn btn-info mt-1" routerLink="/dashboard/my-user/personal-info"><i class=" fa-solid
+                    fa-trash m-1"></i> Deseo actualizar
+                    mis datos
+                </a>
+            </div>
+        }
+        -->
+    </div>
+            <div class="col-6 delete-account">
+                <h3 class="option-h3"><i class="fa-solid fa-book m-1"></i> Panel de logs y auditoría</h3>
+                <p class="adjacent-p-info text-center">Ten acceso a los registros que GreenTeccnia+ hace sobre tu
+                    actividad.
+                </p>
+                <hr style="color: whitesmoke;">
+                @if(loading){
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                    Cargando...</p>
+                } @else {
+                <div class="container-button-delete-account d-flex flex-column">
+                    <a routerLink="/dashboard/my-user/logs" class="btn btn-success"><i
+                        class="fa-solid fa-user-secret m-1"></i> Ver reporte </a>
+                        <button class="btn btn-light mt-1" ><i
+                            class="fa-solid fa-circle-info m-1"></i> Exportar mis logs en JSON</button>
+                            <button class="btn btn-light mt-1" (click)="exportLogsCSV()" ><i
+                                class="fa-solid fa-circle-info m-1"></i> Exportar mis logs en CSV</button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
