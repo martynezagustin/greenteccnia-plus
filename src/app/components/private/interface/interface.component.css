@@ -4,7 +4,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 15% 85%;
 }
 
 .content{

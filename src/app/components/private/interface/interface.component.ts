@@ -7,11 +7,13 @@ import { EnterpriseService } from '../../../services/private/enterprise/enterpri
 import { RouterOutlet } from '@angular/router';
 import { DeviceService } from '../../../services/private/user/device/device.service';
 import { Device } from '../../../../interfaces/security/devices/device.interface';
+import { ShowNavbarService } from '../../../services/private/misc/show-navbar/show-navbar.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-interface',
   standalone: true,
-  imports: [NavbarComponent, RouterOutlet],
+  imports: [NavbarComponent, RouterOutlet, CommonModule],
   templateUrl: './interface.component.html',
   styleUrl: './interface.component.css'
 })
@@ -22,7 +24,7 @@ export class InterfaceComponent implements OnInit {
   userId: any = ''
   loading: boolean = false
   errorMessage: String = ''
-  constructor(private userService: UserService, private enterpriseService: EnterpriseService, private deviceService: DeviceService) {
+  constructor(private userService: UserService, private enterpriseService: EnterpriseService, private deviceService: DeviceService, private showNavbarService: ShowNavbarService) {
     this.userId = this.userService.getUserId()
   }
   ngOnInit(): void {

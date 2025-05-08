@@ -1,0 +1,52 @@
+<div class="m-2 summary-items" style="display: grid; grid-template-columns: 50% 50%; grid-gap: 8px;">
+    <div id="carouselIncomes" class="carousel carousel-dark slide p-2" data-bs-touch="false">
+        <div class="carousel-inner">
+            <div class="carousel-item text-center active">
+                <h2 style="font-family: Montserrat;">${{formatValue(positiveNumberAnual)}}</h2>
+                <h3 class="mt-4">ANUAL</h3>
+            </div>
+            <div class="carousel-item text-center">
+                <h2>${{formatValue(positiveNumberMonth)}}</h2>
+                <h3 class="mt-4">MENSUAL</h3>
+            </div>
+            <div class="carousel-item text-center">
+                <h2>${{formatValue(positiveNumberDate)}}</h2>
+                <h3 class="mt-4">DIARIO</h3>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIncomes" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIncomes" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!--Egresos-->
+    <div id="carouselExpenses" class="carousel carousel-dark slide p-2" data-bs-touch="false">
+        <div class="carousel-inner">
+            <div class="carousel-item text-center active">
+                <h2 style="font-family: Montserrat;">${{formatValue(negativeNumberAnual)}}</h2>
+                <h3 class="mt-4">ANUAL</h3>
+            </div>
+            <div class="carousel-item text-center">
+                <h2>${{formatValue(negativeNumberMonth)}}</h2>
+                <h3 class="mt-4">MENSUAL</h3>
+            </div>
+            <div class="carousel-item text-center">
+                <h2>${{formatValue(negativeNumberDate)}}</h2>
+                <h3 class="mt-4">DIARIO</h3>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExpenses" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExpenses" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+</div>

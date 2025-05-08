@@ -1,21 +1,8 @@
-h1 {
-    font-family: Poppins;
-    letter-spacing: -1.3px;
-    color: whitesmoke;
-    font-weight: 700;
-    margin: 0.6rem;
-}
-.fadeIn{
-    animation: 0.9s fadeIn ease-in-out
-    
-}
-.btn-back {
-    font-family: Montserrat;
-    margin: 0.3rem;
-    letter-spacing: -1.3px;
-    font-weight: 800;
-}
 
+
+.fadeIn {
+    animation: 0.9s fadeIn ease-in-out
+}
 .summary {
     background-color: whitesmoke;
     border-radius: 8px;
@@ -40,7 +27,7 @@ h1 {
 
 .grids {
     display: grid;
-    grid-template-columns: 43% 55%;
+    grid-template-columns: 44% 55%;
     grid-gap: 10px;
     grid-template-areas: "composition evolution"
         "projection lastRegisters";
@@ -64,8 +51,14 @@ h1 {
 .td-actives-styles {
     font-size: 0.8rem;
     letter-spacing: -1.2px;
-    font-size: 0.91rem!important;
+    font-size: 0.91rem !important;
     width: 20%;
+}
+
+.span-projection-items {
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 800;
 }
 
 .container-projection {
@@ -88,7 +81,24 @@ h1 {
 .composition {
     grid-area: composition;
 }
-
+.btn-change-filter{
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2rem;
+    color: #a2fa7c!important;
+    background-color: rgb(40, 40, 40)!important;
+    font-family: Montserrat!important;
+    letter-spacing: -1.2px!important;
+    font-weight: 700!important;
+}
+.alert-danger{
+    background-color: rgb(210,0,0)!important;
+    color: whitesmoke;
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+    font-weight: 700;
+}
 .evolution {
     grid-area: evolution;
 }
@@ -110,11 +120,18 @@ h1 {
     margin: 2rem;
     font-weight: 800;
 }
-.table{
-    font-family: Montserrat!important;
+
+.table {
+    font-family: Montserrat !important;
     font-size: 1em;
-    letter-spacing:  -1.2px;
+    letter-spacing: -1.2px;
 }
+.btn-light{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+}
+
 /*
 .table> :not(caption)>*>* {
     background-color: springgreen;
@@ -127,22 +144,25 @@ h1 {
     */
 
 
-.nav-composition-items{
-    background-color: rgb(40,40,40);
+.nav-composition-items {
+    background-color: rgb(40, 40, 40);
     border-radius: 8px;
     padding: 0.6rem;
 }
-.nav-composition-items > .nav-item > .nav-link{
+
+.nav-composition-items>.nav-item>.nav-link {
     margin: 0.3rem;
     letter-spacing: -1.2px;
     font-family: Montserrat;
     font-weight: 700;
 }
+
 @keyframes fadeIn {
-    from{
+    from {
         opacity: 0;
     }
-    to{
+
+    to {
         opacity: 1;
     }
 }

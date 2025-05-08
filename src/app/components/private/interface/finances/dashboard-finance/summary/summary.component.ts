@@ -4,6 +4,9 @@ import { ActiveService } from '../../../../../../services/private/finances/netWo
 import { PassiveService } from '../../../../../../services/private/finances/netWorth/passive/passive.service';
 import { NetWorthService } from '../../../../../../services/private/finances/netWorth/net-worth.service';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
+import { IncomeService } from '../../../../../../services/private/finances/cashFlow/income/income.service';
+import { ExpenseService } from '../../../../../../services/private/finances/cashFlow/expense/expense.service';
+import { CashFlowService } from '../../../../../../services/private/finances/cashFlow/cash-flow.service';
 
 @Component({
   selector: 'app-summary',
@@ -15,12 +18,15 @@ export class SummaryComponent implements OnInit, OnChanges {
   @Input() loading!: Boolean
   @Input() type!: 'netWorth' | 'cashFlow' | null
   @Input() enterpriseId!: String
+  @Input() selectedPeriod!: String
   totalPositiveValueRoster: String = ''
   totalNegativeValueRoster: String = ''
   differenceValueRoster: String = ''
   totalPositiveValues: Number = 0
   totalNegativeValues: Number = 0
   totalDifference: Number = 0
+  mapMethod: any;
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['enterpriseId']) {
       this.enterpriseId = changes['enterpriseId'].currentValue
@@ -42,58 +48,68 @@ export class SummaryComponent implements OnInit, OnChanges {
         this.differenceValueRoster = 'Flujo de caja'
         break;
     }
-    this.totalPositiveValues = this.getTotalPositiveValues()
-    this.totalNegativeValues = this.getTotalNegativeValues()
-    this.totalDifference = this.getDifferenceValue()
+    this.getTotalPositiveValues()
+    this.getTotalNegativeValues()
+    this.getDifferenceValue()
+
   }
-  constructor(private activeService: ActiveService, private passiveService: PassiveService, private netWorthService: NetWorthService) { }
-  getTotalPositiveValues(): Number {
-    this.loading = true
-    if (this.type == 'netWorth') {
-      this.activeService.getTotalActivesByNumber(this.enterpriseId).subscribe(
-        response => {
-          this.totalPositiveValues = response;
-          this.loading = false
-        },
-        err => {
-          console.error(err);
-        }
-      );
-      return 0
+  constructor(private activeService: ActiveService, private passiveService: PassiveService, private netWorthService: NetWorthService, private incomeService: IncomeService, private expenseService: ExpenseService, private cashFlowService: CashFlowService) {
+    this.mapMethod = {
+      getTotalPositiveItemsByNumber: {
+        netWorth: this.activeService.getTotalActivesByNumber,
+        cashFlow: this.incomeService.getTotalIncomesByNumber
+      },
+      getTotalNegativeItemsByNumber: {
+        netWorth: this.passiveService.getTotalLiabilitiesByNumber,
+        cashFlow: this.expenseService.getTotalExpensesByNumber
+      },
+      getDifferenceValue: {
+        netWorth: this.netWorthService.getNetWorth,
+        cashFlow: this.cashFlowService.getCashFlow
+      }
     }
-    return parseFloat(this.totalPositiveValues.toString());
   }
-  getTotalNegativeValues(): Number {
-    this.loading = true
-    if (this.type == 'netWorth') {
-      this.passiveService.getTotalLiabilitiesByNumber(this.enterpriseId).subscribe(
-        response => {
-          this.totalNegativeValues = response
-          this.loading = false
-        },
-        err => {
-          console.error(err);
-        }
-      )
-      return 0
-    }
-    return parseFloat(this.totalNegativeValues.toString())
+  getTotalPositiveValues() {
+    const serviceMethod = this.type == 'netWorth'
+      ? this.mapMethod.getTotalPositiveItemsByNumber.netWorth
+      : this.mapMethod.getTotalPositiveItemsByNumber.cashFlow;
+    serviceMethod.call(this.type == 'netWorth' ? this.activeService : this.incomeService, this.enterpriseId).subscribe(
+      (response: Number) => {
+        this.totalPositiveValues = response
+        this.loading = false
+      },
+      (err: any) => {
+        console.error(err);
+      }
+    )
   }
-  getDifferenceValue(): Number {
+  getTotalNegativeValues() {
     this.loading = true
-    if (this.type == 'netWorth') {
-      this.netWorthService.getNetWorth(this.enterpriseId).subscribe(
-        response => {
-          this.totalDifference = response
-          this.loading = false
-        }
-        , err => {
-          console.error(err);
-        }
-      )
-      return 0
-    }
-    return parseFloat(this.totalDifference.toString())
+    const serviceMethod = this.type == 'netWorth' ? this.mapMethod.getTotalNegativeItemsByNumber.netWorth : this.mapMethod.getTotalNegativeItemsByNumber.cashFlow;
+    serviceMethod.call(this.type == 'netWorth' ? this.passiveService : this.expenseService, this.enterpriseId).subscribe(
+      (response: Number) => {
+        this.totalNegativeValues = response
+        this.loading = false
+      },
+      (err: any) => {
+        console.error(err);
+      }
+    )
+  }
+  getDifferenceValue() {
+    this.loading = true
+    const serviceMethod = this.type == 'netWorth' ? this.mapMethod.getDifferenceValue.netWorth : this.mapMethod.getDifferenceValue.cashFlow;
+    serviceMethod.call(this.type == 'netWorth' ? this.netWorthService : this.cashFlowService, this.enterpriseId).subscribe(
+      (response: Number) => {
+        this.totalDifference = response
+        console.log("Diferencia?", this.totalDifference);
+        this.loading = false
+
+      },
+      (err: any) => {
+        console.error(err);
+      }
+    )
   }
   formatValue(num: Number) {
     return formatValue(num)

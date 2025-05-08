@@ -48,6 +48,7 @@ export class SingUpComponent {
         this.router.navigate(["/verify-register"])
       }, err => {
         this.errorMessage = err.error.message
+        console.log(err)
         this.loading = false
       }
     )

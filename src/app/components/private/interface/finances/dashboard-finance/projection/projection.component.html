@@ -1,0 +1,55 @@
+<div>
+    <div class="active d-flex flex-column">
+        <h4 class="h4-grid"><i class="fa-solid fa-rocket m-1"></i>PROYECCIONES ESTIMADAS</h4>
+        @if(!loading){
+        <div class="d-flex flex-column align-items-center container-projection ">
+            <h5 class="h5-projection">PROYECCIÓN DE {{typeView == 'active' ? 'ACTIVOS' : typeView == 'income' ?
+                'INGRESOS' : typeView == 'passive' ? 'PASIVOS' : 'EGRESOS'}} PARA EL PRÓXIMO DÍA
+            </h5>
+            <span class="span-projection-items d-flex align-items-center"
+                [ngStyle]="{'color': typeView == 'active' || typeView == 'income' ? 'green' : 'red' }">@if(projectedPositiveItemsByNextDate
+                === 0 ||
+                !projectedPositiveItemsByNextDate){
+                <div class="alert-danger alert">{{errorMessage}}</div>
+                }
+                @else{<strong>$</strong><i class="fa-solid fa-arrow-up m-2"></i>
+                {{formatValue(projectedPositiveItemsByNextDate) || 0}}}
+            </span>
+        </div>
+        <div class="d-flex flex-column align-items-center container-projection mt-2">
+            <h5 class="h5-projection">PROYECCIÓN DE {{typeView == 'active' ? 'ACTIVOS' : typeView == 'income' ?
+                'INGRESOS' : typeView == 'passive' ? 'PASIVOS' : 'EGRESOS'}} PARA EL PRÓXIMO MES
+            </h5>
+            <span class="span-projection-items d-flex align-items-center"
+                [ngStyle]="{'color': typeView == 'active' || typeView == 'income' ?'green' : 'red' }">
+                @if(projectedPositiveItemsByNextMonth === 0 || !projectedPositiveItemsByNextMonth){<div
+                    class="alert alert-danger">{{errorMessage}}</div>
+                }@else {<strong>$</strong><i
+                    class="fa-solid fa-arrow-up m-2"></i>{{formatValue(projectedPositiveItemsByNextMonth) || 0}}}</span>
+        </div>
+        <div class="d-flex flex-column align-items-center container-projection mt-2">
+            <h5 class="h5-projection">PROYECCIÓN DE {{typeView == 'active' ? 'ACTIVOS' : typeView == 'income' ?
+                'INGRESOS' : typeView == 'passive' ? 'PASIVOS' : 'EGRESOS'}} PARA EL PRÓXIMO AÑO
+            </h5>
+            <span class="span-projection-items d-flex align-items-center"
+                [ngStyle]="{'color': typeView == 'active' || typeView == 'income' ?'green' : 'red' }">@if(projectedPositiveItemsByNextYear
+                === 0 ||
+                !projectedPositiveItemsByNextYear){<div class="alert alert-danger">{{errorMessage}}</div>}@else
+                {<strong>$</strong><i
+                    class="fa-solid fa-arrow-up m-2"></i>{{formatValue(projectedPositiveItemsByNextYear) || 0}}}</span>
+        </div>
+        } @else {
+        <div class="d-flex flex-column align-items-center m-5">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span style="font-size: 5rem" class="visually-hidden">Loading...</span>
+                </div>
+                <div>
+                    <p class="m-1" style="font-family: Montserrat; font-size: 1.4rem; letter-spacing: -1.2px;">
+                        OBTENIENDO INFORMACIÓN</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

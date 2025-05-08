@@ -5,6 +5,7 @@ import { EnterpriseService } from '../../../../../../../../services/private/ente
 import { ExpenseService } from '../../../../../../../../services/private/finances/cashFlow/expense/expense.service';
 import Swal from 'sweetalert2';
 import { HandlersRoutesService } from '../../../../../../../../services/private/dashboard/handlers/handlers-routes/handlers-routes.service';
+import { ItemService } from '../../../../../../../../services/private/finances/items/item/item.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -18,15 +19,17 @@ export class AddExpenseComponent {
   selectedCategory: String = ''
   loading: Boolean = false
   errorMessage: string = ''
-  constructor(private fb: FormBuilder, private expenseService: ExpenseService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService) {
+  constructor(private fb: FormBuilder, private itemService: ItemService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService) {
     this.formAddExpense = this.fb.group({
       concept: ['', Validators.required],
       amount: ['', Validators.nullValidator],
+      category: ['', Validators.required],
       paymentMethod: ['', Validators.required],
       date: ['', Validators.required],
       details: ['', [Validators.required, Validators.minLength(10)]],
     })
   }
+  categories = ["Egreso fijo", "Egreso variable", "Egreso discrecional", "Egreso de capital", "Egreso operativo"]
   paymentMethods: String[] = [
     "Efectivo", "Transferencia bancaria", "Tarjeta de crédito", "Tarjeta de débito", "Cheque", "Criptomonedas", "Otros"
   ]
@@ -37,7 +40,7 @@ export class AddExpenseComponent {
   handleSubmit() {
     this.errorMessage = ''
     this.loading = true
-    this.expenseService.addExpense(this.enterpriseId, this.formAddExpense.value).subscribe(
+    this.itemService.addItem(this.enterpriseId, 'expense', this.formAddExpense.value).subscribe(
       response => {
         console.log(response)
         this.loading = false
@@ -45,6 +48,7 @@ export class AddExpenseComponent {
       },
       err => {
         this.errorMessage = err.error.message;
+        console.error(this.errorMessage);
         this.loading = false
       }
     )

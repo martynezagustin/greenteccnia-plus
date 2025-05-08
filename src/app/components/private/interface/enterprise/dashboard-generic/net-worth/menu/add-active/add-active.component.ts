@@ -27,7 +27,7 @@ export class AddActiveComponent implements OnInit {
     },
     {
       name: "Activo no corriente",
-      types: ["Bienes inmuebles", "Maquinaria", "Vehículos", "Muebles y enseres", "Activos intangibles", "Otros activos no corrientes"]
+      types: ["Bienes inmuebles", "Maquinaria", "Vehículos", "Muebles y enseres", "Otros activos no corrientes"]
     },
     {
       name: "Activo intangible",

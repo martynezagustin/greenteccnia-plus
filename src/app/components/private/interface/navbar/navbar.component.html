@@ -23,10 +23,12 @@
 -->
 
 <nav style="background:linear-gradient(180deg,#8bf75c, #2af05a); min-height: 100%;">
-  <a routerLink="/dashboard"><img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740787350/logotype-greenteccnia.png" alt="Logo"
-    width="150" height="38" class="d-inline-block align-text-top m-3"></a>
+  <a routerLink="/dashboard"><img
+      src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740787350/logotype-greenteccnia.png" alt="Logo"
+      width="150" height="38" class="d-inline-block align-text-top m-3"></a>
   <a aria-current="page" href="#" data-bs-toggle="offcanvas" data-bs-target="#myProfile" aria-controls="myProfile"><i
       class="fa-solid fa-grip my-profile m-3"></i></a>
+  <button style="background: none; border: none;"><i class="fa-solid fa-eye-slash"></i></button>
   <hr>
   @if(loading){
   <div class="d-flex flex-column align-items-center text-center mt-5 loadingFade">
@@ -48,9 +50,19 @@
       <a class="nav-link" href="#"><i class="fa-solid fa-parachute-box m-1"></i> <span>Proveedores</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#showOptionsFinance" aria-expanded="true"
+      <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#showOptionsFinance" aria-expanded="false"
         aria-controls="showOptionsFinance"><i class="fa-solid fa-comment-dollar m-1"></i> <span>
           Finanzas</span></a>
+
+      <div id="showOptionsFinance" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <li class="nav-item align-items-center">
+          <a class="nav-sublink" href="#"><i class="fa-solid fa-chart-pie m-1"></i> <span>Flujo de caja</span></a>
+        </li>
+        <li class="nav-item align-items-center">
+          <a class="nav-sublink" href="#"><i class="fa-solid fa-stamp m-1"></i> <span>Patrimonio neto</span></a>
+        </li>
+      </div>
+
 
     </li>
     <li class="nav-item">
@@ -83,7 +95,6 @@
   }
 
 </nav>
-
 <div class="offcanvas offcanvas-start" [ngClass]="{
   'dark-mode':isDark,
   'light-mode':isLight,

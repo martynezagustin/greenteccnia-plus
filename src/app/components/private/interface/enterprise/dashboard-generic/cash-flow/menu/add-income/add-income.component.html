@@ -1,21 +1,33 @@
 <form class="m-3 d-flex flex-column" (submit)="handleSubmit()" [formGroup]="formAddIncome">
-    <h3 class="h3-form m-3"><i class="fa-solid fa-coins m-1"></i> Añadir un <span style="color: green">ingreso</span></h3>
+    <h3 class="h3-form m-3"><i class="fa-solid fa-coins m-1"></i> Añadir un <span style="color: green">ingreso</span>
+    </h3>
     <section class="m-3">
 
         <div class="text-start">
             <label for="concept" class="form-label text-start">Concepto</label>
-            <input type="text" class="form-control" id="concept" placeholder="Ej. 'Ingreso por venta de panel solar'" formControlName="concept">
+            <input type="text" class="form-control" id="concept" placeholder="Ej. 'Ingreso por venta de panel solar'"
+                formControlName="concept">
         </div>
         <div class="text-start">
             <label for="amount" class="form-label text-start">Monto</label>
             <input type="number" class="form-control" id="amount" placeholder="0" formControlName="amount">
         </div>
         <div class="text-start">
+            <label for="category" class="form-label text-start">Tipo</label>
+            <select name="category" id="category" class="form-control" formControlName="category">
+                <option selected disabled>Seleccione un tipo...</option>
+                @for(category of categories; track category){
+                <option [value]="category">{{category}}</option>
+                }
+            </select>
+        </div>
+        <div class="text-start">
             <label for="paymentMethod" class="form-label text-start">Método de pago</label>
-            <select type="number" class="form-control" id="paymentMethod" placeholder="0" formControlName="paymentMethod">
+            <select type="number" class="form-control" id="paymentMethod" placeholder="0"
+                formControlName="paymentMethod">
                 <option selected disabled>Selecciona un método de pago</option>
                 @for(paymentMethod of paymentMethods; track paymentMethod){
-                    <option [value]="paymentMethod">{{paymentMethod}}</option>
+                <option [value]="paymentMethod">{{paymentMethod}}</option>
                 }
             </select>
         </div>
@@ -24,8 +36,10 @@
             <input type="date" class="form-control" id="date" placeholder="Fecha de registro" formControlName="date">
         </div>
         @if(errorMessage){
-        <div role="alert" style="border: 3px solid red; margin: 1rem 0rem 1rem 0rem; padding: 0.5rem; border-radius: 8px;">
-            <p style="font-family: Poppins; letter-spacing: -1.2px; color: red; font-weight: 700; margin: 0%;"><i class="fa-solid fa-xmark m-1"></i> {{errorMessage}}</p>
+        <div role="alert"
+            style="border: 3px solid red; margin: 1rem 0rem 1rem 0rem; padding: 0.5rem; border-radius: 8px;">
+            <p style="font-family: Poppins; letter-spacing: -1.2px; color: red; font-weight: 700; margin: 0%;"><i
+                    class="fa-solid fa-xmark m-1"></i> {{errorMessage}}</p>
         </div>
         }
         @if(loading){

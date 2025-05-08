@@ -23,7 +23,6 @@ export class NetWorthComponent {
   netWorth!: any
   netWorthByCurrentYear!: any
   netWorthByCurrentMonth!: any
-  netWorthByCurrentDate!: any
   errorMessage: string = ''
   showOption: Boolean = false
   selectedFormInput!: any
@@ -39,7 +38,6 @@ export class NetWorthComponent {
     this.getNetWorth()
     this.getNetWorthByCurrentYear()
     this.getNetWorthByCurrentMonth()
-    this.getNetWorthByCurrentDate()
   }
   getNetWorth() {
     this.loading = true
@@ -68,17 +66,7 @@ export class NetWorthComponent {
   getNetWorthByCurrentMonth() {
     this.netWorthService.getNetWorthByCurrentMonth(this.enterpriseId).subscribe(
       response => {
-        this.netWorthByCurrentMonth = response
-      },
-      err => {
-        console.error(err);
-      }
-    )
-  }
-  getNetWorthByCurrentDate() {
-    this.netWorthService.getNetWorthByCurrentDate(this.enterpriseId).subscribe(
-      response => {
-        this.netWorthByCurrentDate = response
+        this.netWorthByCurrentMonth = response.netWorthByCurrentMonth
       },
       err => {
         console.error(err);

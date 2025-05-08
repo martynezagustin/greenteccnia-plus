@@ -21,7 +21,7 @@ import { AddSustainableObjectivesComponent } from './components/private/interfac
 import { DashboardGenericComponent } from './components/private/interface/enterprise/dashboard-generic/dashboard-generic.component';
 import { DashboardFinanceComponent } from './components/private/interface/finances/dashboard-finance/dashboard-finance.component';
 import { financeRoutes } from './finance.routes';
-import { ViewItemComponent } from './components/private/interface/finances/dashboard-finance/dashboard-items-net-worth/last-registers/view-item/view-item.component';
+import { ViewItemComponent } from './components/private/interface/finances/dashboard-finance/last-registers/view-item/view-item.component';
 import { FinancesComponent } from './components/private/interface/finances/finances.component';
 
 export const privateRoutes: Routes = [

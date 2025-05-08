@@ -14,21 +14,24 @@ export class PassiveService {
     return this.httpClient.post(`${this.baseUrl}/${enterpriseId}/finances/add-passive`, body, { withCredentials: true })
   }
   getAllLiabilities(enterpriseId: String): Observable<Passive[]> {
-    return this.httpClient.get<Passive[]>(`${this.baseUrl}/${enterpriseId}/finances/liabilities`, { withCredentials: true })
+    return this.httpClient.get<Passive[]>(`${this.baseUrl}/${enterpriseId}/finances/passives`, { withCredentials: true })
   }
   getTotalLiabilitiesByNumber(enterpriseId: String): Observable<Number> {
-    return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/liabilities/by-number`, { withCredentials: true })
+    return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/passives/by-number`, { withCredentials: true })
   }
   getLiabilitiesByCompositionCategory(enterpriseId: String) {
-    return this.httpClient.get<{ category: string, amount: number, percentage: number }[]>(`${this.baseUrl}/${enterpriseId}/finances/liabilities/get-by-category-composition`, { withCredentials: true })
+    return this.httpClient.get<{ category: string, amount: number, percentage: number }[]>(`${this.baseUrl}/${enterpriseId}/finances/passives/get-by-category-composition`, { withCredentials: true })
   }
-  getLiabilitiesByCompositionCategoryPerDay(enterpriseId: String) {
-    return this.httpClient.get<{ category: string, amount: number, percentage: number }[]>(`${this.baseUrl}/${enterpriseId}/finances/liabilities/get-by-category-composition-per-day`, { withCredentials: true })
+  getLiabilitiesByCompositionCategoryPerPeriod(enterpriseId: String, period: 'day' | 'month' | 'year' | undefined){
+    return this.httpClient.get<{category: string, amount: number, percentage: number}[]>(`${this.baseUrl}/${enterpriseId}/finances/passives/get-by-category-composition-per-${period}`, { withCredentials: true })
   }
-  getLiabilitiesByCompositionCategoryPerMonth(enterpriseId: String) {
-    return this.httpClient.get<{ category: string, amount: number, percentage: number }[]>(`${this.baseUrl}/${enterpriseId}/finances/liabilities/get-by-category-composition-per-month`, { withCredentials: true })
+  projectedLiabilitiesForNextDate(enterpriseId: String): Observable<Number> {
+    return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/passives/projection-next-date`, { withCredentials: true })
   }
-  getLiabilitiesByCompositionCategoryPerYear(enterpriseId: String) {
-    return this.httpClient.get<{ category: string, amount: number, percentage: number }[]>(`${this.baseUrl}/${enterpriseId}/finances/liabilities/get-by-category-composition-per-year`, { withCredentials: true })
+  projectedLiabilitiesForNextMonth(enterpriseId: String): Observable<Number>{
+    return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/passives/projection-next-month`, {withCredentials: true})
+  }
+  projectedLiabilitiesForNextYear(enterpriseId: String): Observable<Number>{
+    return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/passives/projection-next-year`, {withCredentials: true})
   }
 }

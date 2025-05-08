@@ -1,26 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActiveService } from '../../../../../services/private/finances/netWorth/active/active.service';
 import { EnterpriseService } from '../../../../../services/private/enterprise/enterprise.service';
 import { CommonModule } from '@angular/common';
-import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
-import { PassiveService } from '../../../../../services/private/finances/netWorth/passive/passive.service';
-import { NetWorthService } from '../../../../../services/private/finances/netWorth/net-worth.service';
-import { from, Observable } from 'rxjs';
-import { ChartConfiguration, ChartData, ChartOptions, ChartType } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 import { SummaryComponent } from "./summary/summary.component";
-import { CompositionComponent } from "./dashboard-items-net-worth/composition/composition.component";
-import { Router, RouterOutlet } from '@angular/router';
-import { Active } from '../../../../../../interfaces/enterprise/finances/netWorth/active/active.interface';
-import { DateDevicePipe } from '../../../../../pipes/date-device.pipe';
-import { EvolutionComponent } from './dashboard-items-net-worth/evolution/evolution.component';
-import { LastRegistersComponent } from "./dashboard-items-net-worth/last-registers/last-registers.component";
-import { formatValue } from '../../../../../services/utilities/format-dates/formatNumbers';
+import { Router} from '@angular/router';
 import { DashboardViewService } from '../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
-import { ProjectionComponent } from "./dashboard-items-net-worth/projection/projection.component";
 import { DashboardItemsNetWorthComponent } from "./dashboard-items-net-worth/dashboard-items-net-worth.component";
+import { DashboardItemsCashFlowComponent } from './dashboard-items-cash-flow/dashboard-items-cash-flow.component';
 @Component({
   selector: 'app-dashboard-finance',
-  imports: [CommonModule, NgChartsModule, SummaryComponent, DashboardItemsNetWorthComponent],
+  imports: [CommonModule, NgChartsModule, SummaryComponent, DashboardItemsNetWorthComponent, DashboardItemsCashFlowComponent],
   templateUrl: './dashboard-finance.component.html',
   styleUrl: './dashboard-finance.component.css'
 })
@@ -35,9 +24,9 @@ export class DashboardFinanceComponent implements OnInit {
   ngOnInit(): void {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
     this.type = this.dashboardViewService.getView()
-    if(this.type === 'netWorth'){
+    if (this.type === 'netWorth') {
       this.title = 'Elementos del patrimonio neto'
-    } else{
+    } else {
       this.title = 'Elementos del flujo de caja'
     }
   }
@@ -48,5 +37,9 @@ export class DashboardFinanceComponent implements OnInit {
     this.dashboardViewService.clearView()
     this.title = ''
     this.router.navigate(['/dashboard'])
+  }
+  goToDashboard(type: 'cashFlow' | 'netWorth') {
+    this.dashboardViewService.setView(type)
+    this.router.navigate(['/dashboard/finances/dashboard-elements'])
   }
 }

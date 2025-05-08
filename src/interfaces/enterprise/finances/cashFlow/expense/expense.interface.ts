@@ -3,5 +3,6 @@ export interface Expense{
     concept: string,
     amount: number,
     paymentMethod: string,
-    date: Date
+    date: Date,
+    formattedDate: String
 }

@@ -47,15 +47,6 @@
                     <h4 class="h4-element">Patrimonio neto del mes</h4>
                 </div>
             </div>
-            <div class="carousel-item text-center">
-                <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: netWorthByCurrentDate >= 0 ? 'green' : 'red'}"><i
-                        class="fa-solid fa-chart-simple m-4"></i>
-                    <strong>$</strong>{{formatValue(netWorthByCurrentDate)}}</span>
-                <div>
-                    <h4 class="h4-element">Patrimonio neto del día</h4>
-                </div>
-            </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -72,7 +63,7 @@
             RÁPIDAS</button>
 
         <a class="btn btn-dark mt-1 m-2"
-            style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" routerLink="finances" (click)="setDataDashboardFinance()">+IR AL DASHBOARD</a>
+            style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" routerLink="finances" (click)="setDataDashboardFinance()">+IR AL RESUMEN</a>
     </div>
     @if(showOption){
     <div class="fast-option d-flex flex-column fadeInContainer"

@@ -1,0 +1,13 @@
+.summary-items {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 2rem;
+}
+.summary-items > div{
+    background-color: whitesmoke;
+}
+#carouselIncomes, #carouselExpenses{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 700;
+}

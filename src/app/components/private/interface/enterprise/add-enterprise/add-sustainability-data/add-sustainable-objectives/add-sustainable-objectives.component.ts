@@ -68,9 +68,9 @@ export class AddSustainableObjectivesComponent implements OnInit {
   }
   getEnterpriseId() {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
-    console.log(this.enterpriseId)
   }
   handleSubmitObjectives() {
+    console.log(this.enterpriseId)
     this.loading = true
     this.selectedObjectives.forEach((objective: any) => {
       this.successMessage = ''

@@ -25,7 +25,6 @@ export class EnterpriseService {
     return this.httpClient.get<Enterprise>(`${this.baseUrl}/get-enterprise/${enterpriseId}`, { withCredentials: true })
   }
   getEnterpriseId() {
-    console.log(localStorage.getItem(this.key))
     return localStorage.getItem(this.key)
   }
 }
