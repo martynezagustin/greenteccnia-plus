@@ -77,8 +77,8 @@ export class CompositionComponent implements OnInit, OnChanges {
         this.itemService.getItemsByCompositionPaymentMethod(this.enterpriseId, this.typeView).subscribe(
           response => {
             console.log(response);
-            this.processChartData(response, this.typeView)
             this.loading = false
+            this.processChartData(response, this.typeView)
           },
           err => {
             console.error(err);
@@ -94,8 +94,8 @@ export class CompositionComponent implements OnInit, OnChanges {
         }
         this.itemService.getItemsByCompositionPaymentMethodPerPeriod(this.enterpriseId, labels[this.selectedPeriod] as 'day' | 'month' | 'year' | undefined, this.typeView).subscribe(
           response => {
-            this.processChartData(response, this.typeView)
             this.loading = false
+            this.processChartData(response, this.typeView)
           } ,
           err=>{
             console.error(err);

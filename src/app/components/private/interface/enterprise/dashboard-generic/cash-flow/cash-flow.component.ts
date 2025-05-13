@@ -72,11 +72,11 @@ export class CashFlowComponent implements OnChanges, OnInit {
     )
   }
   getCashFlowByCurrentDate(){
-    this.cashFlowService.getCashFlowByCurrentDate(this.enterpriseId).subscribe(
+    this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'date').subscribe(
       response => {
-        this.cashFlowByCurrentDate = response
+        this.cashFlowByCurrentDate = response.cashFlowByCurrentPeriod
       },
-      err => {
+      err=> {
         console.error(err);
       }
     )

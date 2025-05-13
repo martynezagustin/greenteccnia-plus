@@ -31,14 +31,14 @@
                             class="fa-solid fa-arrow-up m-2"></i>}@else if(typeView == 'expense' || typeView ==
                         'passive'){<i class="fa-solid fa-arrow-down m-2"></i>}{{formatValue(item.amount)}}
                     </td>
-                    <td class="td-actives-styles"><button class="btn btn-danger" (click)="deleteItem(item._id)"
-                            style="font-family: Montserrat; font-weight: 800; letter-spacing: -1.2px; font-size: 0.6rem;">ELIMINAR</button>
+                    <td class="td-actives-styles"><button class="btn" (click)="deleteItem(item._id)"
+                            style="font-family: Montserrat; color: red; font-weight: 800; letter-spacing: -1.2px; font-size: 1.2rem;"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             </tbody>
         </table>
         }
-        <button class="btn btn-info" style="font-family: Montserrat; letter-spacing: -1.4px; font-weight: 800;">+VER MÁS</button>
+        <button class="btn btn-info mt-2" style="font-family: Montserrat; letter-spacing: -1.4px; font-weight: 800;">+VER MÁS</button>
         } @else {
         <div class="alert alert-danger" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}</div>
         }

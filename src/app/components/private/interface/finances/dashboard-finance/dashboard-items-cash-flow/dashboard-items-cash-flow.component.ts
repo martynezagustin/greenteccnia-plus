@@ -21,12 +21,14 @@ export class DashboardItemsCashFlowComponent implements OnInit, OnChanges {
   @Input() type!: 'netWorth' | 'cashFlow'
   constructor(private typeViewCashFlowService: TypeViewCashFlowService, private enterpriseService: EnterpriseService) { }
   changeViewElement() {
-    if (this.typeView == 'income') {
-      this.typeViewCashFlowService.setTypeViewCashFlow(this.typeView)
-      this.typeView = 'expense'
-    } else {
-      this.typeViewCashFlowService.setTypeViewCashFlow(this.typeView)
-      this.typeView = 'income'
+    if (this.type == 'cashFlow') {
+      if (this.typeView == 'income') {
+        this.typeViewCashFlowService.setTypeViewCashFlow(this.typeView)
+        this.typeView = 'expense'
+      } else {
+        this.typeViewCashFlowService.setTypeViewCashFlow(this.typeView)
+        this.typeView = 'income'
+      }
     }
   }
   ngOnInit(): void {

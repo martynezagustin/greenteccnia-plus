@@ -27,7 +27,7 @@ export class LastRegistersComponent implements OnChanges {
   @Input() enterpriseId!: any
   @Input() typeView!: 'active' | 'passive' | 'income' | 'expense'
   errorMessage: String = ''
-  constructor(private itemService: ItemService, private viewItemService: ViewItemService, private router: Router, private enterpriseService: EnterpriseService) { }
+  constructor(private itemService: ItemService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['enterpriseId']) {
       this.enterpriseId = changes['enterpriseId'].currentValue
@@ -78,7 +78,7 @@ export class LastRegistersComponent implements OnChanges {
     return formatValue(num)
   }
   fetchData(response: any) {
-    this.totalItems = response.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3).map((i: any) => ({
+    this.totalItems = response.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 4).map((i: any) => ({
       ...(i as Active | Passive | Income | Expense),
       ...i, formattedDate: new Date(new Date(i.date).getTime() + (3 * 60 * 60 * 1000)).toLocaleDateString('es-AR', {
         day: '2-digit',

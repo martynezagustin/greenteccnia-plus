@@ -2,9 +2,13 @@
     <h2 class="h2-dashboard-complete text-center">{{type == 'cashFlow' ? 'Flujo de caja' : 'Patrimonio neto'}} | {{selectedPeriod === 'year' ? 'año actual' : selectedPeriod === 'month' ? "mes actual" : "día actual"}}</h2>
 
     @if(!loading){
+        @if(!errorMessage){
 
-    <canvas style="border-radius: 8px;" class="m-2" baseChart [data]="lineChartData" [type]="lineChartType"
-        [options]="lineChartOptions"></canvas>
+            <canvas style="border-radius: 8px;" class="m-2" baseChart [data]="lineChartData" [type]="lineChartType"
+            [options]="lineChartOptions"></canvas>
+        } @else {
+            <div class="alert alert-danger">{{errorMessage}}</div>
+        }
     } @else {
 
     <div class="d-flex justify-content-center m-3">

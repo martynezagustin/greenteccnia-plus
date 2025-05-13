@@ -35,6 +35,7 @@ export class ItemService {
       tap((result: any) => result.getItemsByCurrentPeriod)
     )
   }
+  getTotalValueItems(enterpriseId: String, item: String){}
   getItemsByCurrentPeriod(enterpriseId: String, item: String, period: String): Observable<Active[] | Income[] | Passive[] | Expense[]> {
     return this.httpClient.get<Active[] | Income[] | Passive[] | Expense[]>(`${this.baseUrl}/${enterpriseId}/finances/${item}s/by-current-${period}`, { withCredentials: true })
   }

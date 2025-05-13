@@ -24,6 +24,8 @@ export class TracedItemsComponent implements OnChanges, OnInit{
   //arrays
   positiveItems!: Active[] | Income[]
   negativeItems!: Passive[] | Expense[]
+  //algun misc
+  errorMessage!: String
   //charts
   public lineChartData!: ChartConfiguration<'line'>['data']
   public lineChartType: ChartConfiguration<'line'>['type'] = 'line'
@@ -52,13 +54,15 @@ export class TracedItemsComponent implements OnChanges, OnInit{
     }
   }
   getItemsByCurrentPeriod(period: String) {
+    this.errorMessage = ''
     this.loading = true
     console.log(period)
     this.itemService.getItemsByCurrentPeriod(this.enterpriseId, 'income', period).subscribe(
       response => {
         this.positiveItems = response
-        this.loading = false
+        console.log(this.positiveItems)
         this.buildLineChartData()
+        this.loading = false
       },
       err => {
         console.error(err);
@@ -67,16 +71,14 @@ export class TracedItemsComponent implements OnChanges, OnInit{
     this.itemService.getItemsByCurrentPeriod(this.enterpriseId, 'expense', period).subscribe(
       response => {
         this.negativeItems = response
-        this.loading = false
         this.buildLineChartData()
+        this.loading = false
       }
     )
   }
   buildLineChartData() {
     const groupPositive: { [key: string]: number } = {}
     const groupNegative: { [key: string]: number } = {}
-
-    console.log(this.positiveItems)
 
     // Agrupamos positivos
     this.positiveItems.forEach((item: Income | Active) => {
@@ -118,10 +120,16 @@ export class TracedItemsComponent implements OnChanges, OnInit{
       }
       return a.localeCompare(b)
     })
+    if(allLabels.length === 1){
+      this.errorMessage = 'Para visualizar el flujo de caja anual, necesitás reportes correspondientes a al menos dos meses distintos del año seleccionado.';
+
+    }
 
     const positiveValues = allLabels.map(label => groupPositive[label] || 0)
+
     console.log(positiveValues)
     const negativeValues = allLabels.map(label => groupNegative[label] || 0)
+
     this.lineChartData = {
       labels: allLabels,
       datasets: [
@@ -129,7 +137,6 @@ export class TracedItemsComponent implements OnChanges, OnInit{
           data: positiveValues,
           label: this.type === 'cashFlow' ? 'Ingresos' : 'Activos',
           borderColor: 'green',
-          tension: 0.4,
           pointBackgroundColor: 'rgb(147, 243, 103)',
           backgroundColor: 'rgb(20,255,10)'
         },
@@ -137,7 +144,6 @@ export class TracedItemsComponent implements OnChanges, OnInit{
           data: negativeValues,
           label: this.type === 'cashFlow' ? 'Egresos' : 'Pasivos',
           borderColor: 'red',
-          tension: 0.4,
           pointBackgroundColor: 'rgba(230,2,20,0.5)',
           backgroundColor: 'tomato'
         }

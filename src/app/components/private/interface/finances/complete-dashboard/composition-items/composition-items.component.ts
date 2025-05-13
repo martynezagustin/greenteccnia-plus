@@ -3,6 +3,7 @@ import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
 import { PeriodService } from '../../../../../../services/private/finances/dashboard/dashboard-view/filters/period/period.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-composition-items',
@@ -10,7 +11,7 @@ import { PeriodService } from '../../../../../../services/private/finances/dashb
   templateUrl: './composition-items.component.html',
   styleUrl: '../complete-dashboard.component.css'
 })
-export class CompositionItemsComponent implements OnChanges, OnInit{
+export class CompositionItemsComponent implements OnChanges, OnInit {
   constructor(private itemService: ItemService, private periodService: PeriodService) { }
   positiveValueItems: number = 0
   negativeValueItems: number = 0
@@ -36,41 +37,30 @@ export class CompositionItemsComponent implements OnChanges, OnInit{
     )
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['enterpriseId']){
+    if (changes['enterpriseId']) {
       this.enterpriseId = changes['enterpriseId'].currentValue
     }
-    if(changes['selectedPeriod']){
+    if (changes['selectedPeriod']) {
       this.selectedPeriod = changes['selectedPeriod'].currentValue
       console.log(this.selectedPeriod)
       this.getData()
     }
   }
   getData() {
-    this.errorMessage = ''
     this.loading = true
+    this.errorMessage = ''
     if (this.type == 'cashFlow') {
-      this.itemService.getValueItemsByCurrentPeriod(this.enterpriseId, 'income', this.selectedPeriod).subscribe(
-        response => {
-          this.positiveValueItems = response.getItemsByCurrentPeriod;
-          console.log(this.positiveValueItems)
-          this.updatePieChartData()
+      forkJoin({
+        income: this.itemService.getValueItemsByCurrentPeriod(this.enterpriseId, 'income', this.selectedPeriod),
+        expense: this.itemService.getValueItemsByCurrentPeriod(this.enterpriseId, 'expense', this.selectedPeriod),
+      }).subscribe({
+        next: ({ income, expense }) => {
+          this.positiveValueItems = income.getItemsByCurrentPeriod
+          this.negativeValueItems = expense.getItemsByCurrentPeriod
           this.loading = false
-        },
-        err => {
-          console.log(err)
-        }
-      );
-      this.itemService.getValueItemsByCurrentPeriod(this.enterpriseId, 'expense', this.selectedPeriod).subscribe(
-        response => {
-          this.negativeValueItems = response.getItemsByCurrentPeriod;
-          console.log(this.negativeValueItems)
           this.updatePieChartData()
-          this.loading = false
-        },
-        err => {
-          console.log(err)
         }
-      );
+      })
     } else {
       this.itemService.getValueItemsByCurrentPeriod(this.enterpriseId, 'active', this.selectedPeriod).subscribe(
         response => {
@@ -96,7 +86,7 @@ export class CompositionItemsComponent implements OnChanges, OnInit{
     }
     console.log(this.errorMessage)
   }
-  updatePieChartData(){
+  updatePieChartData() {
     this.pieChartLabels = this.type == 'cashFlow' ? ['Ingresos', 'Egresos'] : ['Activos', 'Pasivos']
     this.pieChartData = {
       labels: this.pieChartLabels,

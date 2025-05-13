@@ -1,17 +1,36 @@
-<div class="m-2 summary-items" style="display: grid; grid-template-columns: 50% 50%; grid-gap: 8px;">
+<div class="summary-items">
     <div id="carouselIncomes" class="carousel carousel-dark slide p-2" data-bs-touch="false">
+        <h2 class="text-center">{{type == 'cashFlow' ? 'Ingresos' : 'Activos'}}</h2>
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
-                <h2 style="font-family: Montserrat;">${{formatValue(positiveNumberAnual)}}</h2>
-                <h3 class="mt-4">ANUAL</h3>
+                <span class="span-carousel"
+                    [ngStyle]="{'color': positiveNumberAnnual > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberAnnual)}}</span>
+                <h3 class="mt-2 h3-period">ANUAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': positivePercentageAnnual >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': positivePercentageAnnual >= 0, 'fa-caret-down': positivePercentageAnnual < 0}"></i>{{formatValue(positivePercentageAnnual)}}%
+                        <span style="color:black">VS ÚLTIMO AÑO</span></span>
+                </div>
             </div>
             <div class="carousel-item text-center">
-                <h2>${{formatValue(positiveNumberMonth)}}</h2>
-                <h3 class="mt-4">MENSUAL</h3>
+                <span class="span-carousel"
+                    [ngStyle]="{'color': positiveNumberMonth > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberMonth)}}</span>
+                <h3 class="mt-2 h3-period">MENSUAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': positivePercentageMonth >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': positivePercentageMonth >= 0, 'fa-caret-down': positivePercentageMonth < 0}"></i>{{formatValue(positivePercentageMonth)}}%
+                        <span style="color: black;">VS ÚLTIMO MES</span></span>
+                </div>
             </div>
             <div class="carousel-item text-center">
-                <h2>${{formatValue(positiveNumberDate)}}</h2>
-                <h3 class="mt-4">DIARIO</h3>
+                <span class="span-carousel"
+                    [ngStyle]="{'color': positiveNumberDate > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberDate)}}</span>
+                <h3 class="mt-2 h3-period">DIARIO</h3>
+                <div>
+                    <span [ngStyle]="{'color': positivePercentageDate >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': positivePercentageDate >= 0, 'fa-caret-down': positivePercentageDate < 0}"></i>{{formatValue(positivePercentageDate)}}%
+                        <span style="color: black;">VS ÚLTIMO DÍA</span></span>
+                </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselIncomes" data-bs-slide="prev">
@@ -25,18 +44,49 @@
     </div>
     <!--Egresos-->
     <div id="carouselExpenses" class="carousel carousel-dark slide p-2" data-bs-touch="false">
+        <h2 class="text-center">{{type == 'cashFlow' ? 'Egresos' : 'Pasivos'}}</h2>
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
-                <h2 style="font-family: Montserrat;">${{formatValue(negativeNumberAnual)}}</h2>
-                <h3 class="mt-4">ANUAL</h3>
+                @if(!loadingItems){
+
+                <span class="span-carousel expense">${{formatValue(negativeNumberAnnual)}}</span>
+                } @else{
+                <div class="d-flex flex-column align-items-center m-5">
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <p class="m-1" style="font-family: Montserrat; font-size: 1.1rem; letter-spacing: -1.2px;">
+                                Cargando...</p>
+                        </div>
+                    </div>
+                </div>
+                }
+                <h3 class="mt-2 h3-period">ANUAL</h3>
+
+                <div>
+                    <span [ngStyle]="{'color': negativePercentageYear > 0 ? 'red' : 'green'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': negativePercentageYear >= 0, 'fa-caret-down': negativePercentageYear < 0}"></i>{{formatValue(negativePercentageYear)}}%
+                        <span style="color: black;">VS ÚLTIMO AÑO</span> </span>
+                </div>
+
             </div>
             <div class="carousel-item text-center">
-                <h2>${{formatValue(negativeNumberMonth)}}</h2>
-                <h3 class="mt-4">MENSUAL</h3>
+                <span class="span-carousel expense">${{formatValue(negativeNumberMonth)}}</span>
+                <h3 class="mt-2 h3-period">MENSUAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': negativePercentageMonth > 0 ? 'red' : 'green'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': negativePercentageMonth >= 0, 'fa-caret-down': negativePercentageMonth < 0}"></i>{{formatValue(negativePercentageMonth)}}%
+
+                        <span style="color: black;">VS ÚLTIMO MES</span></span>
+                </div>
             </div>
             <div class="carousel-item text-center">
-                <h2>${{formatValue(negativeNumberDate)}}</h2>
-                <h3 class="mt-4">DIARIO</h3>
+                <span class="span-carousel expense">${{formatValue(negativeNumberDate)}}</span>
+                <h3 class="mt-2 h3-period">DIARIO</h3>
+                <div>
+                    <span [ngStyle]="{'color': negativePercentageDate > 0 ? 'red' : 'green'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': negativePercentageDate >= 0, 'fa-caret-down': negativePercentageDate < 0}"></i>{{formatValue(negativePercentageDate)}}%
+                        <span style="color: black;">VS ÚLTIMO DÍA</span></span>
+                </div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExpenses" data-bs-slide="prev">
@@ -48,5 +98,49 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
+    <!--Balance-->
+    <div id="carouselBalance" class="carousel carousel-dark slide p-2" data-bs-touch="false">
+        <h2 class="text-center">Balance</h2>
+        <div class="carousel-inner">
+            <div class="carousel-item text-center active">
+                <span class="span-carousel"
+                    [ngStyle]="{'color': balanceNumberAnnual > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberAnnual)}}</span>
+                <h3 class="mt-2 h3-period">ANUAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': balancePercentageAnnual > 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': balancePercentageAnnual >= 0, 'fa-caret-down': balancePercentageAnnual < 0}"></i>{{formatValue(balancePercentageAnnual)}}%
+                        <span style="color:black">VS ÚLTIMO AÑO</span></span>
+                </div>
+            </div>
+            <div class="carousel-item text-center">
+                <span class="span-carousel"
+                    [ngStyle]="{'color': balanceNumberMonth > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberMonth)}}</span>
+                <h3 class="mt-2 h3-period">MENSUAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': balancePercentageMonth > 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': balancePercentageMonth >= 0, 'fa-caret-down': balancePercentageMonth < 0}"></i>{{formatValue(balancePercentageMonth)}}%
+                        <span style="color: black;">VS ÚLTIMO MES</span></span>
+                </div>
+            </div>
+            <div class="carousel-item text-center">
+                <span class="span-carousel"
+                    [ngStyle]="{'color': balanceNumberDate > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberDate)}}</span>
+                <h3 class="mt-2 h3-period">DIARIO</h3>
+                <div>
+                    <span [ngStyle]="{'color': balancePercentageDate > 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': balancePercentageDate >= 0, 'fa-caret-down': balancePercentageDate < 0}"></i>{{formatValue(balancePercentageDate)}}%
+                        <span style="color: black;">VS ÚLTIMO DÍA</span></span>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselBalance" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselBalance" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
 </div>
