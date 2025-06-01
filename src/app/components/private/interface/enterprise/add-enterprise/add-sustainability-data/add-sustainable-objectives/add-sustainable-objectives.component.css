@@ -2,3 +2,9 @@ h4{
     font-family: "Poppins";
     letter-spacing: -1.3px;
 }
+.success-add-message{
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+    transition: 0.4s ease-in all;
+}

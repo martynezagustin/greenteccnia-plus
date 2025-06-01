@@ -1,14 +1,15 @@
 <div class="p-3">
-    <h2 class="h2-dashboard-complete text-center">{{type == 'cashFlow' ? 'Flujo de caja' : 'Patrimonio neto'}} | {{selectedPeriod === 'year' ? 'año actual' : selectedPeriod === 'month' ? "mes actual" : "día actual"}}</h2>
+    <h2 class="h2-dashboard-complete text-center">{{type == 'cashFlow' ? 'Flujo de caja' : 'Patrimonio neto'}} |
+        {{selectedPeriod === 'year' ? 'año actual' : selectedPeriod === 'month' ? "mes actual" : "trimestre actual"}}
+    </h2>
 
     @if(!loading){
-        @if(!errorMessage){
-
-            <canvas style="border-radius: 8px;" class="m-2" baseChart [data]="lineChartData" [type]="lineChartType"
-            [options]="lineChartOptions"></canvas>
-        } @else {
-            <div class="alert alert-danger">{{errorMessage}}</div>
-        }
+    @if(!errorMessage){
+    <canvas style="border-radius: 8px;" class="m-2 fade-in-container" baseChart [data]="lineChartData" [type]="lineChartType"
+        [options]="lineChartOptions"></canvas>
+    } @else {
+    <div class="alert alert-danger fade-in-container mt-2"><i class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessage}}</div>
+    }
     } @else {
 
     <div class="d-flex justify-content-center m-3">

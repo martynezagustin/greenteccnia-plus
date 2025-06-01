@@ -3,13 +3,10 @@
     <div class="d-flex align-items-center">
         <h1 class="h1-finances">{{title}}</h1>
         @if(type){
-            <button class="btn btn-light m-1" (click)="goToDashboard(type)">+VER DASHBOARD <i class="fa-solid fa-scale-unbalanced-flip m-1"></i></button>
+        <button class="btn btn-light m-1" (click)="goToDashboard(type)">+VER DASHBOARD <i
+                class="fa-solid fa-scale-unbalanced-flip m-1"></i></button>
         }
     </div>
     <app-summary [loading]="loading" [enterpriseId]="enterpriseId" [type]="type"></app-summary>
-    @if(type =='netWorth'){
-        <app-dashboard-items-net-worth class="fadeIn" [type]="type"></app-dashboard-items-net-worth>
-    } @else if(type == 'cashFlow') {
-        <app-dashboard-items-cash-flow [type]="type"></app-dashboard-items-cash-flow>
-    }
+    <app-dashboard-items class="fadeIn" [type]="type"></app-dashboard-items>
 </section>

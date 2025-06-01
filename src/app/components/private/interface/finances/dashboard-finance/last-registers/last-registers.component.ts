@@ -1,18 +1,12 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Active } from '../../../../../../../interfaces/enterprise/finances/netWorth/active/active.interface';
-import { ActiveService } from '../../../../../../services/private/finances/netWorth/active/active.service';
-import { Router } from '@angular/router';
-import { ViewItemService } from '../../../../../../services/private/finances/view-item/view-item.service';
 import { Income } from '../../../../../../../interfaces/enterprise/finances/cashFlow/income/income.interface';
-import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
-import { PassiveService } from '../../../../../../services/private/finances/netWorth/passive/passive.service';
 import { Passive } from '../../../../../../../interfaces/enterprise/finances/netWorth/passive/passive.interface';
 import { CommonModule } from '@angular/common';
 import { Expense } from '../../../../../../../interfaces/enterprise/finances/cashFlow/expense/expense.interface';
-import { IncomeService } from '../../../../../../services/private/finances/cashFlow/income/income.service';
-import { ExpenseService } from '../../../../../../services/private/finances/cashFlow/expense/expense.service';
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-last-registers',
@@ -27,7 +21,7 @@ export class LastRegistersComponent implements OnChanges {
   @Input() enterpriseId!: any
   @Input() typeView!: 'active' | 'passive' | 'income' | 'expense'
   errorMessage: String = ''
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private router: Router) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['enterpriseId']) {
       this.enterpriseId = changes['enterpriseId'].currentValue
@@ -54,6 +48,7 @@ export class LastRegistersComponent implements OnChanges {
       response => {
         this.fetchData(response)
         this.loading = false
+        this.errorMessage = this.totalItems.length > 0 ? '' : 'No hay items para mostrar'
       },
       err => {
         console.error(err);
@@ -89,5 +84,8 @@ export class LastRegistersComponent implements OnChanges {
     )
     console.log("Tus total items", this.totalItems);
 
+  }
+  viewMoreLastRegisters() {
+    this.router.navigate(['/dashboard/finances/last-registers'])
   }
 }

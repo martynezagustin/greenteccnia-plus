@@ -50,4 +50,7 @@ export class AddEnterpriseComponent {
       }
     )
   }
+  back(){
+    this.router.navigate(['/dashboard'])
+  }
 }

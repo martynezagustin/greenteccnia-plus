@@ -1,11 +1,11 @@
 <div class="p-3">
     <h2 class="h2-dashboard-complete text-center">Composición</h2>
-    @if(!loading && !errorMessage){
-        @if(!errorMessage){
-            <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
-        }@else {
-            <div class="alertt alert-danger">{{errorMessage}}</div>
-        }
+    @if(!loading){
+    @if(!errorMessage){
+    <canvas class="fade-in-container" baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+    }@else {
+    <div class="alert fade-in-container alert-danger"><i class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessage}}</div>
+    }
     } @else {
 
     <div class="d-flex justify-content-center m-3">

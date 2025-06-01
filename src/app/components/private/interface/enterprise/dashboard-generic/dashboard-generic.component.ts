@@ -48,8 +48,8 @@ export class DashboardGenericComponent implements OnInit {
         this.loading = false
         this.errorMessageEnterprise = ''
       },
-      err => {
-        this.errorMessageEnterprise = err.error.message
+      () => {
+        this.errorMessageEnterprise = 'Aún no has creado tu empresa.'
         this.loading = false
       }
     )

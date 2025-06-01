@@ -4,6 +4,7 @@ import { UserService } from '../../../../../../../services/private/user/user.ser
 import { EnterpriseService } from '../../../../../../../services/private/enterprise/enterprise.service';
 import { response } from 'express';
 import { HandlersRoutesService } from '../../../../../../../services/private/dashboard/handlers/handlers-routes/handlers-routes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-sustainable-objectives',
@@ -16,8 +17,10 @@ export class AddSustainableObjectivesComponent implements OnInit {
   enterpriseId: any = ''
   loading: Boolean = false
   successMessage: string = ''
+  successPush: Boolean = false
+  itemAdded: string = ''
   errorMessage: string = ''
-  constructor(private sustainabilityObjectiveService: SustainabilityObjectiveService, private userService: UserService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService) {
+  constructor(private sustainabilityObjectiveService: SustainabilityObjectiveService, private userService: UserService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService, private router: Router) {
     this.userId = this.userService.getUserId()
   }
   public avaiableObjectives = [
@@ -62,6 +65,12 @@ export class AddSustainableObjectivesComponent implements OnInit {
         );
         if (!next) break; // No hay más objetivos disponibles
         this.displayedObjectives.push(next);
+        this.successPush = true
+        this.itemAdded = next.title
+        setTimeout(() => {
+          this.itemAdded = ''
+          this.successPush = false
+        }, 3000);
       }
     }
 
@@ -85,5 +94,9 @@ export class AddSustainableObjectivesComponent implements OnInit {
         )
       }, 2000);
     })
+  }
+  omit(){
+    this.router.navigate(['/dashboard'])
+    this.handlersRoutes.reload()
   }
 }

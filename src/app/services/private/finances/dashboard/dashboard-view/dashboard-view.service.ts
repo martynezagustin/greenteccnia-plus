@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardViewService {
-  private keyLocalStorage = 'typeDashboard'
+  private selectedView = new BehaviorSubject<'cashFlow' | 'netWorth' | null>(
+    (() => {
+      const value = localStorage.getItem('selectedView');
+      if (value === 'cashFlow' || value === 'netWorth') {
+        return value;
+      }
+      return null;
+    })()
+  )
+  selectedView$ = this.selectedView.asObservable()
   constructor() { }
-  setView(view: 'cashFlow' | 'netWorth'){
-    localStorage.setItem(this.keyLocalStorage, view)
-  }
-  getView(): 'cashFlow' | 'netWorth' | null{
-    const view = localStorage.getItem(this.keyLocalStorage)
-    if(view == 'cashFlow' || view == 'netWorth'){
-      return view
+  setView(view: 'cashFlow' | 'netWorth' | null) {
+    this.selectedView.next(view)
+    if (view === null) {
+      localStorage.removeItem('selectedView')
+    } else {
+      localStorage.setItem('selectedView', view)
     }
-    return null
-  }
-  clearView(){
-    localStorage.removeItem(this.keyLocalStorage)
   }
 }

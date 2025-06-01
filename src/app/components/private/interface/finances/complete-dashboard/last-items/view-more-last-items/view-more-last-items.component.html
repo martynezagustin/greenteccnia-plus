@@ -1,0 +1,55 @@
+<div class="m-1 fade-in-container">
+    <button class="btn btn-danger btn-back" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+    <div class="m-2">
+        <h1  style="font-family: Poppins; color: whitesmoke; font-weight: 800; margin-bottom: 0.8rem;">Últimos registros del {{type == 'netWorth' ? 'patrimonio neto' : 'flujo de caja'}}</h1>
+
+        @if(!loading){
+
+        <table class="table fade-in-container">
+            <thead>
+                <tr>
+                    <th scope="col">{{type =='cashFlow' ? 'CONCEPTO' : 'TIPO DE CUENTA'}}</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">TIPO DE ITEM</th>
+                    <th scope="col">MONTO</th>
+                    @if(type === 'cashFlow'){
+                    <th scope="col">MÉTODO DE PAGO</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if(!errorMessage){
+
+                @for(item of allItems; track item._id){
+
+                <tr class="m-2">
+                    <td class="styles-data"
+                        [ngStyle]="{'color': item.type == 'income' ? 'green' : item.type =='active' ? 'green' : 'red'}">
+                        <strong><i class="fa-solid m-1"
+                                [ngClass]="{'fa-angle-up' : item.type === 'income' || item.type =='active', 'fa-angle-down': item.type =='expense' || item.type =='passive'}"></i>{{getItemMainField(item)}}</strong>
+                    </td>
+                    <td class="styles-data">{{formatDate(item.date)}}</td>
+                    <td class="styles-data">
+                        {{getCategory(item)}}
+                    </td>
+                    <td class="styles-data">${{formatValue(item.amount)}}</td>
+                    @if(type == 'cashFlow'){
+                    <td class="styles-data">{{getPaymentMethod(item)}}</td>
+                    }
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+        } @else {
+        <div class="d-flex flex-column align-items-center text-center mt-5 loadingFade">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3"
+                style="font-size: 2rem; letter-spacing: -1.3px; font-weight: 700; font-family: Poppins; color: whitesmoke;">
+                PROCESANDO PETICIÓN...</p>
+        </div>
+        }
+    </div>
+</div>

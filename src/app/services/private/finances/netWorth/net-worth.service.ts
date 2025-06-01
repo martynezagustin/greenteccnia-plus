@@ -12,13 +12,7 @@ export class NetWorthService {
   getNetWorth(enterpriseId: String): Observable<Number> {
     return this.httpClient.get<Number>(`${this.baseUrl}/${enterpriseId}/finances/net-worth`, { withCredentials: true });
   }
-  getNetWorthByCurrentYear(enterpriseId: String) {
-    return this.httpClient.get(`${this.baseUrl}/${enterpriseId}/finances/net-worth/by-current-year`, { withCredentials: true })
-  }
-  getNetWorthByCurrentMonth(enterpriseId: String): Observable<{ netWorthByCurrentMonth: number; percentage: number }> {
-    return this.httpClient.get<{ netWorthByCurrentMonth: number; percentage: number }>(`${this.baseUrl}/${enterpriseId}/finances/net-worth/by-current-month`, { withCredentials: true })
-  }
-  getNetWorthByCurrentDate(enterpriseId: String) {
-    return this.httpClient.get(`${this.baseUrl}/${enterpriseId}/finances/net-worth/by-current-date`, { withCredentials: true })
+  getNetWorthByCurrentPeriod(enterpriseId: string | null, period: 'year' | 'month' | 'trimester'): Observable<{ netWorthByCurrentPeriod: number, percentage: number }> {
+    return this.httpClient.get<{ netWorthByCurrentPeriod: number; percentage: number }>(`${this.baseUrl}/${enterpriseId}/finances/net-worth/by-current-${period}`, { withCredentials: true })
   }
 }

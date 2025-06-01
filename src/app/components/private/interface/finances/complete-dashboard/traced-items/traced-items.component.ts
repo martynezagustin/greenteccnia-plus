@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Income } from '../../../../../../../interfaces/enterprise/finances/cashFlow/income/income.interface';
 import { Expense } from '../../../../../../../interfaces/enterprise/finances/cashFlow/expense/expense.interface';
 import { Passive } from '../../../../../../../interfaces/enterprise/finances/netWorth/passive/passive.interface';
@@ -6,8 +6,10 @@ import { Active } from '../../../../../../../interfaces/enterprise/finances/netW
 import { ChartConfiguration } from 'chart.js';
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
 import { NgChartsModule } from 'ng2-charts';
-import { log } from 'node:console';
 import { PeriodService } from '../../../../../../services/private/finances/dashboard/dashboard-view/filters/period/period.service';
+import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
+import { forkJoin } from 'rxjs';
+import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
 
 @Component({
   selector: 'app-traced-items',
@@ -15,11 +17,11 @@ import { PeriodService } from '../../../../../../services/private/finances/dashb
   templateUrl: './traced-items.component.html',
   styleUrl: '../complete-dashboard.component.css'
 })
-export class TracedItemsComponent implements OnChanges, OnInit{
-  constructor(private itemService: ItemService, private periodService: PeriodService) { }
+export class TracedItemsComponent implements OnInit {
+  constructor(private itemService: ItemService, private periodService: PeriodService, private dashboardService: DashboardViewService, private enterpriseService: EnterpriseService) { }
   loading!: Boolean
-  @Input() enterpriseId!: any
-  @Input() type!: 'cashFlow' | 'netWorth' | null
+  enterpriseId!: any
+  type!: 'cashFlow' | 'netWorth' | null
   @Input() selectedPeriod!: 'month' | 'year' | 'trimester'
   //arrays
   positiveItems!: Active[] | Income[]
@@ -27,9 +29,9 @@ export class TracedItemsComponent implements OnChanges, OnInit{
   //algun misc
   errorMessage!: String
   //charts
-  public lineChartData!: ChartConfiguration<'line'>['data']
-  public lineChartType: ChartConfiguration<'line'>['type'] = 'line'
-  public lineChartOptions: ChartConfiguration<'line'>['options'] = {
+  public lineChartData!: ChartConfiguration<'bar'>['data']
+  public lineChartType: ChartConfiguration<'bar'>['type'] = 'bar'
+  public lineChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
     plugins: {
       legend: {
@@ -38,44 +40,49 @@ export class TracedItemsComponent implements OnChanges, OnInit{
     }
   }
   ngOnInit(): void {
+    this.getEnterpriseId()
     this.periodService.selectedPeriod$.subscribe(
       response => {
+        console.log(response)
         this.selectedPeriod = response
-        this.getItemsByCurrentPeriod(this.selectedPeriod)
+        if (this.enterpriseId) {
+          this.getItemsByCurrentPeriod(this.selectedPeriod)
+        }
       }
     )
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['type']) {
-      this.type = changes['type'].currentValue
-    }
-    if (changes['enterpriseId']) {
-      this.enterpriseId = changes['enterpriseId'].currentValue
-    }
+    this.dashboardService.selectedView$.subscribe(
+      response => {
+        this.type = response
+        console.log(this.type)
+      }
+    )
   }
   getItemsByCurrentPeriod(period: String) {
-    this.errorMessage = ''
     this.loading = true
-    console.log(period)
-    this.itemService.getItemsByCurrentPeriod(this.enterpriseId, 'income', period).subscribe(
-      response => {
-        this.positiveItems = response
-        console.log(this.positiveItems)
-        this.buildLineChartData()
-        this.loading = false
+    this.errorMessage = ''
+
+    forkJoin([
+      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type === 'cashFlow' ? 'income' : 'active', period),
+      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type === 'cashFlow' ? 'expense' : 'passive', period),
+    ]).subscribe({
+      next: ([positiveResponse, negativeResponse]: [Active[] | Income[], Expense[] | Passive[]]) => {
+        this.positiveItems = positiveResponse;
+        this.negativeItems = negativeResponse;
+        console.log(positiveResponse, this.negativeItems)
+        this.loading = false;
+        this.errorMessage = this.positiveItems.length === 0 && this.negativeItems.length === 0 ? 'No hay datos del periodo actual.' : ''
+        if(!this.errorMessage){
+          this.buildLineChartData();
+        }
       },
-      err => {
+      error: (err) => {
         console.error(err);
+        this.loading = false;
+        this.errorMessage = err.error?.message || 'Error al obtener los datos';
       }
-    )
-    this.itemService.getItemsByCurrentPeriod(this.enterpriseId, 'expense', period).subscribe(
-      response => {
-        this.negativeItems = response
-        this.buildLineChartData()
-        this.loading = false
-      }
-    )
+    });
   }
+
   buildLineChartData() {
     const groupPositive: { [key: string]: number } = {}
     const groupNegative: { [key: string]: number } = {}
@@ -97,8 +104,7 @@ export class TracedItemsComponent implements OnChanges, OnInit{
     // Agrupamos negativos
     this.negativeItems.forEach((item: Expense | Passive) => {
       const date = new Date(item.date)
-      const formatDate = this.selectedPeriod === 'year'
-        ? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
+      const formatDate = this.selectedPeriod === 'year' ? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
         : new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleDateString('es-AR', {
           day: '2-digit',
           month: '2-digit',
@@ -109,27 +115,31 @@ export class TracedItemsComponent implements OnChanges, OnInit{
       groupNegative[formatDate] += item.amount
     })
 
-    //armamos los labels
-    const allLabels = Array.from(new Set([...Object.keys(groupPositive), ...Object.keys(groupNegative)])).sort((a, b) => {
-      if (this.selectedPeriod == 'year') {
-        const months = [
-          'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-          'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-        ]
-        return months.indexOf(a.toLowerCase()) - months.indexOf(b.toLowerCase())
-      }
-      return a.localeCompare(b)
-    })
-    if(allLabels.length === 1){
-      this.errorMessage = 'Para visualizar el flujo de caja anual, necesitás reportes correspondientes a al menos dos meses distintos del año seleccionado.';
+    // Armamos los labels y los normalizamos para evitar duplicados por diferencias de mayúsculas/minúsculas o espacios
+    const normalize = (label: string) => label.trim().toLowerCase();
+    const allLabelsSet = new Set<string>();
+    [...Object.keys(groupPositive), ...Object.keys(groupNegative)].forEach(label => {
+      allLabelsSet.add(normalize(label));
+    });
 
+    let allLabels = Array.from(allLabelsSet);
+
+    if (this.selectedPeriod == 'year') {
+      const months = [
+        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+      ];
+      allLabels = allLabels.sort((a, b) => months.indexOf(a) - months.indexOf(b));
+    } else {
+      allLabels = allLabels.sort((a, b) => a.localeCompare(b));
     }
 
-    const positiveValues = allLabels.map(label => groupPositive[label] || 0)
+    const positiveValues = allLabels.map(label => groupPositive[label] || 0);
 
-    console.log(positiveValues)
-    const negativeValues = allLabels.map(label => groupNegative[label] || 0)
+    const negativeValues = allLabels.map(label => groupNegative[label] || 0);
 
+    this.errorMessage = allLabels.length < 2 ? 'Para visualizar el flujo de caja anual, necesitás reportes correspondientes de al menos dos periodos distintos del año seleccionado.' : '';
+    this.errorMessage = '';
     this.lineChartData = {
       labels: allLabels,
       datasets: [
@@ -137,19 +147,19 @@ export class TracedItemsComponent implements OnChanges, OnInit{
           data: positiveValues,
           label: this.type === 'cashFlow' ? 'Ingresos' : 'Activos',
           borderColor: 'green',
-          pointBackgroundColor: 'rgb(147, 243, 103)',
-          backgroundColor: 'rgb(20,255,10)'
+          backgroundColor: 'rgba(20,255,10,0.3)',
         },
         {
           data: negativeValues,
           label: this.type === 'cashFlow' ? 'Egresos' : 'Pasivos',
           borderColor: 'red',
-          pointBackgroundColor: 'rgba(230,2,20,0.5)',
-          backgroundColor: 'tomato'
+          backgroundColor: 'rgba(250,25,10,0.5)',
         }
       ]
-    }
-    console.log(this.lineChartData);
+    };
 
+  }
+  getEnterpriseId() {
+    this.enterpriseId = this.enterpriseService.getEnterpriseId()
   }
 }

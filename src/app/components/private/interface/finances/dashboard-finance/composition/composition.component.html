@@ -11,13 +11,13 @@
     @if(!loading){
     <!--Navbar-->
     <ul class="nav-composition-items nav justify-content-center">
-        @for(period of optionsPeriod; track period.label){
+        @for(period of type == 'cashFlow' ? optionsPeriodCashFlow : optionsPeriodNetWorth; track period.label){
         <li class="nav-item">
             <button class="nav-link btn"
                 [ngStyle]="{'background-color': selectedPeriod == period.period ? 'rgb(210,210,210)' : 'whitesmoke', 'color': selectedPeriod == period.period ? 'black' : 'green'}"
                 (click)="selectPeriod(period.period)" aria-current="page" href="#">{{period.label}}</button>
-        </li>
-        }
+
+            }
 
     </ul>
     <!--Fin navbar-->

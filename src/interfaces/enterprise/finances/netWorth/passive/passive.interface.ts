@@ -1,9 +1,11 @@
-export interface Passive{
+export interface Passive {
     _id: string,
     category: string,
     typeAccount: string,
     date: Date,
     formattedDate: String,
     amount: number,
-    details: string
+    details: string,
+    type: String,
+    editableItemId: string | null
 }

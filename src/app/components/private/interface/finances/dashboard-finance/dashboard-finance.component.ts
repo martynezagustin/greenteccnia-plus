@@ -5,11 +5,10 @@ import { NgChartsModule } from 'ng2-charts';
 import { SummaryComponent } from "./summary/summary.component";
 import { Router} from '@angular/router';
 import { DashboardViewService } from '../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
-import { DashboardItemsNetWorthComponent } from "./dashboard-items-net-worth/dashboard-items-net-worth.component";
-import { DashboardItemsCashFlowComponent } from './dashboard-items-cash-flow/dashboard-items-cash-flow.component';
+import { DashboardItemsComponent } from './dashboard-items/dashboard-items.component';
 @Component({
   selector: 'app-dashboard-finance',
-  imports: [CommonModule, NgChartsModule, SummaryComponent, DashboardItemsNetWorthComponent, DashboardItemsCashFlowComponent],
+  imports: [CommonModule, NgChartsModule, SummaryComponent, DashboardItemsComponent],
   templateUrl: './dashboard-finance.component.html',
   styleUrl: './dashboard-finance.component.css'
 })
@@ -23,7 +22,11 @@ export class DashboardFinanceComponent implements OnInit {
   loading: Boolean = false
   ngOnInit(): void {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
-    this.type = this.dashboardViewService.getView()
+    this.dashboardViewService.selectedView$.subscribe(
+      response => {
+        this.type = response
+      }
+    )
     if (this.type === 'netWorth') {
       this.title = 'Elementos del patrimonio neto'
     } else {
@@ -34,7 +37,6 @@ export class DashboardFinanceComponent implements OnInit {
     this.enterpriseService.getEnterpriseId()
   }
   back() {
-    this.dashboardViewService.clearView()
     this.title = ''
     this.router.navigate(['/dashboard'])
   }

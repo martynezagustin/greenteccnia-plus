@@ -3,14 +3,15 @@ h1 {
     letter-spacing: -1.4px;
     color: whitesmoke;
     font-weight: 700;
-    margin: 0.6rem;
 }
-.container{
+
+.container {
     display: grid;
     grid-template-areas: "finances"
-                         "sustainability";
-                         grid-gap: 10px;
+        "sustainability";
+    grid-gap: 10px;
 }
+
 .finances {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -18,26 +19,44 @@ h1 {
     grid-gap: 5px;
     grid-area: finances;
 }
-.cashFlow{
+
+.cashFlow {
     grid-area: cashFlow
 }
-.netWort{
+
+.netWorth {
     grid-area: netWorth
 }
-.sustainability{
+
+.sustainability {
     grid-area: sustainability;
 }
-.alert-red{
-    background-color: red;
+.p-description{
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+.alert-red {
+    background: linear-gradient(to right, rgba(255, 50, 50, 0.3), red, rgba(255,10,10,1));
     color: white;
+    border-radius: 8px;
     font-family: Poppins;
     letter-spacing: -1.2px;
     font-weight: 700;
+    width: 50%;
+}
+.alert-red_p{
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    text-align: start;
+    font-weight: 600;
 }
 .col {
     background-color: #fff;
     border-radius: 10px;
 }
+
 .btn {
     letter-spacing: -1.5px;
     font-family: Poppins;
@@ -56,22 +75,32 @@ h1 {
     letter-spacing: -1.3px;
     font-weight: 700;
 }
-.form-label{
+
+.form-label {
     color: whitesmoke;
     font-family: Poppins;
     letter-spacing: -1.4px;
     font-weight: 700;
 }
-.offcanvas{
+
+.offcanvas {
     width: 45rem;
 }
-.card{
+
+.card {
     min-height: 19vh;
 }
-.fadeInContainer{
+
+.fadeInContainer {
     animation: 0.3s fadeIn ease-in-out;
 }
+
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

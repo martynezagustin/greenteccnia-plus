@@ -1,20 +1,38 @@
 <div class="summary-items">
     <div id="carouselIncomes" class="carousel carousel-dark slide p-2" data-bs-touch="false">
-        <h2 class="text-center">{{type == 'cashFlow' ? 'Ingresos' : 'Activos'}}</h2>
+        <h2 class="text-center"><i class="fa-solid fa-money-bill-trend-up m-2"
+                style="padding: 0.2rem; border: 1px solid gray; border-radius: 8px; color: green;"></i>{{type ==
+            'cashFlow' ? 'Ingresos' : 'Activos'}}</h2>
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
-                <span class="span-carousel"
-                    [ngStyle]="{'color': positiveNumberAnnual > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberAnnual)}}</span>
+                @if(!loadingItems){
+                <span class="span-carousel" [ngStyle]="{'color': positiveNumberAnnual > 0 ? 'green' : 'red'}">{{
+                    positiveNumberAnnual > 0 ? '$'+ formatValue(positiveNumberAnnual) : "No hay datos" }}</span>
                 <h3 class="mt-2 h3-period">ANUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': positivePercentageAnnual >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
-                            [ngClass]="{'fa-caret-up': positivePercentageAnnual >= 0, 'fa-caret-down': positivePercentageAnnual < 0}"></i>{{formatValue(positivePercentageAnnual)}}%
+                            [ngClass]="{'fa-caret-up': positivePercentageAnnual >= 0, 'fa-caret-down': positivePercentageAnnual < 0}"></i>{{formatValue(positivePercentageAnnual
+                        ? positivePercentageAnnual:0)}}%
                         <span style="color:black">VS ÚLTIMO AÑO</span></span>
                 </div>
+                } @else {
+                <div class="d-flex justify-content-center m-3">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">
+                        Procesando
+                        peticiones...</p>
+                </div>
+                }
             </div>
             <div class="carousel-item text-center">
+
                 <span class="span-carousel"
                     [ngStyle]="{'color': positiveNumberMonth > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberMonth)}}</span>
+
                 <h3 class="mt-2 h3-period">MENSUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': positivePercentageMonth >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
@@ -22,9 +40,12 @@
                         <span style="color: black;">VS ÚLTIMO MES</span></span>
                 </div>
             </div>
+            @if(type == 'cashFlow'){
+
             <div class="carousel-item text-center">
                 <span class="span-carousel"
                     [ngStyle]="{'color': positiveNumberDate > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberDate)}}</span>
+
                 <h3 class="mt-2 h3-period">DIARIO</h3>
                 <div>
                     <span [ngStyle]="{'color': positivePercentageDate >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
@@ -32,6 +53,22 @@
                         <span style="color: black;">VS ÚLTIMO DÍA</span></span>
                 </div>
             </div>
+            }
+            @if(type == 'netWorth'){
+
+            <div class="carousel-item text-center">
+                <span class="span-carousel"
+                    [ngStyle]="{'color': positiveNumberTrimester > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberTrimester)}}</span>
+
+                <h3 class="mt-2 h3-period">TRIMESTRAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': positivePercentageTrimester >= 0 ? 'green' : 'red'}"><i
+                            class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': positivePercentageTrimester >= 0, 'fa-caret-down': positivePercentageTrimester < 0}"></i>{{formatValue(positivePercentageTrimester)}}%
+                        <span style="color: black;">VS ÚLTIMO TRIMESTRE</span></span>
+                </div>
+            </div>
+            }
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselIncomes" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,22 +81,15 @@
     </div>
     <!--Egresos-->
     <div id="carouselExpenses" class="carousel carousel-dark slide p-2" data-bs-touch="false">
-        <h2 class="text-center">{{type == 'cashFlow' ? 'Egresos' : 'Pasivos'}}</h2>
+        <h2 class="text-center"><i class="fa-solid fa-money-bill-transfer m-2"
+                style="padding: 0.2rem; border: 1px solid gray; border-radius: 8px; color: red;"></i>{{type ==
+            'cashFlow' ? 'Egresos' : 'Pasivos'}}</h2>
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
                 @if(!loadingItems){
 
                 <span class="span-carousel expense">${{formatValue(negativeNumberAnnual)}}</span>
-                } @else{
-                <div class="d-flex flex-column align-items-center m-5">
-                    <div class="d-flex justify-content-center">
-                        <div>
-                            <p class="m-1" style="font-family: Montserrat; font-size: 1.1rem; letter-spacing: -1.2px;">
-                                Cargando...</p>
-                        </div>
-                    </div>
-                </div>
-                }
+
                 <h3 class="mt-2 h3-period">ANUAL</h3>
 
                 <div>
@@ -67,10 +97,24 @@
                             [ngClass]="{'fa-caret-up': negativePercentageYear >= 0, 'fa-caret-down': negativePercentageYear < 0}"></i>{{formatValue(negativePercentageYear)}}%
                         <span style="color: black;">VS ÚLTIMO AÑO</span> </span>
                 </div>
+                }@else {
+                <div class="d-flex justify-content-center m-3">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">
+                        Procesando
+                        peticiones...</p>
+                </div>
+                }
 
             </div>
             <div class="carousel-item text-center">
+
                 <span class="span-carousel expense">${{formatValue(negativeNumberMonth)}}</span>
+
                 <h3 class="mt-2 h3-period">MENSUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': negativePercentageMonth > 0 ? 'red' : 'green'}"><i class="fa-solid m-2"
@@ -79,6 +123,8 @@
                         <span style="color: black;">VS ÚLTIMO MES</span></span>
                 </div>
             </div>
+            @if(type == 'cashFlow'){
+
             <div class="carousel-item text-center">
                 <span class="span-carousel expense">${{formatValue(negativeNumberDate)}}</span>
                 <h3 class="mt-2 h3-period">DIARIO</h3>
@@ -88,6 +134,20 @@
                         <span style="color: black;">VS ÚLTIMO DÍA</span></span>
                 </div>
             </div>
+            }
+            @if(type == 'netWorth'){
+            <div class="carousel-item text-center">
+                <span class="span-carousel"
+                    [ngStyle]="{'color': negativeNumberTrimester > 0 ? 'red' : 'green'}">${{formatValue(negativeNumberTrimester)}}</span>
+                <h3 class="mt-2 h3-period">TRIMESTRAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': negativePercentageTrimester > 0 ? 'red' : 'green'}"><i
+                            class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': negativePercentageTrimester >= 0, 'fa-caret-down': negativePercentageTrimester < 0}"></i>{{formatValue(negativePercentageTrimester)}}%
+                        <span style="color: black;">VS ÚLTIMO TRIMESTRE</span></span>
+                </div>
+            </div>
+            }
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExpenses" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -100,21 +160,38 @@
     </div>
     <!--Balance-->
     <div id="carouselBalance" class="carousel carousel-dark slide p-2" data-bs-touch="false">
-        <h2 class="text-center">Balance</h2>
+        <h2 class="text-center"><i class="fa-solid fa-wallet m-2"
+                style="padding: 0.2rem; border: 1px solid gray; border-radius: 8px;"></i>Balance</h2>
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
+                @if(!loadingItems){
+
                 <span class="span-carousel"
                     [ngStyle]="{'color': balanceNumberAnnual > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberAnnual)}}</span>
+
                 <h3 class="mt-2 h3-period">ANUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': balancePercentageAnnual > 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
                             [ngClass]="{'fa-caret-up': balancePercentageAnnual >= 0, 'fa-caret-down': balancePercentageAnnual < 0}"></i>{{formatValue(balancePercentageAnnual)}}%
                         <span style="color:black">VS ÚLTIMO AÑO</span></span>
                 </div>
+                }@else {
+                <div class="d-flex justify-content-center m-3">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">
+                        Procesando
+                        peticiones...</p>
+                </div>
+                }
             </div>
             <div class="carousel-item text-center">
                 <span class="span-carousel"
                     [ngStyle]="{'color': balanceNumberMonth > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberMonth)}}</span>
+
                 <h3 class="mt-2 h3-period">MENSUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': balancePercentageMonth > 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
@@ -122,6 +199,8 @@
                         <span style="color: black;">VS ÚLTIMO MES</span></span>
                 </div>
             </div>
+            @if(type == 'cashFlow'){
+
             <div class="carousel-item text-center">
                 <span class="span-carousel"
                     [ngStyle]="{'color': balanceNumberDate > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberDate)}}</span>
@@ -132,6 +211,34 @@
                         <span style="color: black;">VS ÚLTIMO DÍA</span></span>
                 </div>
             </div>
+            }
+            @if(type == 'netWorth'){
+            <div class="carousel-item text-center">
+                @if(!loadingItems){
+
+                <span class="span-carousel"
+                    [ngStyle]="{'color': balanceNumberTrimester > 0 ? 'green' : 'red'}">${{formatValue(balanceNumberTrimester)}}</span>
+                <h3 class="mt-2 h3-period">TRIMESTRAL</h3>
+                <div>
+                    <span [ngStyle]="{'color': balancePercentageTrimester > 0 ? 'green' : 'red'}"><i
+                            class="fa-solid m-2"
+                            [ngClass]="{'fa-caret-up': balancePercentageTrimester >= 0, 'fa-caret-down': balancePercentageTrimester < 0}"></i>{{formatValue(balancePercentageTrimester)}}%
+                        <span style="color: black;">VS ÚLTIMO TRIMESTRE</span></span>
+                </div>
+                } @else {
+                <div class="d-flex justify-content-center m-3">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">
+                        Procesando
+                        peticiones...</p>
+                </div>
+                }
+            </div>
+            }
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselBalance" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -142,5 +249,5 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    
+
 </div>

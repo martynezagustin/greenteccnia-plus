@@ -19,7 +19,7 @@
 }
 
 .charts,
-.composition {
+.composition, .last-items-box {
     border-radius: 8px;
 
 }
@@ -32,7 +32,7 @@
     transition: 0.2s ease-in all;
 }
 .charts {
-    background: linear-gradient(to right, rgb(126, 255, 114), rgb(199, 255, 189));
+    background-color: whitesmoke;
     border: 2px solid white;
     grid-gap: 8px;
 }
@@ -45,7 +45,14 @@
     background-color: whitesmoke;
     border-radius: 8px;
 }
-
+.last-items-box{
+    background-color: white;
+}
+.styles-data{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 500;
+}
 .number-summary {
     font-family: Montserrat;
     letter-spacing: -1.2px;
@@ -80,4 +87,15 @@
 
 .red-span {
     color: red;
+}
+.alert-danger{
+    background-color: whitesmoke;
+    border: 2px solid red;
+    text-align: center;
+    color: red;
+    font-size: 1.3rem;
+    margin: 0.8rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
 }

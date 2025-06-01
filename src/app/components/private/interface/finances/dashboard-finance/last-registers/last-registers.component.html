@@ -16,7 +16,6 @@
                     <th scope="col">{{typeView == 'active' || typeView == 'passive' ? 'Tipo' : 'Concepto'}}</th>
                     <th scope="col">Categoría</th>
                     <th scope="col">Valor</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,14 +30,15 @@
                             class="fa-solid fa-arrow-up m-2"></i>}@else if(typeView == 'expense' || typeView ==
                         'passive'){<i class="fa-solid fa-arrow-down m-2"></i>}{{formatValue(item.amount)}}
                     </td>
-                    <td class="td-actives-styles"><button class="btn" (click)="deleteItem(item._id)"
-                            style="font-family: Montserrat; color: red; font-weight: 800; letter-spacing: -1.2px; font-size: 1.2rem;"><i class="fa-solid fa-trash"></i></button>
-                    </td>
                 </tr>
             </tbody>
         </table>
         }
-        <button class="btn btn-info mt-2" style="font-family: Montserrat; letter-spacing: -1.4px; font-weight: 800;">+VER MÁS</button>
+        @if(totalItems.length === 4){
+
+        <button class="btn btn-info mt-2" style="font-family: Montserrat; letter-spacing: -1.4px; font-weight: 800;"
+            (click)="viewMoreLastRegisters()">+VER MÁS</button>
+        }
         } @else {
         <div class="alert alert-danger" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}</div>
         }

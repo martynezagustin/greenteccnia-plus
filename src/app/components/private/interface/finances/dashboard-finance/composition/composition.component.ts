@@ -10,6 +10,7 @@ import { mappingMethod } from '../../../../../../services/utilities/finances/met
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
 import { FormsModule } from '@angular/forms';
 import { response } from 'express';
+import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 
 @Component({
   selector: 'app-composition',
@@ -17,19 +18,25 @@ import { response } from 'express';
   templateUrl: './composition.component.html',
   styleUrl: '../dashboard-finance.component.css'
 })
-export class CompositionComponent implements OnInit, OnChanges {
+export class CompositionComponent implements OnInit {
   //para graficos
   @Input() enterpriseId!: String
   @Input() loading!: Boolean
-  @Input() typeView!: 'active' | 'passive' | 'income' | 'expense'
-  @Input() type!: 'cashFlow' | 'netWorth'
+  typeView!: 'active' | 'passive' | 'income' | 'expense'
+  type!: 'cashFlow' | 'netWorth' | null
   selectedPeriod: 'annual' | 'monthly' | 'diary' | 'total' = 'total'
   selectedFilter: 'paymentMethod' | 'category' = 'category'
   errorMessage: String = ''
-  optionsPeriod: any[] = [
+  optionsPeriodCashFlow: any[] = [
     { period: 'monthly', label: 'Mensual' },
     { period: 'annual', label: 'Anual' },
     { period: 'diary', label: 'Diario' },
+    { period: 'total', label: "Histórico" }
+  ]
+  optionsPeriodNetWorth: any[] = [
+    { period: 'monthly', label: 'Mensual' },
+    { period: 'annual', label: 'Anual' },
+    { period: 'trimester', label: 'Trimestre actual' },
     { period: 'total', label: "Histórico" }
   ]
   public pieChartLabels: string[] = []
@@ -43,14 +50,17 @@ export class CompositionComponent implements OnInit, OnChanges {
     }
   ]
   ngOnInit(): void {
-    this.fetchData(this.selectedPeriod)
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['loading']) { this.loading = changes['loading'].currentValue }
-    if (changes['typeView']) {
-      this.typeView = changes['typeView'].currentValue
-      this.fetchData(this.selectedPeriod)
-    }
+    this.dashboardViewService.selectedView$.subscribe(
+      response => {
+        this.type = response
+      }
+    )
+    this.itemService.viewItem$.subscribe(
+      view => {
+        this.typeView = view;
+        this.fetchData(this.selectedPeriod)
+      }
+    )
   }
   setSelectedFilter() {
     if (this.selectedFilter == 'category') {
@@ -60,7 +70,7 @@ export class CompositionComponent implements OnInit, OnChanges {
     }
     this.fetchData(this.selectedPeriod)
   }
-  constructor(private activeService: ActiveService, private passiveService: PassiveService, private incomeService: IncomeService, private expenseService: ExpenseService, private itemService: ItemService) { }
+  constructor(private activeService: ActiveService, private passiveService: PassiveService, private incomeService: IncomeService, private expenseService: ExpenseService, private itemService: ItemService, private dashboardViewService: DashboardViewService) { }
   selectPeriod(period: 'annual' | 'monthly' | 'diary' | 'total') {
     this.selectedPeriod = period
     console.log(this.selectedPeriod)
@@ -72,18 +82,20 @@ export class CompositionComponent implements OnInit, OnChanges {
   fetchData(periodType: 'total' | 'diary' | 'monthly' | 'annual') {
     this.loading = true
     this.errorMessage = ''
+    console.log(this.selectedPeriod)
     if (this.selectedFilter == 'paymentMethod' && this.type == 'cashFlow') {
       if (this.selectedPeriod == 'total') {
         this.itemService.getItemsByCompositionPaymentMethod(this.enterpriseId, this.typeView).subscribe(
           response => {
-            console.log(response);
-            this.loading = false
             this.processChartData(response, this.typeView)
+            this.loading = false
+            console.warn("Aca llego, y se ejecuta")
+            this.errorMessage = response.length > 0 ? '' : 'No hay items para mostrar';
           },
           err => {
-            console.error(err);
+            console.error(err)
             this.loading = false
-            this.errorMessage = err.error.message
+            this.errorMessage = err.error.message || this.errorMessage
           }
         )
       } else {
@@ -96,8 +108,9 @@ export class CompositionComponent implements OnInit, OnChanges {
           response => {
             this.loading = false
             this.processChartData(response, this.typeView)
-          } ,
-          err=>{
+            this.errorMessage = response.length > 0 ? '' : 'No hay items para mostrar';
+          },
+          err => {
             console.error(err);
             this.loading = false
             this.errorMessage = err.error.message
@@ -107,14 +120,14 @@ export class CompositionComponent implements OnInit, OnChanges {
     } else {
       const mapMethod = this.createServiceMap(this.activeService, this.passiveService, this.incomeService, this.expenseService)
       const service = mapMethod[periodType][this.typeView]
-      const label: 'day' | 'month' | 'year' | undefined = periodType === 'total' ? undefined : mapMethod[periodType].label as 'day' | 'month' | 'year' | undefined
+      const label: 'day' | 'month' | 'year' | 'trimester' | undefined = periodType === 'total' ? undefined : mapMethod[periodType].label as 'day' | 'month' | 'year' | 'trimester' | undefined
       service(this.enterpriseId, label).subscribe(
         (response: any) => {
           this.processChartData(response, this.typeView)
           this.loading = false
+          this.errorMessage = response.length > 0 ? '' : 'No hay items para mostrar';
         },
         (err: any) => {
-          console.error(err);
           this.errorMessage = err.error.message
           this.loading = false
         }
@@ -122,7 +135,6 @@ export class CompositionComponent implements OnInit, OnChanges {
     }
   }
   processChartData(response: any, typeView: 'active' | 'passive' | 'income' | 'expense') {
-    console.log("Como llega response?", response);
 
     this.pieChartColors[0].backgroundColor = response.map((item: { category: string; paymentMethod: string }) => {
       if (typeView === 'active') {
@@ -180,15 +192,15 @@ export class CompositionComponent implements OnInit, OnChanges {
       } else {
         if (this.selectedFilter == 'category') {
           switch (item.category) {
-            case 'Egresos fijos':
+            case 'Egreso fijo':
               return this.colors[0];
-            case 'Egresos variables':
+            case 'Egreso variable':
               return this.colors[1];
-            case 'Egresos discrecionales':
+            case 'Egreso discrecional':
               return this.colors[2];
-            case 'Egresos de capital':
+            case 'Egreso de capital':
               return this.colors[3];
-            case 'Egresos operativos':
+            case 'Egreso operativo':
               return this.colors[4];
             default:
               return this.colors[5]; // Default color for unmatched categories
@@ -214,7 +226,6 @@ export class CompositionComponent implements OnInit, OnChanges {
     this.pieChartLabels = response.map((item: { category: string; paymentMethod: string }) =>
       this.selectedFilter === 'category' ? item.category : item.paymentMethod
     )
-    console.log(this.pieChartLabels);
 
     this.pieChartData = response.map((item: { percentage: number }) => item.percentage)
   }

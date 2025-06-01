@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe(status => {
       this.isAuthenticated = status
-      this.cdr.detectChanges()
     })
   }
 }

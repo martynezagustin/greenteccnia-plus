@@ -3,15 +3,17 @@ import { Enterprise } from '../../../../../../../interfaces/enterprise/enterpris
 import { CashFlowService } from '../../../../../../services/private/finances/cashFlow/cash-flow.service';
 import { CommonModule } from '@angular/common';
 import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
-import { MenuCashFlowComponent } from './menu/menu-cash-flow/menu-cash-flow.component';
 import { RouterLink } from '@angular/router';
 import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
+import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
+import { AddItemComponent } from "../add-item/add-item.component";
+import { MenuOffCanvasComponent } from "../menu-off-canvas/menu-off-canvas.component";
 
 @Component({
   selector: 'app-cash-flow',
   standalone: true,
-  imports: [CommonModule, MenuCashFlowComponent, RouterLink],
+  imports: [CommonModule, RouterLink, MenuOffCanvasComponent],
   templateUrl: './cash-flow.component.html',
   styleUrl: '../dashboard-generic.component.css'
 })
@@ -27,7 +29,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
   errorMessage: String = ''
   showOption: Boolean = false
   selectedFormInput!: any
-  constructor(private cashFlowService: CashFlowService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService) { }
+  constructor(private itemService: ItemService, private cashFlowService: CashFlowService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["enterprise"]) {
       this.enterprise = changes['enterprise'].currentValue
@@ -61,27 +63,27 @@ export class CashFlowComponent implements OnChanges, OnInit {
       }
     )
   }
-  getCashFlowByCurrentMonth(){
+  getCashFlowByCurrentMonth() {
     this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'month').subscribe(
       response => {
         this.cashFlowByCurrentMonth = response.cashFlowByCurrentPeriod
       },
-      err=> {
+      err => {
         console.error(err);
       }
     )
   }
-  getCashFlowByCurrentDate(){
+  getCashFlowByCurrentDate() {
     this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'date').subscribe(
       response => {
         this.cashFlowByCurrentDate = response.cashFlowByCurrentPeriod
       },
-      err=> {
+      err => {
         console.error(err);
       }
     )
   }
-  groupCashFunctions(){
+  groupCashFunctions() {
     this.getCashFlow()
     this.getCashFlowByCurrentYear()
     this.getCashFlowByCurrentMonth()
@@ -90,16 +92,17 @@ export class CashFlowComponent implements OnChanges, OnInit {
   getEnterpriseId() {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
   }
-  showOptions(){
+  showOptions() {
     this.showOption = !this.showOption
   }
-  setSelectedForm(type: "income" | "expense"){
-    this.selectedFormInput = type
+  setSelectedForm(view: "income" | "expense") {
+    this.itemService.setItemToUpdate(null)
+    this.itemService.setAddItem(view)
   }
-  setDataDashboardFinance(){
+  setDataDashboardFinance() {
     this.dashboardViewService.setView('cashFlow')
   }
-  formatValue(num: Number){
+  formatValue(num: Number) {
     return formatValue(num)
   }
 }

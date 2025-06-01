@@ -21,6 +21,11 @@ export const mappingMethod = (activeService: any, passiveService: any, incomeSer
             expense: expenseService.getExpensesByCompositionCategoryPerPeriod.bind(expenseService),
             label: 'year'
         },
+        trimester: {
+            active: activeService.getActivesByCompositionCategoryPerPeriod.bind(activeService),
+            passive: passiveService.getLiabilitiesByCompositionCategoryPerPeriod.bind(passiveService),
+            label: 'trimester'
+        },
         total: {
             active: activeService.getActivesByCompositionCategory.bind(activeService),
             passive: passiveService.getLiabilitiesByCompositionCategory.bind(passiveService),

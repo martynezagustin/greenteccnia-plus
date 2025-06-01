@@ -1,3 +1,4 @@
+<button class="btn btn-danger btn-back m-2" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
 <section class="p-2 container-add-enterprise fadeInContainer">
     <div class="info p-2">
         <h2 class="mt-2 h2-add-enterprise"><i class="fa-solid fa-building m-1 mb-3"></i> Crear mi empresa</h2>
@@ -78,7 +79,7 @@
                 </div>
             </div>
             <div style="display: grid; grid-template-columns: 50% 50%;">
-                
+
                 <div class="m-1">
                     <label for="companySize" class="form-label">Tamaño de la empresa</label>
                     <select id="companySize" class="form-control" style="max-width: 100%;"
@@ -156,7 +157,9 @@
             </div>
             }
             @if(errorMessage){
-                <div class="alert alert-danger m-1" style="font-family: Poppins; letter-spacing: -1.1px;font-weight: 700; background-color: rgb(255, 0, 0); color:whitesmoke ;border: none;">{{errorMessage}}</div>
+            <div class="alert alert-danger m-1"
+                style="font-family: Poppins; letter-spacing: -1.1px;font-weight: 700; background-color: rgb(255, 0, 0); color:whitesmoke ;border: none;">
+                {{errorMessage}}</div>
             }
         </form>
     </div>

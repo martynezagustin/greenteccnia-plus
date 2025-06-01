@@ -1,17 +1,18 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Enterprise } from '../../../../../../../interfaces/enterprise/enterprise.interface';
 import { NetWorthService } from '../../../../../../services/private/finances/netWorth/net-worth.service';
-import { MenuComponent } from "./menu/menu-net-worth.component";
 import { CommonModule } from '@angular/common';
 import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
 import { RouterLink } from '@angular/router';
 import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
+import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
+import { MenuOffCanvasComponent } from "../menu-off-canvas/menu-off-canvas.component";
 
 @Component({
   selector: 'app-net-worth',
   standalone: true,
-  imports: [MenuComponent, CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, MenuOffCanvasComponent],
   templateUrl: './net-worth.component.html',
   styleUrl: '../dashboard-generic.component.css'
 })
@@ -26,7 +27,7 @@ export class NetWorthComponent {
   errorMessage: string = ''
   showOption: Boolean = false
   selectedFormInput!: any
-  constructor(private netWorthService: NetWorthService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService) {
+  constructor(private netWorthService: NetWorthService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService, private itemService: ItemService) {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["enterprise"]) {
@@ -54,9 +55,10 @@ export class NetWorthComponent {
     )
   }
   getNetWorthByCurrentYear() {
-    this.netWorthService.getNetWorthByCurrentYear(this.enterpriseId).subscribe(
+    this.netWorthService.getNetWorthByCurrentPeriod(this.enterpriseId, 'year').subscribe(
       response => {
-        this.netWorthByCurrentYear = response
+        this.netWorthByCurrentYear = response.netWorthByCurrentPeriod
+        console.log(this.netWorthByCurrentYear)
       },
       err => {
         console.error(err);
@@ -64,9 +66,9 @@ export class NetWorthComponent {
     )
   }
   getNetWorthByCurrentMonth() {
-    this.netWorthService.getNetWorthByCurrentMonth(this.enterpriseId).subscribe(
+    this.netWorthService.getNetWorthByCurrentPeriod(this.enterpriseId, 'month').subscribe(
       response => {
-        this.netWorthByCurrentMonth = response.netWorthByCurrentMonth
+        this.netWorthByCurrentMonth = response.netWorthByCurrentPeriod
       },
       err => {
         console.error(err);
@@ -79,13 +81,15 @@ export class NetWorthComponent {
   showOptions() {
     this.showOption = !this.showOption
   }
-  setSelectedForm(type: "active" | "passive") {
-    this.selectedFormInput = type
+  setSelectedForm(view: "active" | "passive") {
+    this.itemService.setItemToUpdate(null)
+    this.itemService.setAddItem(view)
   }
   setDataDashboardFinance() {
     this.dashboardViewService.setView('netWorth')
+
   }
-  formatValue(num: Number){
+  formatValue(num: Number) {
     return formatValue(num)
   }
 }
