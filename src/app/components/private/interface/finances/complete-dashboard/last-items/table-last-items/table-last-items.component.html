@@ -1,0 +1,70 @@
+@if(!loading){
+
+<div class="d-flex flex-column align-items-center">
+
+    <table class="table fade-in-container">
+        <thead>
+            <tr>
+                <th scope="col">{{type =='cashFlow' ? 'CONCEPTO' : 'TIPO DE CUENTA'}}</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">TIPO DE ITEM</th>
+                <th scope="col">MONTO</th>
+                @if(type === 'cashFlow'){
+                <th scope="col">MÉTODO DE PAGO</th>
+                <th scope="col">ACCIONES</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if(!errorMessage){
+
+            @for(item of allItems; track item._id){
+
+            <tr class="m-2">
+                <td class="styles-data"
+                    [ngStyle]="{'color': item.type == 'income' ? 'green' : item.type =='active' ? 'green' : 'red'}">
+                    <strong><i class="fa-solid m-1"
+                            [ngClass]="{'fa-angle-up' : item.type === 'income' || item.type =='active', 'fa-angle-down': item.type =='expense' || item.type =='passive'}"></i>{{getItemMainField(item)}}</strong>
+                </td>
+                <td class="styles-data">{{formatDate(item.date)}}</td>
+                <td class="styles-data">
+                    {{getCategory(item)}}
+                </td>
+                <td class="styles-data">${{formatValue(item.amount)}}</td>
+                <td class="styles-data">{{getPaymentMethod(item)}}</td>
+                <td class="d-flex align-items-center">
+                    <div>
+                        <button class="btn btn-danger m-1" (click)="deleteItem(item)"
+                            style="font-size: 0.8rem; font-family: Montserrat; letter-spacing: -1.2px; font-weight: 800;"><i
+                                class="fa-solid fa-trash m-1"></i>ELIMINAR</button>
+                    </div>
+                    <div>
+                        <button class="btn m-1 btn-info" (click)="toggleEditable(item)" data-bs-toggle="offcanvas"
+                            data-bs-target="#offCanvasInterface" aria-controls="offCanvasInterface"
+                            style="font-size: 0.8rem; font-family: Montserrat; letter-spacing: -1.2px; font-weight: 800;"><i
+                                class="fa-solid fa-pen m-1"></i>
+                            ACTUALIZAR</button>
+                    </div>
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+    @if(allItems.length === 7 && !showAllItems){
+    <a class="btn btn-view-more btn-success" routerLink="/dashboard/finances/view-all-last-items">+VER MÁS</a>
+    }
+</div>
+} @else {
+
+<div class="d-flex justify-content-center m-3">
+    <div class="spinner-border" [ngClass]="{'text-dark': !showAllItems, 'text-light': showAllItems}" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="d-flex flex-column align-items-center">
+    <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align" [ngStyle]="{'color': !showAllItems ? 'black' : 'whitesmoke'}">Procesando
+        peticiones...</p>
+</div>
+}
+<app-menu-off-canvas></app-menu-off-canvas>
