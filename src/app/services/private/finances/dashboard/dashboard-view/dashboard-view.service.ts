@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardViewService {
+  private key: string | null = 'selectedView'
   private selectedView = new BehaviorSubject<'cashFlow' | 'netWorth' | null>(
     (() => {
       const value = localStorage.getItem('selectedView');
@@ -18,10 +19,6 @@ export class DashboardViewService {
   constructor() { }
   setView(view: 'cashFlow' | 'netWorth' | null) {
     this.selectedView.next(view)
-    if (view === null) {
-      localStorage.removeItem('selectedView')
-    } else {
-      localStorage.setItem('selectedView', view)
-    }
+    localStorage.setItem('selectedView', view as string)
   }
 }

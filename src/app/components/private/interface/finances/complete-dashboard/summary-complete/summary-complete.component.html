@@ -6,8 +6,7 @@
         <div class="carousel-inner">
             <div class="carousel-item text-center active">
                 @if(!loadingItems){
-                <span class="span-carousel" [ngStyle]="{'color': positiveNumberAnnual > 0 ? 'green' : 'red'}">{{
-                    positiveNumberAnnual > 0 ? '$'+ formatValue(positiveNumberAnnual) : "No hay datos" }}</span>
+                <span class="span-carousel" [ngStyle]="{'color': positiveNumberAnnual > 0 ? 'green' : 'red'}">${{formatValue(positiveNumberAnnual) }}</span>
                 <h3 class="mt-2 h3-period">ANUAL</h3>
                 <div>
                     <span [ngStyle]="{'color': positivePercentageAnnual >= 0 ? 'green' : 'red'}"><i class="fa-solid m-2"
@@ -65,7 +64,7 @@
                     <span [ngStyle]="{'color': positivePercentageTrimester >= 0 ? 'green' : 'red'}"><i
                             class="fa-solid m-2"
                             [ngClass]="{'fa-caret-up': positivePercentageTrimester >= 0, 'fa-caret-down': positivePercentageTrimester < 0}"></i>{{formatValue(positivePercentageTrimester)}}%
-                        <span style="color: black;">VS ÚLTIMO TRIMESTRE</span></span>
+                        <span style="color: black;">VS ANTERIOR TRIMESTRE</span></span>
                 </div>
             </div>
             }
@@ -144,7 +143,7 @@
                     <span [ngStyle]="{'color': negativePercentageTrimester > 0 ? 'red' : 'green'}"><i
                             class="fa-solid m-2"
                             [ngClass]="{'fa-caret-up': negativePercentageTrimester >= 0, 'fa-caret-down': negativePercentageTrimester < 0}"></i>{{formatValue(negativePercentageTrimester)}}%
-                        <span style="color: black;">VS ÚLTIMO TRIMESTRE</span></span>
+                        <span style="color: black;">VS ANTERIOR TRIMESTRE</span></span>
                 </div>
             </div>
             }

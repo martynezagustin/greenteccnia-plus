@@ -46,7 +46,6 @@ export class CompleteDashboardComponent implements OnInit {
         this.selectedPeriod = response
       }
     )
-    console.log("Periodo seleccionado", this.selectedPeriod)
   }
   back() {
     this.router.navigate(['/dashboard/finances'])

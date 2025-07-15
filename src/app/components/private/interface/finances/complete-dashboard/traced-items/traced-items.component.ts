@@ -40,6 +40,7 @@ export class TracedItemsComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+
     this.getEnterpriseId()
     this.periodService.selectedPeriod$.subscribe(
       response => {
@@ -59,38 +60,40 @@ export class TracedItemsComponent implements OnInit {
   }
   getItemsByCurrentPeriod(period: String) {
     this.loading = true
+    const isCashFlow = this.type == 'cashFlow'
     this.errorMessage = ''
-
     forkJoin([
-      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type === 'cashFlow' ? 'income' : 'active', period),
-      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type === 'cashFlow' ? 'expense' : 'passive', period),
-    ]).subscribe({
-      next: ([positiveResponse, negativeResponse]: [Active[] | Income[], Expense[] | Passive[]]) => {
-        this.positiveItems = positiveResponse;
-        this.negativeItems = negativeResponse;
-        console.log(positiveResponse, this.negativeItems)
+      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type && isCashFlow ? 'income' : 'active', period),
+      this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type && isCashFlow ? 'expense' : 'passive', period),
+    ]).subscribe(
+      (result: [Active[] | Passive[] | Income[] | Expense[], Active[] | Passive[] | Income[] | Expense[]]) => {
+        const [positiveResponse, negativeResponse] = result;
+        this.positiveItems = positiveResponse as Active[] | Income[];
+        this.negativeItems = negativeResponse as Passive[] | Expense[];
+        console.log("tipo", isCashFlow, "Llegan estos items", positiveResponse, this.negativeItems)
         this.loading = false;
-        this.errorMessage = this.positiveItems.length === 0 && this.negativeItems.length === 0 ? 'No hay datos del periodo actual.' : ''
-        if(!this.errorMessage){
+        this.errorMessage = this.positiveItems.length === 0 && this.negativeItems.length === 0 ? 'No se puede realizar un gráfico si no se han ingresado datos de ingresos y egresos del mes actual.' : '';
+        if (!this.errorMessage) {
           this.buildLineChartData();
         }
       },
-      error: (err) => {
+      (err) => {
         console.error(err);
         this.loading = false;
         this.errorMessage = err.error?.message || 'Error al obtener los datos';
       }
-    });
+    );
   }
 
   buildLineChartData() {
+    console.log("periodo seleccionado", this.selectedPeriod)
     const groupPositive: { [key: string]: number } = {}
     const groupNegative: { [key: string]: number } = {}
 
     // Agrupamos positivos
     this.positiveItems.forEach((item: Income | Active) => {
       const date = new Date(item.date)
-      const formatDate = this.selectedPeriod === 'year'
+      const formatDate = this.selectedPeriod === 'year' || this.selectedPeriod == 'trimester'
         ? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' })
         : new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleDateString('es-AR', {
           day: '2-digit',
@@ -104,12 +107,12 @@ export class TracedItemsComponent implements OnInit {
     // Agrupamos negativos
     this.negativeItems.forEach((item: Expense | Passive) => {
       const date = new Date(item.date)
-      const formatDate = this.selectedPeriod === 'year' ? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
+      const formatDate = this.selectedPeriod === 'year' || this.selectedPeriod == 'trimester'? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
         : new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleDateString('es-AR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        })
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      })
 
       if (!groupNegative[formatDate]) groupNegative[formatDate] = 0
       groupNegative[formatDate] += item.amount
@@ -124,12 +127,13 @@ export class TracedItemsComponent implements OnInit {
 
     let allLabels = Array.from(allLabelsSet);
 
-    if (this.selectedPeriod == 'year') {
+    if (this.selectedPeriod == 'year' || this.selectedPeriod == 'trimester') {
       const months = [
         'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
         'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
       ];
       allLabels = allLabels.sort((a, b) => months.indexOf(a) - months.indexOf(b));
+      console.log(allLabels, "Labels ordenados por meses");
     } else {
       allLabels = allLabels.sort((a, b) => a.localeCompare(b));
     }

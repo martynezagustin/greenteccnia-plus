@@ -3,7 +3,7 @@
         [ngClass]="{'green-box': view == 'active' || view == 'income', 'red-box': view == 'passive' || view == 'expense'}">
         <h2 class="h2-label text-start"><i class="fa-regular m-1"
                 [ngClass]="{'fa-square-caret-up': view =='active' || view == 'income', 'fa-square-caret-down':view == 'passive' || view == 'expense'}"></i>
-            {{ itemToUpdate == null ? 'Registrar un ' + labels[view] : 'Actualizar un ' + labels[view] }} </h2>
+            {{ !itemToUpdate ? 'Registrar un ' + labels[view] : 'Actualizar un ' + labels[view] }} </h2>
         @if(formAddItem){
         <form [formGroup]="formAddItem" (submit)=" handleSubmit()">
             @switch (typeFinance) {
@@ -12,10 +12,10 @@
             <div class="text-start">
                 <label for="concept" class="form-label label">Concepto</label>
             </div>
-            <input type="text" class="form-control form-text" name="concept" id="concept" formControlName='concept'
-                placeholder="Ej. 'Ingreso por venta de panel solar.'">
+            <input type="text" class="form-control form-text" name="concept" id="concept" formControlName="concept" 
+                [placeholder]="view == 'income' ? 'Ej. Ingreso por venta de panel solar.' : 'Ej. Egreso por compra de maquinaria agrícola.'">
 
-            <div style="display: grid; grid-template-columns: 50% 50%;">
+            <div style="display: grid; grid-template-columns: 49% 50%; grid-gap: 4px;">
 
 
                 <div>
@@ -35,7 +35,7 @@
                         <label for="date" class="form-label label">Fecha</label>
                     </div>
                     <div>
-                        <input type="date" class="form-control form-text" name="date" id="date" formControlName="date">
+                        <input type="date" class="form-control form-text" formControlName="date"/>
                     </div>
                 </div>
             </div>
@@ -64,8 +64,7 @@
             <div class="text-start">
                 <label for="category" class="form-label label">Categoría</label>
             </div>
-            <select class="form-control" name="category" id="category" (changes)="getChanges()"
-                formControlName="category">
+            <select class="form-control" name="category" id="category" formControlName="category">
                 <option disabled selected>Selecciona una opción</option>
                 @for(category of declareCategories[view]; track category){
                 <option value={{category}}>{{category}}</option>
@@ -96,7 +95,7 @@
                         <label for="date" class="form-label label">Fecha</label>
                     </div>
                     <div>
-                        <input type="date" class="form-control form-text" name="date" id="date" formControlName="date">
+                        <input type="date" class="form-control form-text" formControlName="date" />
                     </div>
                 </div>
             </div>

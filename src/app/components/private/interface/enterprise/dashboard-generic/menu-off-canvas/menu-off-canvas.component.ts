@@ -11,7 +11,7 @@ import { ItemService } from '../../../../../../services/private/finances/items/i
 })
 export class MenuOffCanvasComponent implements OnInit {
   showOption: Boolean = false
-  showTitle: string = 'Añadir un registro rápido'
+  showTitle: string = 'Registros rápidos'
   view!: 'active' | 'passive' | 'income' | 'expense'
   offCanvasInterface!: 'cashFlowInterface' | 'netWorthInterface'
   constructor(private itemService: ItemService) { }
@@ -23,7 +23,7 @@ export class MenuOffCanvasComponent implements OnInit {
     console.log(this.view)
   }
   getViewItem() {
-    this.itemService.addItemSubject$.subscribe(
+    this.itemService.viewTypeItemSubject$.subscribe(
       response => {
         this.view = response
       },

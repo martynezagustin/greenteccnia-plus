@@ -9,11 +9,11 @@
             'ANUAL' : 'TRIMESTRAL'}}</button>
     </div>
 
-    <app-summary-complete class="summary" [type]="type"></app-summary-complete>
+    <app-summary-complete class="summary"></app-summary-complete>
     @if(selectedPeriod){
     <div style="display: grid; grid-template-columns: 66.3% 33%; grid-gap: 8px;" class="m-1">
         <app-traced-items class="charts" [selectedPeriod]="selectedPeriod"></app-traced-items>
-        <app-composition-items class="composition" [type]="type"></app-composition-items>
+        <app-composition-items class="composition"></app-composition-items>
     </div>
     }
     <app-last-items [type]="type"></app-last-items>

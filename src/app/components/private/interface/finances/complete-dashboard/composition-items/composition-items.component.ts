@@ -5,6 +5,7 @@ import { ItemService } from '../../../../../../services/private/finances/items/i
 import { PeriodService } from '../../../../../../services/private/finances/dashboard/dashboard-view/filters/period/period.service';
 import { forkJoin } from 'rxjs';
 import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
+import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 
 @Component({
   selector: 'app-composition-items',
@@ -13,7 +14,7 @@ import { EnterpriseService } from '../../../../../../services/private/enterprise
   styleUrl: '../complete-dashboard.component.css'
 })
 export class CompositionItemsComponent implements OnInit {
-  constructor(private itemService: ItemService, private periodService: PeriodService, private enterpriseService: EnterpriseService) { }
+  constructor(private itemService: ItemService, private periodService: PeriodService, private enterpriseService: EnterpriseService, private dashboardService: DashboardViewService) { }
   positiveValueItems: number = 0
   negativeValueItems: number = 0
   errorMessage: String = ''
@@ -21,7 +22,7 @@ export class CompositionItemsComponent implements OnInit {
   enterpriseId!: string | null
   loading!: Boolean
   @Input() typeView!: 'active' | 'passive' | 'income' | 'expense'
-  @Input() type!: 'cashFlow' | 'netWorth' | null
+  type!: 'cashFlow' | 'netWorth' | null
   //change con un behavior subject
   selectedPeriod!: 'month' | 'date' | 'year' | 'trimester'
   public pieChartLabels: string[] = []
@@ -35,6 +36,12 @@ export class CompositionItemsComponent implements OnInit {
     this.periodService.selectedPeriod$.subscribe(
       response => {
         this.selectedPeriod = response
+      }
+    )
+    this.dashboardService.selectedView$.subscribe(
+      response => {
+        this.type = response
+        console.log(this.type)
         this.getData()
       }
     )
@@ -70,16 +77,20 @@ export class CompositionItemsComponent implements OnInit {
         next: ({ active, passive }) => {
           this.positiveValueItems = active.getItemsByCurrentPeriod
           this.negativeValueItems = passive.getItemsByCurrentPeriod
+          console.log("Valores de items patrimonio neto", this.positiveValueItems, this.negativeValueItems)
+          this.errorMessage = this.positiveValueItems === 0 && this.negativeValueItems === 0 ? 'No se puede realizar un gráfico si no se han ingresado datos de activos y pasivos del mes actual.' : ''
           this.loading = false
-          this.updatePieChartData()
+          if (!this.errorMessage) {
+            this.updatePieChartData()
+          }
         },
         error: (err) => {
+          this.errorMessage = err.error.message
           console.error(err);
           this.loading = false
         }
       })
     }
-    console.log(this.errorMessage)
   }
   updatePieChartData() {
     this.pieChartLabels = this.type == 'cashFlow' ? ['Ingresos', 'Egresos'] : ['Activos', 'Pasivos']

@@ -6,6 +6,6 @@ export interface Active {
     formattedDate: String,
     amount: number,
     details: string,
-    type: String,
+    type: 'active',
     editableItemId: string | null
 }

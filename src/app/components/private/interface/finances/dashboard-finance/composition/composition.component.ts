@@ -227,6 +227,6 @@ export class CompositionComponent implements OnInit {
       this.selectedFilter === 'category' ? item.category : item.paymentMethod
     )
 
-    this.pieChartData = response.map((item: { percentage: number }) => item.percentage)
+    this.pieChartData = response.map((item: { percentage: String }) => item.percentage)
   }
 }

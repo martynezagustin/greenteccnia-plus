@@ -19,6 +19,7 @@ export class AddItemComponent implements OnInit {
   view!: 'active' | 'passive' | 'income' | 'expense'
   //variable que define si el item carga para editar
   itemToUpdate: Active | Passive | Income | Expense | null = null
+  isUpdate: boolean = false
   typeFinance!: 'netWorth' | 'cashFlow'
   loading!: Boolean
   successMessage!: String
@@ -87,7 +88,7 @@ export class AddItemComponent implements OnInit {
   constructor(private itemService: ItemService, private fb: FormBuilder) {
   }
   ngOnInit(): void {
-    this.itemService.addItemSubject$.subscribe(
+    this.itemService.viewTypeItemSubject$.subscribe(
       response => {
         this.view = response
         this.renderFormType()
@@ -95,9 +96,10 @@ export class AddItemComponent implements OnInit {
         this.errorMessage = ''
       }
     )
-    this.itemService.loadingItemSubjectToUpdate$.subscribe(
+    this.itemService.itemToUpdate$.subscribe(
       response => {
         this.itemToUpdate = response
+        this.isUpdate = this.itemToUpdate != null
         this.loadingItemToUpdate()
       }
     )
@@ -172,13 +174,11 @@ export class AddItemComponent implements OnInit {
         }
       )
   }
-  getChanges() {
-    console.log(this.formAddItem?.value.category)
-  }
   loadingItemToUpdate() {
     if (this.itemToUpdate != null) {
-      console.log("Se carga un item para actualizar", this.itemToUpdate)
-      this.formAddItem?.patchValue(this.itemToUpdate)
+      const formattedDate = new Date(this.itemToUpdate.date).toISOString().split('T')[0]
+      this.formAddItem?.patchValue({ ...this.itemToUpdate, date: formattedDate })
+      console.log(this.formAddItem?.value)
     }
   }
 }

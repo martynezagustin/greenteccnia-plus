@@ -3,7 +3,7 @@
         'ACTIVOS' : typeView == 'income' ? 'INGRESOS' : typeView == 'passive' ? 'PASIVOS' : "EGRESOS"}} EN EL ÚLTIMO TIEMPO
     </h4>
     @if(!loading && !errorMessage){
-    <canvas class="mt-2" baseChart [data]="pieChartDataEvolution" [labels]="pieChartLabelsEvolution"
+    <canvas class="mt-2 fadeIn" baseChart [data]="pieChartDataEvolution" [labels]="pieChartLabelsEvolution"
         [type]="pieChartTypeEvolution" [options]="{responsive: true}"></canvas>
     }@else {
     @if(!errorMessage){
@@ -19,8 +19,7 @@
         </div>
     </div>
     } @else {
-    <div class="alert alert-danger text-center mt-2" style="font-family: Montserrat; letter-spacing: -1.2px;">
-        {{errorMessage}}</div>
+    <div class="alert alert-danger fade-in-container mt-2"><i class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessage}}</div>
     }
     }
 </div>

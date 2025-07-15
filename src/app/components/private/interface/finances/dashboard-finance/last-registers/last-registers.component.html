@@ -7,7 +7,7 @@
         @if(!errorMessage){
 
         @for (item of totalItems; track item._id) {
-        <table class="table"
+        <table class="table fadeIn"
             [ngStyle]="{'background-color': typeView  == 'active' || typeView == 'income' ? '#a2fa7c!important' : 'red'}"
             style="border-radius: 10px; margin: 0.2rem;">
             <thead>

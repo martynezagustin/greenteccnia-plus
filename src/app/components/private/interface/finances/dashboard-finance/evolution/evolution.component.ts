@@ -1,10 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
-import { ActiveService } from '../../../../../../services/private/finances/netWorth/active/active.service';
-import { PassiveService } from '../../../../../../services/private/finances/netWorth/passive/passive.service';
-import { IncomeService } from '../../../../../../services/private/finances/cashFlow/income/income.service';
-import { ExpenseService } from '../../../../../../services/private/finances/cashFlow/expense/expense.service';
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
 
 @Component({
@@ -84,6 +80,7 @@ export class EvolutionComponent implements OnChanges {
     if(orderedMonths.length < 3){
       this.errorMessage = 'Para visualizar la evolución en los gráficos, necesitás al menos 3 meses de datos cargados. Una vez alcanzado ese periodo, la información comenzará a reflejarse automáticamente.'
     }
+    console.log("Lo que parece estar mal", Object.values(totalByMonth).reverse())
     this.pieChartDataEvolution = {
       labels: this.pieChartLabelsEvolution,
       datasets: [

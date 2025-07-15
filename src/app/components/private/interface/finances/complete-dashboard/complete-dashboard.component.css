@@ -31,6 +31,12 @@
     color: green;
     transition: 0.2s ease-in all;
 }
+.btn-view-more{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+    text-decoration: none;
+}
 .charts {
     background-color: whitesmoke;
     border: 2px solid white;

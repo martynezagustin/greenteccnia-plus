@@ -83,7 +83,7 @@ export class NetWorthComponent {
   }
   setSelectedForm(view: "active" | "passive") {
     this.itemService.setItemToUpdate(null)
-    this.itemService.setAddItem(view)
+    this.itemService.setViewTypeItemSubject(view)
   }
   setDataDashboardFinance() {
     this.dashboardViewService.setView('netWorth')

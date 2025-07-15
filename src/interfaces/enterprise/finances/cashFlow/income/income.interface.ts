@@ -5,6 +5,6 @@ export interface Income{
     paymentMethod: string,
     date: Date,
     formattedDate: String,
-    type: String,
+    type: 'income',
         editableItemId: string | null
 }

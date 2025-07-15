@@ -23,7 +23,7 @@
     <!--Fin navbar-->
     <div class="d-flex flex-column align-items-center">
         @if(!errorMessage){
-        <canvas baseChart [data]="{labels: pieChartLabels, datasets: [{
+        <canvas class="fadeIn" baseChart [data]="{labels: pieChartLabels, datasets: [{
                 data: pieChartData,
                 backgroundColor: pieChartColors[0].backgroundColor
             }]}" [type]="pieChartType"></canvas>

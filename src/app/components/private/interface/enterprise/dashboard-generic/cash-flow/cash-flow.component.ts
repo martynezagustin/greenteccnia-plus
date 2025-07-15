@@ -36,8 +36,25 @@ export class CashFlowComponent implements OnChanges, OnInit {
     }
   }
   ngOnInit(): void {
+    this.loading = true
     this.getEnterpriseId()
     this.groupCashFunctions()
+    this.cashFlowService.fullCashFlow$.subscribe(
+      response => {
+        if (response) {
+          this.cashFlow = response.total
+          this.cashFlowByCurrentDate = response.currentDate
+          this.cashFlowByCurrentMonth = response.currentMonth
+          this.cashFlowByCurrentYear = response.currentYear
+          this.loading = false
+          console.log(response)
+        }
+      },
+      err => {
+        console.error(err);
+        this.loading = false
+      }
+    )
   }
   getCashFlow() {
     this.loading = true
@@ -54,7 +71,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
     )
   }
   getCashFlowByCurrentYear() {
-    this.cashFlowService.getCashFlowByCurrentYear(this.enterpriseId).subscribe(
+    this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'year').subscribe(
       response => {
         this.cashFlowByCurrentYear = response.cashFlowByCurrentPeriod
       },
@@ -67,6 +84,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
     this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'month').subscribe(
       response => {
         this.cashFlowByCurrentMonth = response.cashFlowByCurrentPeriod
+        console.log("Que pasa con el cash flow month?", this.cashFlowByCurrentMonth)
       },
       err => {
         console.error(err);
@@ -97,7 +115,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
   }
   setSelectedForm(view: "income" | "expense") {
     this.itemService.setItemToUpdate(null)
-    this.itemService.setAddItem(view)
+    this.itemService.setViewTypeItemSubject(view)
   }
   setDataDashboardFinance() {
     this.dashboardViewService.setView('cashFlow')

@@ -4,6 +4,7 @@ import { formatValue } from '../../../../../../services/utilities/format-dates/f
 import { CashFlowService } from '../../../../../../services/private/finances/cashFlow/cash-flow.service';
 import { NetWorthService } from '../../../../../../services/private/finances/netWorth/net-worth.service';
 import { CommonModule } from '@angular/common';
+import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 
 @Component({
   selector: 'app-summary-complete',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './summary-complete.component.css'
 })
 export class SummaryCompleteComponent implements OnInit {
-  @Input() type!: 'cashFlow' | 'netWorth' | null
+  type!: 'cashFlow' | 'netWorth' | null
   enterpriseId: string | null = localStorage.getItem('enterpriseId')
   //positivos
   positiveNumberDate: number = 0
@@ -48,8 +49,11 @@ export class SummaryCompleteComponent implements OnInit {
   errorMessage!: String
   public labels!: string[]
   public periods: ('month' | 'year' | 'date' | 'trimester')[] = ['month', 'year', 'date', 'trimester']
-  constructor(private itemService: ItemService, private cashFlowService: CashFlowService, private netWorthService: NetWorthService) { }
+  constructor(private itemService: ItemService, private cashFlowService: CashFlowService, private netWorthService: NetWorthService, private dashboardService: DashboardViewService) { }
   ngOnInit(): void {
+    this.dashboardService.selectedView$.subscribe((type) => {
+      this.type = type
+    })
     this.labels = this.type == 'cashFlow' ? ['income', 'expense'] : ['active', 'passive']
     this.getData()
     this.getCashFlowOrNetWorth()
@@ -100,7 +104,6 @@ export class SummaryCompleteComponent implements OnInit {
       case 'year':
         this.positiveNumberAnnual += amount
         this.positivePercentageAnnual = percentage
-        console.log("Valor anio postivo", this.positiveNumberAnnual, "percentage", this.positivePercentageAnnual)
         break;
       case 'trimester':
         this.positiveNumberTrimester += amount
@@ -144,6 +147,7 @@ export class SummaryCompleteComponent implements OnInit {
       case 'trimester':
         this.balanceNumberTrimester += amount
         console.log("Balance trimestral", this.balanceNumberTrimester)
+        console.log("Porcentaje trimestral", percentage)
         this.balancePercentageTrimester = percentage
         break;
       case 'year':
@@ -165,6 +169,10 @@ export class SummaryCompleteComponent implements OnInit {
       ) : this.netWorthService.getNetWorthByCurrentPeriod(this.enterpriseId, period as 'year' | 'month' | 'trimester').subscribe(
         response => {
           this.setBalanceValues(response.netWorthByCurrentPeriod, period, response.percentage)
+        },
+        err => {
+          console.error(err);
+          
         }
       )
     })

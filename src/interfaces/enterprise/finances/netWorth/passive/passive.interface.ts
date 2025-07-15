@@ -6,6 +6,6 @@ export interface Passive {
     formattedDate: String,
     amount: number,
     details: string,
-    type: String,
+    type: 'passive',
     editableItemId: string | null
 }

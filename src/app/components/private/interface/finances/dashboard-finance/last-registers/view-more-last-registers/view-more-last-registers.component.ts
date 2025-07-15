@@ -70,6 +70,7 @@ export class ViewMoreLastRegistersComponent implements OnInit {
   }
   formatDate(date: Date) {
     const dateObj = new Date(date);
+    dateObj.setUTCHours(dateObj.getHours() + 3)
     return dateObj.toLocaleDateString('es-AR', {
       year: 'numeric',
       month: '2-digit',
