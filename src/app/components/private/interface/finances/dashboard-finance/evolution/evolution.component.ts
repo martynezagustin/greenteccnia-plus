@@ -80,12 +80,11 @@ export class EvolutionComponent implements OnChanges {
     if(orderedMonths.length < 3){
       this.errorMessage = 'Para visualizar la evolución en los gráficos, necesitás al menos 3 meses de datos cargados. Una vez alcanzado ese periodo, la información comenzará a reflejarse automáticamente.'
     }
-    console.log("Lo que parece estar mal", Object.values(totalByMonth).reverse())
     this.pieChartDataEvolution = {
       labels: this.pieChartLabelsEvolution,
       datasets: [
         {
-          data: Object.values(totalByMonth),
+          data: Object.values(totalByMonth).reverse(),
           backgroundColor: this.typeView == 'active' || this.typeView == 'income' ? this.colorsPositive.map((color) => { return color }) : this.colorsNegative.map((color) => { return color }),
           label: this.typeView == 'active' ? 'Activos por mes' : this.typeView == 'income' ? 'Ingresos por mes' : this.typeView == 'passive' ? 'Pasivos por mes' : "Egresos por mes",
           borderWidth: 1,

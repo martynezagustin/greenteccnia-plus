@@ -47,20 +47,20 @@ export class TracedItemsComponent implements OnInit {
         console.log(response)
         this.selectedPeriod = response
         if (this.enterpriseId) {
-          this.getItemsByCurrentPeriod(this.selectedPeriod)
         }
       }
     )
     this.dashboardService.selectedView$.subscribe(
       response => {
         this.type = response
-        console.log(this.type)
       }
     )
+        this.getItemsByCurrentPeriod(this.selectedPeriod)
   }
   getItemsByCurrentPeriod(period: String) {
     this.loading = true
     const isCashFlow = this.type == 'cashFlow'
+    console.log("Es cash flow?", isCashFlow, "Tipo de vista:", this.type)
     this.errorMessage = ''
     forkJoin([
       this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type && isCashFlow ? 'income' : 'active', period),
@@ -70,7 +70,7 @@ export class TracedItemsComponent implements OnInit {
         const [positiveResponse, negativeResponse] = result;
         this.positiveItems = positiveResponse as Active[] | Income[];
         this.negativeItems = negativeResponse as Passive[] | Expense[];
-        console.log("tipo", isCashFlow, "Llegan estos items", positiveResponse, this.negativeItems)
+        console.log(this.positiveItems, this.negativeItems)
         this.loading = false;
         this.errorMessage = this.positiveItems.length === 0 && this.negativeItems.length === 0 ? 'No se puede realizar un gráfico si no se han ingresado datos de ingresos y egresos del mes actual.' : '';
         if (!this.errorMessage) {
@@ -78,7 +78,6 @@ export class TracedItemsComponent implements OnInit {
         }
       },
       (err) => {
-        console.error(err);
         this.loading = false;
         this.errorMessage = err.error?.message || 'Error al obtener los datos';
       }
@@ -161,6 +160,7 @@ export class TracedItemsComponent implements OnInit {
         }
       ]
     };
+    console.log("Datos positivos", positiveValues, "Datos negativos", negativeValues);
 
   }
   getEnterpriseId() {

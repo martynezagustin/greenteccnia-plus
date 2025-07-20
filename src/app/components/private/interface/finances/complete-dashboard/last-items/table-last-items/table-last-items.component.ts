@@ -51,12 +51,14 @@ export class TableLastItemsComponent implements OnInit {
     this.dashboardService.selectedView$.subscribe(
       response => {
         this.type = response
+        console.log("Qué type llega?", this.type)
       }
     )
     this.itemService.itemsSubject$.subscribe(
       response => {
         this.allItems = response ?? []
         this.getItemsByOrder()
+        console.log(this.allItems)
       }
     )
     this.getAllItemsPerOrder()
