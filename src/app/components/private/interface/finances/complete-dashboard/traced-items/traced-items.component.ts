@@ -55,7 +55,7 @@ export class TracedItemsComponent implements OnInit {
         this.type = response
       }
     )
-        this.getItemsByCurrentPeriod(this.selectedPeriod)
+    this.getItemsByCurrentPeriod(this.selectedPeriod)
   }
   getItemsByCurrentPeriod(period: String) {
     this.loading = true
@@ -106,12 +106,12 @@ export class TracedItemsComponent implements OnInit {
     // Agrupamos negativos
     this.negativeItems.forEach((item: Expense | Passive) => {
       const date = new Date(item.date)
-      const formatDate = this.selectedPeriod === 'year' || this.selectedPeriod == 'trimester'? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
+      const formatDate = this.selectedPeriod === 'year' || this.selectedPeriod == 'trimester' ? new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleString('es-AR', { month: 'long' }).toLowerCase()
         : new Date(date.getTime() + (3 * 60 * 60 * 1000)).toLocaleDateString('es-AR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      })
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        })
 
       if (!groupNegative[formatDate]) groupNegative[formatDate] = 0
       groupNegative[formatDate] += item.amount
