@@ -6,7 +6,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active text-center" data-bs-interval="10000">
                 <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: netWorth >= 0 ? 'green' : 'red'}"><i class="fa-solid fa-chart-simple m-4"></i>
+                    [ngStyle]="{color: netWorth.valueOf() >= 0 ? 'green' : 'red'}"><i class="fa-solid fa-chart-simple m-4"></i>
                     <strong>$</strong>{{formatValue(netWorth)}}</span>
                 <div>
                     <h4 class="h4-element">Patrimonio neto total</h4>
@@ -14,7 +14,7 @@
             </div>
             <div class="carousel-item text-center" data-bs-interval="10000">
                 <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: netWorthByCurrentYear >= 0 ? 'green' : 'red'}"><i
+                    [ngStyle]="{color: netWorthByCurrentYear.valueOf() >= 0 ? 'green' : 'red'}"><i
                         class="fa-solid fa-chart-simple m-4"></i>
                     <strong>$</strong>{{formatValue(netWorthByCurrentYear)}}</span>
                 <div>
@@ -23,7 +23,7 @@
             </div>
             <div class="carousel-item text-center" data-bs-interval="2000">
                 <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: netWorthByCurrentMonth >= 0 ? 'green' : 'red'}"><i
+                    [ngStyle]="{color: netWorthByCurrentMonth.valueOf() >= 0 ? 'green' : 'red'}"><i
                         class="fa-solid fa-chart-simple m-4"></i>
                     <strong>$</strong>{{formatValue(netWorthByCurrentMonth)}}</span>
                 <div>
@@ -41,9 +41,8 @@
         </button>
     </div>
     <div class="align-items-center justify-content-center d-flex">
-        <button class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
-            (click)="showOptions()"
-            [ngStyle]="{'background-color': showOption ? 'rgb(100,100,100)' : 'rgb(40,40,40)'}">+OPCIONES
+        <button (click)="showOptions()" class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
+            [ngStyle]="{'background-color': showOption ? 'rgb(100,100,100)' : 'rgb(40,40,40)'}">OPCIONES
             RÁPIDAS</button>
 
         <a class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"

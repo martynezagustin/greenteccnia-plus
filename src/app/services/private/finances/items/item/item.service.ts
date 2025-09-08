@@ -96,6 +96,7 @@ export class ItemService {
     )
   }
   updateItem(enterpriseId: String, item: 'active' | 'passive' | 'income' | 'expense', body: Income | Active | Passive | Expense, itemId: String): Observable<{ message: string }> {
+    console.log("La peticion es para actualizar el item", item, "con el body", body)
     return this.httpClient.put<{ message: string }>(`${this.baseUrl}/${enterpriseId}/finances/${item}s/update/${itemId}`, body, { withCredentials: true }).pipe(
       tap(() => {
         this.getAllItems(enterpriseId, item).subscribe((items) => {

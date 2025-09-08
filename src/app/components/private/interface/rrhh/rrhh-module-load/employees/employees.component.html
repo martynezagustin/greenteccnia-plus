@@ -1,0 +1,47 @@
+@if(!loading){
+
+@if(employees.length !==0){
+<table class="table m-1 fade-in-container">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Género</th>
+            <th scope="col">Sindicato</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(employee of employees; track employee._id){
+        <tr>
+            <td>{{employee.personalInfo.name}}</td>
+            <td>{{employee.personalInfo.lastname}}</td>
+            <td>{{employee.personalInfo.email}}</td>
+            <td>{{employee.personalInfo.gender}}</td>
+            <td>{{employee.jobInfo.syndicate.name}}</td>
+            <td>
+                <i class="fa-solid fa-eye m-1"></i>
+                <i class="fa-solid fa-trash m-1"></i>
+                <i class="fa-solid fa-pencil m-1"></i>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}@else{
+<div class="d-flex flex-column align-items-center fade-in-container">
+    <p class="zero_length_employees p-3"><strong>Aún no agregaste un empleado. ¿Deseas agregar un nuevo
+            empleado?</strong></p>
+    <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
+        aria-controls="addEmployee">+AGREGAR UN NUEVO EMPLEADO</button>
+    <app-add-employee></app-add-employee>
+</div>
+}
+}@else {
+<div class="d-flex justify-content-center fade-in-container mt-3">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+}

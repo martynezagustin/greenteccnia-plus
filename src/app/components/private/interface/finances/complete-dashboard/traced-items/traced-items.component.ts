@@ -40,27 +40,27 @@ export class TracedItemsComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-
     this.getEnterpriseId()
     this.periodService.selectedPeriod$.subscribe(
       response => {
-        console.log(response)
         this.selectedPeriod = response
-        if (this.enterpriseId) {
+        if(this.type){
+          this.getItemsByCurrentPeriod(this.selectedPeriod)
         }
       }
     )
     this.dashboardService.selectedView$.subscribe(
       response => {
         this.type = response
+        if(this.selectedPeriod){
+          this.getItemsByCurrentPeriod(this.selectedPeriod)
+        }
       }
     )
-    this.getItemsByCurrentPeriod(this.selectedPeriod)
   }
   getItemsByCurrentPeriod(period: String) {
     this.loading = true
     const isCashFlow = this.type == 'cashFlow'
-    console.log("Es cash flow?", isCashFlow, "Tipo de vista:", this.type)
     this.errorMessage = ''
     forkJoin([
       this.itemService.getItemsByCurrentPeriod(this.enterpriseId, this.type && isCashFlow ? 'income' : 'active', period),
@@ -85,7 +85,6 @@ export class TracedItemsComponent implements OnInit {
   }
 
   buildLineChartData() {
-    console.log("periodo seleccionado", this.selectedPeriod)
     const groupPositive: { [key: string]: number } = {}
     const groupNegative: { [key: string]: number } = {}
 

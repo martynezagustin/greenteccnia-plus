@@ -39,7 +39,6 @@ export class SingUpComponent {
   handleSubmit() {
     this.errorMessage = ''
     this.loading = true
-    console.log(this.formRegister.value)
     this.authService.registerUser(this.formRegister.value).subscribe(
       response => {
         console.log(response);

@@ -23,6 +23,11 @@ import { DashboardFinanceComponent } from './components/private/interface/financ
 import { financeRoutes } from './finance.routes';
 import { ViewItemComponent } from './components/private/interface/finances/dashboard-finance/last-registers/view-item/view-item.component';
 import { FinancesComponent } from './components/private/interface/finances/finances.component';
+import { RrhhComponent } from './components/private/interface/rrhh/rrhh.component';
+import { LiquidationsComponent } from './components/private/interface/rrhh/rrhh-module-load/liquidations/liquidations.component';
+import { AssistsComponent } from './components/private/interface/rrhh/rrhh-module-load/assists/assists.component';
+import { AccidentsComponent } from './components/private/interface/rrhh/rrhh-module-load/accidents/accidents.component';
+import { EmployeesComponent } from './components/private/interface/rrhh/rrhh-module-load/employees/employees.component';
 
 export const privateRoutes: Routes = [
     {
@@ -56,7 +61,14 @@ export const privateRoutes: Routes = [
             { path: "add-sustainable-objectives", component: AddSustainableObjectivesComponent, canActivate: [AuthGuardService] }
         ]
     },
-    { path: 'finances', component: FinancesComponent, canActivate: [AuthGuardService], children: financeRoutes},
+    { path: 'finances', component: FinancesComponent, canActivate: [AuthGuardService], children: financeRoutes },
+    { path: 'rrhh', component: RrhhComponent, canActivate: [AuthGuardService], children: [
+        {path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService]},
+        {path: 'liquidations', component: LiquidationsComponent, canActivate: [AuthGuardService]},
+        {path: 'assists', component: AssistsComponent, canActivate: [AuthGuardService]},
+        {path: 'accidents', component: AccidentsComponent, canActivate: [AuthGuardService]},
+        {path: '**', component: EmployeesComponent, canActivate: [AuthGuardService]}
+    ] },
     { path: "my-enterprise", component: DashboardGenericComponent, canActivate: [AuthGuardService] },
     { path: "**", component: DashboardGenericComponent, canActivate: [AuthGuardService] }
 ];

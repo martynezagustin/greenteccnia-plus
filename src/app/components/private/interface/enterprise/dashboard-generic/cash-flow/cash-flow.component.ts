@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
 import { DashboardViewService } from '../../../../../../services/private/finances/dashboard/dashboard-view/dashboard-view.service';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
 import { ItemService } from '../../../../../../services/private/finances/items/item/item.service';
-import { AddItemComponent } from "../add-item/add-item.component";
 import { MenuOffCanvasComponent } from "../menu-off-canvas/menu-off-canvas.component";
 
 @Component({
@@ -17,24 +16,22 @@ import { MenuOffCanvasComponent } from "../menu-off-canvas/menu-off-canvas.compo
   templateUrl: './cash-flow.component.html',
   styleUrl: '../dashboard-generic.component.css'
 })
-export class CashFlowComponent implements OnChanges, OnInit {
+export class CashFlowComponent implements OnInit {
   enterpriseId: any = ''
-  @Input() enterprise!: Enterprise
   @Input() userId!: any
   @Input() loading!: boolean
   cashFlow: any = 0
   cashFlowByCurrentYear!: any
   cashFlowByCurrentMonth!: any
   cashFlowByCurrentDate!: any
+  //porcentajes
+  percentageByCurrentYear!: any
+  percentageByCurrentMonth!: any
+  percentageByCurrentDate!: any
   errorMessage: String = ''
   showOption: Boolean = false
   selectedFormInput!: any
   constructor(private itemService: ItemService, private cashFlowService: CashFlowService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["enterprise"]) {
-      this.enterprise = changes['enterprise'].currentValue
-    }
-  }
   ngOnInit(): void {
     this.loading = true
     this.getEnterpriseId()
@@ -46,6 +43,9 @@ export class CashFlowComponent implements OnChanges, OnInit {
           this.cashFlowByCurrentDate = response.currentDate
           this.cashFlowByCurrentMonth = response.currentMonth
           this.cashFlowByCurrentYear = response.currentYear
+          this.percentageByCurrentMonth = response.percentages.currentMonth
+          this.percentageByCurrentYear = response.percentages.currentYear
+          this.percentageByCurrentDate = response.percentages.currentDate
           this.loading = false
           console.log(response)
         }
@@ -74,6 +74,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
     this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'year').subscribe(
       response => {
         this.cashFlowByCurrentYear = response.cashFlowByCurrentPeriod
+        this.percentageByCurrentYear = response.percentage
       },
       err => {
         console.error(err);
@@ -84,7 +85,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
     this.cashFlowService.getCashFlowByCurrentPeriod(this.enterpriseId, 'month').subscribe(
       response => {
         this.cashFlowByCurrentMonth = response.cashFlowByCurrentPeriod
-        console.log("Que pasa con el cash flow month?", this.cashFlowByCurrentMonth)
+        this.percentageByCurrentMonth = response.percentage
       },
       err => {
         console.error(err);
@@ -120,7 +121,7 @@ export class CashFlowComponent implements OnChanges, OnInit {
   setDataDashboardFinance() {
     this.dashboardViewService.setView('cashFlow')
   }
-  formatValue(num: Number) {
+  formatValue(num: number) {
     return formatValue(num)
   }
 }

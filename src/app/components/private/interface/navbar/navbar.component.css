@@ -15,11 +15,11 @@
 
 .nav-link,
 .nav-sublink {
-    font-family: "Montserrat";
-    color: rgb(20, 20, 20);
+    font-family: "Poppins";
+    color: rgb(40, 40, 40);
     letter-spacing: -1.3px;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-decoration: none;
     list-style-type: none;
     display: flex;

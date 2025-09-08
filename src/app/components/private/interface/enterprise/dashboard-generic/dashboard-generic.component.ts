@@ -6,10 +6,11 @@ import { EnterpriseService } from '../../../../../services/private/enterprise/en
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { NetWorthComponent } from './net-worth/net-worth.component';
 import { RouterLink } from '@angular/router';
+import { RrhhSummaryComponent } from "./rrhh-summary/rrhh-summary.component";
 
 @Component({
   selector: 'app-dashboard-generic',
-  imports: [CashFlowComponent, NetWorthComponent, RouterLink],
+  imports: [CashFlowComponent, NetWorthComponent, RouterLink, RrhhSummaryComponent],
   templateUrl: './dashboard-generic.component.html',
   styleUrl: './dashboard-generic.component.css'
 })

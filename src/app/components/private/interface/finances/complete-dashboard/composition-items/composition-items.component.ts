@@ -32,19 +32,22 @@ export class CompositionItemsComponent implements OnInit {
     responsive: true
   }
   ngOnInit(): void {
-    this.getEnterpriseId()
-    this.periodService.selectedPeriod$.subscribe(
-      response => {
-        this.selectedPeriod = response
+    this.getEnterpriseId();
+
+    // Combine both observables and only call getData when either changes
+    this.periodService.selectedPeriod$.subscribe(period => {
+      this.selectedPeriod = period;
+      if (this.type) {
+        this.getData();
       }
-    )
-    this.dashboardService.selectedView$.subscribe(
-      response => {
-        this.type = response
-        console.log(this.type)
-        this.getData()
+    });
+
+    this.dashboardService.selectedView$.subscribe(view => {
+      this.type = view;
+      if (this.selectedPeriod) {
+        this.getData();
       }
-    )
+    });
   }
   getData() {
     this.loading = true

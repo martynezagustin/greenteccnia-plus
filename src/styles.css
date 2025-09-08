@@ -35,3 +35,14 @@ p{
     font-weight: 700;
     margin: 0.6rem;
 }
+.alert-danger{
+    background-color: whitesmoke;
+    border: none;
+    text-align: center;
+    color: red;
+    font-size: 1.3rem;
+    margin: 0.8rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+}

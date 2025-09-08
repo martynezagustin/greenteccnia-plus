@@ -18,27 +18,18 @@ import { MenuOffCanvasComponent } from "../menu-off-canvas/menu-off-canvas.compo
 })
 export class NetWorthComponent {
   enterpriseId!: any
-  @Input() enterprise!: Enterprise
-  @Input() userId!: any
-  @Input() loading!: boolean
-  netWorth!: any
-  netWorthByCurrentYear!: any
-  netWorthByCurrentMonth!: any
+  loading!: boolean
+  netWorth!: Number
+  netWorthByCurrentYear!: Number
+  netWorthByCurrentMonth!: Number
   errorMessage: string = ''
   showOption: Boolean = false
   selectedFormInput!: any
   constructor(private netWorthService: NetWorthService, private enterpriseService: EnterpriseService, private dashboardViewService: DashboardViewService, private itemService: ItemService) {
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["enterprise"]) {
-      this.enterprise = changes['enterprise'].currentValue
-    }
-  }
   ngOnInit(): void {
     this.getEnterpriseId()
-    this.getNetWorth()
-    this.getNetWorthByCurrentYear()
-    this.getNetWorthByCurrentMonth()
+    this.groupNetWorthFunctions()
   }
   getNetWorth() {
     this.loading = true
@@ -53,6 +44,10 @@ export class NetWorthComponent {
         this.loading = false
       }
     )
+  }
+  showOptions() {
+    console.log(this.showOption)
+    this.showOption = !this.showOption
   }
   getNetWorthByCurrentYear() {
     this.netWorthService.getNetWorthByCurrentPeriod(this.enterpriseId, 'year').subscribe(
@@ -75,11 +70,13 @@ export class NetWorthComponent {
       }
     )
   }
+  groupNetWorthFunctions() {
+    this.getNetWorth()
+    this.getNetWorthByCurrentYear()
+    this.getNetWorthByCurrentMonth()
+  }
   getEnterpriseId() {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
-  }
-  showOptions() {
-    this.showOption = !this.showOption
   }
   setSelectedForm(view: "active" | "passive") {
     this.itemService.setItemToUpdate(null)

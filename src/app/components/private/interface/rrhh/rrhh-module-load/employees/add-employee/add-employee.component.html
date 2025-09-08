@@ -1,0 +1,231 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addEmployee" aria-labelledby="addEmployeeLabel">
+    <div class="offcanvas-header">
+        <div class="d-flex align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png" alt="Logo"
+                width="50" class="d-inline-block align-text-top m-2">
+            <h1>Añadir empleado</h1>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="addEmployee" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="form" [formGroup]="formAddEmployee" (submit)="handleSubmit()">
+            <div class="p-1">
+                <h3>Información personal</h3>
+                <p>✍🏻Completa la información personal del empleado.</p>
+            </div>
+
+            <fieldset formGroupName="personalInfo" class="personal-info grills mt-4">
+                <div style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+                    <div>
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" placeholder="Claudio" formControlName="name" id="name">
+                    </div>
+                    <div>
+                        <label for="lastname" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" placeholder="Sinasterra" formControlName="lastname"
+                            id="lastname">
+                    </div>
+                    <div>
+                        <label for="gender" class="form-label">Género</label>
+                        <select name="gender" class="form-control" formControlName="gender" id="gender">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="No binario">No binario</option>
+                            <option value="Otro">Otro</option>
+                            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="address" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" placeholder="Domicilio" formControlName="address"
+                            id="address">
+                    </div>
+                </div>
+                <fieldset formGroupName="identityCard"
+                    style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+
+                    <div>
+                        <label for="value" class="form-label">Número de identificación</label>
+                        <input type="text" class="form-control" placeholder="123456789" formControlName="value"
+                            id="value">
+                    </div>
+
+                    <div>
+                        <label for="type" class="form-label">Tipo</label>
+                        <select name="type" formControlName="type" class="form-control" id="type">
+                            <option value="DNI">DNI</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Cédula de identidad">Cédula de identidad</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                </fieldset>
+                <div>
+                    <div style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+
+                        <div>
+                            <label for="email" class="form-label">Correo o e-mail</label>
+                            <input type="email" class="form-control" placeholder="claudiosinasterra@example.com"
+                                formControlName="email" id="email">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" placeholder="+XX XXXX XXXXXX"
+                                formControlName="phone" id="phone">
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <hr>
+
+            <!--Informacion laboral-->
+
+            <div class="p-1">
+                <h3>Información laboral</h3>
+                <p>📁Introduce los datos del rol del empleado en la empresa para mejorar la eficiencia en la gestión de
+                    Recursos Humanos.</p>
+            </div>
+            <fieldset formGroupName="jobInfo" class="grills mt-2">
+                <div style="display: grid; grid-template-columns: 25% 25% 50%; grid-gap: 2px">
+                    <div>
+                        <label class="form-label" for="startDate">Fecha de inicio</label>
+                        <input type="date" name="startDate" formControlName="startDate" id="startDate"
+                            class="form-control">
+                    </div>
+                    <div>
+                        <label class="form-label" for="position">Posición</label>
+                        <input type="text" name="position" formControlName="position" id="position"
+                            class="form-control">
+                    </div>
+                    <div>
+                        <label class="form-label" for="department">Departamento</label>
+                        <select name="department" formControlName="department" class="form-control" id="department">
+                            <option value="Administración">Administración</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Finanzas">Finanzas</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Ventas">Ventas</option>
+                            <option value="Producción">Producción</option>
+                            <option value="Logística">Logística</option>
+                            <option value="Tecnología de la Información">Tecnología de la Información</option>
+                            <option value="Atención al Cliente">Atención al Cliente</option>
+                            <option value="Investigación y Desarrollo">Investigación y Desarrollo</option>
+                            <option value="Calidad">Calidad</option>
+                            <option value="Legal">Legal</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Proyectos">Proyectos</option>
+                            <option value="Comunicación">Comunicación</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px" class="mt-1">
+                    <div>
+                        <label class="form-label" for="contractType">Tipo de contrato laboral</label>
+                        <select class="form-control" formControlName="contractType" name="contractType"
+                            id="contractType">
+                            <option value="Contrato de trabajo a plazo fijo">Contrato de trabajo a plazo fijo</option>
+                            <option value="Contrato de trabajo a tiempo parcial">Contrato de trabajo a tiempo parcial
+                            </option>
+                            <option value="Contrato de trabajo de temporada">Contrato de trabajo de temporada</option>
+                            <option value="Contrato de trabajo eventual">Contrato de trabajo eventual</option>
+                            <option value="Contrato de trabajo de grupo o por equipo">Contrato de trabajo de grupo o por
+                                equipo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="status" class="form-label">Estado</label>
+                        <select name="status" id="status" class="form-control" formControlName="status">
+                            <option value="Presencial">Presencial</option>
+                            <option value="Remoto">Remoto</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px">
+                    <div formGroupName="CCT" class="d-flex flex-column">
+                        <label class="form-label" for="CCT">Convenio Colectivo aplicable</label>
+                        <select name="CCT" id="CCT" class="form-control">
+                            @for(cct of ccts;track cct){
+                            <option value={{cct.name}}>{{cct.name}}</option>
+                            }
+                        </select>
+                        <button class="btn mt-1 btn-success">+AÑADIR CONVENIO COLECTIVO</button>
+                    </div>
+                    <div formGroupName="syndicate" class="d-flex flex-column">
+                        <label class="form-label" for="syndicate">Sindicato</label>
+                        <select name="syndicate" formControlName="name" id="syndicate" class="form-control">
+                            @for(syndicate of syndicates; track syndicate){
+                            <option value={{syndicate.name}}>{{syndicate.name}}</option>
+                            }
+                        </select>
+                        <button class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="p-1 mt-1">
+                <h4>👉Riesgos del trabajo</h4>
+            </div>
+            <div class="grills">
+                <div class="mt-1 d-flex flex-column">
+                    <label class="form-label" for="ART">Aseguradora de riesgos</label>
+                    <select class="form-control" name="ART" id="ART">
+                        <option disabled selected>Selecciona una opción...</option>
+                    </select>
+                    <button class="btn mt-1 btn-success">+AÑADIR ART</button>
+                </div>
+            </div>
+            <hr>
+            <div class="p-1">
+                <h3>Información financiera</h3>
+                <p>🧾¿En qué banco se liquida el salario del empleado? ¿Qué monto? ¿Cuál es su CVU? Ingresa esta
+                    información.</p>
+            </div>
+            <fieldset formGroupName="financialInformation" class="grills">
+                <div style="display: grid; grid-template-columns:50% 50%;">
+                    <div class="input-group mb-3">
+                        <div class="d-flex flex-column">
+                            <label class="form-label" for="grossSalary">Salario en bruto</label>
+                            <div class="d-flex">
+                                <span class="input-group-text currency-sign">$</span>
+                                <input type="number" formControlName="grossSalary" class="form-control" id="grossSalary"
+                                    aria-label="Amount (to the nearest dollar)" placeholder="XX.XXX.XXX">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="bank" class="form-label">Banco</label>
+                        <select class="form-control" formControlName="bank" name="bank" id="bank">
+                            <option disabled selected>Selecciona una opción</option>
+                        </select>
+                        <button class="btn mt-1 btn-success">+AÑADIR BANCO DE COBRO</button>
+                    </div>
+                </div>
+                <div>
+                    <label for="CBU" class="form-label">CBU</label>
+                    <input type="text" formControlName="CBU" id="CBU" class="form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
+                </div>
+                <div>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" name="verify-data" id="verify-data">
+                        <label for="verify-data" class="form-check-label">Confirmo que los datos ingresados son
+                            verídicos.</label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" name="verify-privacity-employee"
+                            id="verify-privacity-employee">
+                        <label for="verify-privacity-employee" class="form-check-label">Confirmo que mantendré la
+                            privacidad de los datos del empleado.</label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="d-flex align-items-center justify-content-center m-2">
+                <input type="submit" class="btn btn-success m-1" value="Registrar">
+                <button class="btn btn-dark m-1">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

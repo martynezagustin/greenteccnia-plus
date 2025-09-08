@@ -22,15 +22,18 @@
     </ul>
     <!--Fin navbar-->
     <div class="d-flex flex-column align-items-center">
-        @if(!errorMessage){
+        <div>
+
+            @if(!errorMessage){
         <canvas class="fadeIn" baseChart [data]="{labels: pieChartLabels, datasets: [{
-                data: pieChartData,
-                backgroundColor: pieChartColors[0].backgroundColor
-            }]}" [type]="pieChartType"></canvas>
+            data: pieChartData,
+            backgroundColor: pieChartColors[0].backgroundColor
+        }]}" [type]="pieChartType"></canvas>
         } @else {
-        <div class="alert alert-danger mt-2" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}
-        </div>
+            <div class="alert alert-danger mt-2" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}
+            </div>
         }
+    </div>
     </div>
     } @else {
     <div class="d-flex flex-column align-items-center m-5">

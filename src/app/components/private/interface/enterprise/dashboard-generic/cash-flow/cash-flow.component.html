@@ -19,28 +19,36 @@
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="10000">
-                <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: cashFlowByCurrentYear >= 0 ? 'green' : 'red'}"><i
-                        class="fa-solid fa-chart-simple m-4"></i>
-                    <strong>$</strong>{{formatValue(cashFlowByCurrentYear)}}</span>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
+                        [ngStyle]="{color: cashFlowByCurrentYear >= 0 ? 'green' : 'red'}"><i
+                            class="fa-solid fa-chart-simple m-4"></i>
+                        <strong>$</strong>{{formatValue(cashFlowByCurrentYear)}}</span>
+                </div>
                 <div>
                     <h4 class="h4-element">Flujo de caja del año</h4>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
-                <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: cashFlowByCurrentMonth >= 0 ? 'green' : 'red'}"><i
-                        class="fa-solid fa-chart-simple m-4"></i>
-                    <strong>$</strong>{{formatValue(cashFlowByCurrentMonth)}}</span>
+                <div class="d-flex align-items-center justify-content-center">
+
+                    <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
+                        [ngStyle]="{color: cashFlowByCurrentMonth >= 0 ? 'green' : 'red'}"><i
+                            class="fa-solid fa-chart-simple m-4"></i>
+                        <strong>$</strong>{{formatValue(cashFlowByCurrentMonth)}}</span>
+                </div>
                 <div>
                     <h4 class="h4-element">Flujo de caja del mes</h4>
                 </div>
             </div>
             <div class="carousel-item">
-                <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
-                    [ngStyle]="{color: cashFlowByCurrentDate >= 0 ? 'green' : 'red'}"><i
-                        class="fa-solid fa-chart-simple m-4"></i>
-                    <strong>$</strong>{{formatValue(cashFlowByCurrentDate)}}</span>
+                <div class="d-flex align-items-center justify-content-center">
+
+                    <span style="font-size: 3.2rem; font-family: Poppins; letter-spacing: -1.2px;"
+                        [ngStyle]="{color: cashFlowByCurrentDate >= 0 ? 'green' : 'red'}"><i
+                            class="fa-solid fa-chart-simple m-4"></i>
+                        <strong>$</strong>{{formatValue(cashFlowByCurrentDate)}}</span>
+                </div>
                 <div>
                     <h4 class="h4-element">Flujo de caja del día</h4>
                 </div>
@@ -56,18 +64,16 @@
         </button>
     </div>
     <div class="align-items-center justify-content-center d-flex">
-        <button class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
-            (click)="showOptions()" [ngStyle]="{'background-color': showOption ? 'rgb(100,100,100)' : 'rgb(40,40,40)'}"
-            data-bs-toggle="dropdown" aria-expanded="false">+OPCIONES
-            RÁPIDAS</button>
+        <button class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" (click)="showOptions()">OPCIONES RÁPIDAS</button>
 
-        <button class="btn btn-dark mt-1 m-2"
-            style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" routerLink="finances" (click)="setDataDashboardFinance()">+IR AL RESUMEN</button>
+        <button class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
+            routerLink="finances" (click)="setDataDashboardFinance()">+IR AL RESUMEN</button>
     </div>
     @if(showOption){
     <div class="fast-option d-flex flex-column fadeInContainer"
         style="padding: 1rem; border-radius: 8px; background-color: rgb(205,205,205); position: fixed; left: 340px; box-shadow: 0px 0px 12px 1px black;">
-        <button class="btn m-1" style="width: 60%; background-color: red; color: whitesmoke;" (click)="showOptions()"><strong class="m-1">X</strong> CERRAR</button>
+        <button class="btn m-1" style="width: 60%; background-color: red; color: whitesmoke;"
+            (click)="showOptions()"><strong class="m-1">X</strong> CERRAR</button>
         <button class="btn btn-dark m-1" style="font-family: Montserrat; letter-spacing: -1.3px; font-weight: 800;"
             data-bs-toggle="offcanvas" data-bs-target="#offCanvasInterface" aria-controls="offCanvasInterface"
             (click)="setSelectedForm('income')">+

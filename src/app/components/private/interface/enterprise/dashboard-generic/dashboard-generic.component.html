@@ -18,10 +18,13 @@
 <main class="dashboard fadeInContainer p-2">
     <div class="container">
         <div class="finances text-center">
-            <app-cash-flow class="cashFlow" [enterprise]="enterprise" [userId]="userId"
+            <app-cash-flow class="cashFlow" [userId]="userId"
                 [loading]="loading"></app-cash-flow>
-            <app-net-worth class="netWorth" [enterprise]="enterprise" [userId]="userId"
-                [loading]="loading"></app-net-worth>
+            <app-net-worth class="netWorth"></app-net-worth>
+        </div>
+        <hr style="color: white;">
+        <div class="rrhh-and-sustainability">
+            <rrhh-summary class="rrhhSummary"></rrhh-summary>
         </div>
     </div>
 
