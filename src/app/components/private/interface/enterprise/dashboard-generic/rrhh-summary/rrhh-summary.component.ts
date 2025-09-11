@@ -4,10 +4,11 @@ import { NgChartsModule } from 'ng2-charts';
 import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
 import { EmployeesService } from '../../../../../../services/private/rrhh/employees/employees.service';
 import { Router } from '@angular/router';
+import { AddEmployeeComponent } from '../../../rrhh/rrhh-module-load/employees/add-employee/add-employee.component';
 
 @Component({
   selector: 'rrhh-summary',
-  imports: [NgChartsModule],
+  imports: [NgChartsModule, AddEmployeeComponent],
   standalone: true,
   templateUrl: './rrhh-summary.component.html',
   styleUrl: '../dashboard-generic.component.css',

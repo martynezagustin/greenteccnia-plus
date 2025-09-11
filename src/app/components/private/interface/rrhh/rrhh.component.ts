@@ -45,13 +45,36 @@ export class RrhhComponent implements OnInit {
     this.loading = true
     this.rrhhService.getApiDataRRHH(this.enterpriseId).subscribe(
       response => {
+        if (response && response.employees) {
+          this.employeesLength = response.employees.total
+          this.printChart(response)
+          this.payroll = response.payroll
+          this.accidents = response.accidents
+          this.percentage = response.employees.percentage
+          this.loading = false
+          if (this.employeesLength === 0) {
+            console.log("Se cumplio la condicion")
+            this.errorMessageCanvas = 'No se pueden graficar datos si no hay empleados.'
+          }
+        } else {
+          this.loading = false
+          this.errorMessageCanvas = 'No se pueden graficar datos si no hay empleados.'
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    )
+    this.rrhhService.rrhhSummary$.subscribe(
+      response => {
+        this.errorMessageCanvas = ''
         this.employeesLength = response.employees.total
         this.printChart(response)
         this.payroll = response.payroll
         this.accidents = response.accidents
         this.percentage = response.employees.percentage
         this.loading = false
-        if(this.employeesLength === 0){
+        if (this.employeesLength === 0) {
           console.log("Se cumplio la condicion")
           this.errorMessageCanvas = 'No se pueden graficar datos si no hay empleados.'
         }

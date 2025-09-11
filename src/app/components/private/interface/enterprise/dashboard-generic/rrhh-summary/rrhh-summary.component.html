@@ -22,9 +22,17 @@
         {{errorMessage}}
     </div>
     }
-    <div class="d-flex flex-column">
-        <button class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
-            routerLink="finances" (click)="goToRRHH()">+IR AL RESUMEN</button>
+    <div class="d-flex align-items-center justify-content-center">
+        <div>
+            <button class="btn btn-rrhh btn-dark mt-1"
+                style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" routerLink="finances"
+                (click)="goToRRHH()">+RESUMEN</button>
+        </div>
+        <div>
+            <button class="btn btn-rrhh btn-success mt-1"
+                style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" data-bs-toggle="offcanvas"
+                data-bs-target="#addEmployee" aria-controls="addEmployee">+EMPLEADO</button>
+        </div>
     </div>
     } @else {
     <div class="d-flex justify-content-center mt-2">
@@ -35,3 +43,4 @@
     }
 
 </div>
+<app-add-employee></app-add-employee>

@@ -1,14 +1,14 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="addEmployee" aria-labelledby="addEmployeeLabel">
+<div class="offcanvas addEmployee offcanvas-end" tabindex="-1" id="addEmployee" aria-labelledby="addEmployeeLabel">
     <div class="offcanvas-header">
         <div class="d-flex align-items-center">
             <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png" alt="Logo"
                 width="50" class="d-inline-block align-text-top m-2">
             <h1>Añadir empleado</h1>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="addEmployee" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="addEmployee"></button>
     </div>
     <div class="offcanvas-body">
-        <form class="form" [formGroup]="formAddEmployee" (submit)="handleSubmit()">
+        <form class="form" [formGroup]="formAddEmployee" (submit)="handleSubmit($event)">
             <div class="p-1">
                 <h3>Información personal</h3>
                 <p>✍🏻Completa la información personal del empleado.</p>
@@ -18,12 +18,20 @@
                 <div style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
                     <div>
                         <label for="name" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Claudio" formControlName="name" id="name">
+                        <input [ngClass]="{'ng-error': name.invalid && name.touched}" type="text" class="form-control"
+                            placeholder="Claudio" formControlName="name" id="name">
+                        <div class="fade-in-container alert alert-danger mt-1" [hidden]="name.valid || name.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El nombre es obligatorio.
+                        </div>
                     </div>
                     <div>
                         <label for="lastname" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" placeholder="Sinasterra" formControlName="lastname"
-                            id="lastname">
+                        <input [ngClass]="{'ng-error': lastname.invalid && lastname.touched}" type="text"
+                            class="form-control" placeholder="Sinasterra" formControlName="lastname" id="lastname">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="lastname.valid || lastname.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El apellido es obligatorio.
+                        </div>
                     </div>
                     <div>
                         <label for="gender" class="form-label">Género</label>
@@ -37,8 +45,12 @@
                     </div>
                     <div>
                         <label for="address" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" placeholder="Domicilio" formControlName="address"
-                            id="address">
+                        <input [ngClass]="{'ng-error': address.invalid && address.touched}" type="text"
+                            class="form-control" placeholder="Domicilio" formControlName="address" id="address">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="address.valid || address.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El domicilio es obligatorio.
+                        </div>
                     </div>
                 </div>
                 <fieldset formGroupName="identityCard"
@@ -46,8 +58,13 @@
 
                     <div>
                         <label for="value" class="form-label">Número de identificación</label>
-                        <input type="text" class="form-control" placeholder="123456789" formControlName="value"
-                            id="value">
+                        <input [ngClass]="{'ng-error': identityCardValue.invalid && identityCardValue.touched}"
+                            type="text" class="form-control" placeholder="123456789" formControlName="value" id="value">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="identityCardValue.valid || identityCardValue.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El número de identificación fiscal es
+                            obligatorio.
+                        </div>
                     </div>
 
                     <div>
@@ -66,14 +83,23 @@
 
                         <div>
                             <label for="email" class="form-label">Correo o e-mail</label>
-                            <input type="email" class="form-control" placeholder="claudiosinasterra@example.com"
-                                formControlName="email" id="email">
+                            <input [ngClass]="{'ng-error': email.invalid && email.touched}" type="email"
+                                class="form-control" placeholder="claudiosinasterra@example.com" formControlName="email"
+                                id="email">
+                            <div class="fade-in-container alert alert-danger mt-1"
+                                [hidden]="email.valid || email.pristine">
+                                <i class="fa-solid fa-triangle-exclamation m-1"></i> El e-mail es obligatorio.
+                            </div>
                         </div>
 
                         <div>
                             <label for="phone" class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" placeholder="+XX XXXX XXXXXX"
-                                formControlName="phone" id="phone">
+                            <input [ngClass]="{'ng-error': phone.invalid && phone.touched}" type="text"
+                                class="form-control" placeholder="+XX XXXX XXXXXX" formControlName="phone" id="phone">
+                            <div class="fade-in-container alert alert-danger mt-1"
+                                [hidden]="phone.valid || phone.pristine">
+                                <i class="fa-solid fa-triangle-exclamation m-1"></i> El teléfono es obligatorio.
+                            </div>
                         </div>
                     </div>
 
@@ -94,11 +120,20 @@
                         <label class="form-label" for="startDate">Fecha de inicio</label>
                         <input type="date" name="startDate" formControlName="startDate" id="startDate"
                             class="form-control">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="startDate.valid || startDate.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> Asigna una fecha de inicio laboral.
+                        </div>
                     </div>
                     <div>
                         <label class="form-label" for="position">Posición</label>
-                        <input type="text" name="position" formControlName="position" id="position"
+                        <input [ngClass]="{'ng-error': position.invalid && position.touched}" type="text"
+                            placeholder="Auxiliar" name="position" formControlName="position" id="position"
                             class="form-control">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="position.valid || position.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce posición laboral.
+                        </div>
                     </div>
                     <div>
                         <label class="form-label" for="department">Departamento</label>
@@ -139,6 +174,7 @@
                     <div>
                         <label for="status" class="form-label">Estado</label>
                         <select name="status" id="status" class="form-control" formControlName="status">
+                            <option disabled selected>Seleccione una opción...</option>
                             <option value="Presencial">Presencial</option>
                             <option value="Remoto">Remoto</option>
                             <option value="Híbrido">Híbrido</option>
@@ -153,7 +189,9 @@
                             <option value={{cct.name}}>{{cct.name}}</option>
                             }
                         </select>
-                        <button class="btn mt-1 btn-success">+AÑADIR CONVENIO COLECTIVO</button>
+                        <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#cct">+AÑADIR
+                            CONVENIO COLECTIVO</button>
                     </div>
                     <div formGroupName="syndicate" class="d-flex flex-column">
                         <label class="form-label" for="syndicate">Sindicato</label>
@@ -162,7 +200,8 @@
                             <option value={{syndicate.name}}>{{syndicate.name}}</option>
                             }
                         </select>
-                        <button class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
+                        <button type="button" data-bs-toggle="modal"
+                            data-bs-target="#syndicateModal" class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
                     </div>
                 </div>
             </fieldset>
@@ -173,7 +212,7 @@
                 <div class="mt-1 d-flex flex-column">
                     <label class="form-label" for="ART">Aseguradora de riesgos</label>
                     <select class="form-control" name="ART" id="ART">
-                        <option disabled selected>Selecciona una opción...</option>
+                        <option disabled selected>Seleccione una opción...</option>
                     </select>
                     <button class="btn mt-1 btn-success">+AÑADIR ART</button>
                 </div>
@@ -189,10 +228,19 @@
                     <div class="input-group mb-3">
                         <div class="d-flex flex-column">
                             <label class="form-label" for="grossSalary">Salario en bruto</label>
-                            <div class="d-flex">
-                                <span class="input-group-text currency-sign">$</span>
-                                <input type="number" formControlName="grossSalary" class="form-control" id="grossSalary"
-                                    aria-label="Amount (to the nearest dollar)" placeholder="XX.XXX.XXX">
+                            <div>
+                                <div class="d-flex">
+                                    <span [ngClass]="{'ng-error': grossSalary.invalid && grossSalary.touched}"
+                                        class="input-group-text currency-sign">$</span>
+                                    <input [ngClass]="{'ng-error': grossSalary.invalid && grossSalary.touched}"
+                                        type="number" formControlName="grossSalary" class="form-control"
+                                        id="grossSalary" aria-label="Amount (to the nearest dollar)"
+                                        placeholder="XX.XXX.XXX">
+                                </div>
+                                <div class="fade-in-container alert alert-danger mt-1"
+                                    [hidden]="grossSalary.valid || grossSalary.pristine">
+                                    <i class="fa-solid fa-triangle-exclamation m-1"></i> Ingresa un salario en bruto.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,9 +254,13 @@
                 </div>
                 <div>
                     <label for="CBU" class="form-label">CBU</label>
-                    <input type="text" formControlName="CBU" id="CBU" class="form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
+                    <input [ngClass]="{'ng-error': cbu.invalid && cbu.touched}" type="text" formControlName="cbu"
+                        id="cbu" class="form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
                 </div>
                 <div>
+                    <div class="fade-in-container alert alert-danger mt-1" [hidden]="cbu.valid || cbu.pristine">
+                        <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce un CBU.
+                    </div>
                     <div class="form-check mt-2">
                         <input type="checkbox" class="form-check-input" name="verify-data" id="verify-data">
                         <label for="verify-data" class="form-check-label">Confirmo que los datos ingresados son
@@ -223,9 +275,13 @@
                 </div>
             </fieldset>
             <div class="d-flex align-items-center justify-content-center m-2">
-                <input type="submit" class="btn btn-success m-1" value="Registrar">
+                <input type="submit" class="btn btn-success m-1" value="Registrar"
+                    [disabled]="!this.formAddEmployee.valid">
                 <button class="btn btn-dark m-1">Cancelar</button>
             </div>
         </form>
     </div>
 </div>
+
+<app-add-cct></app-add-cct>
+<app-add-syndicate></app-add-syndicate>

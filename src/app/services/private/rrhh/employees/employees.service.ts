@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment.prod';
 import { Employee } from '../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
+import { RrhhService } from '../rrhh/rrhh.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesService {
   baseUrl: String = environment.apiUrl
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private rrhhService: RrhhService) { }
   //empleados ya cargados
   employees = new BehaviorSubject<Employee[]>([])
   employees$ = this.employees.asObservable()
@@ -18,19 +19,15 @@ export class EmployeesService {
   parityGender = new BehaviorSubject<any | null>(null)
   parityGender$ = this.parityGender.asObservable()
   
-  addEmployee(enterpriseId: string, data: Employee): Observable<Employee> {
-    return this.httpClient.post<Employee>(`${this.baseUrl}/${enterpriseId}/employees/add-employee`, data, { withCredentials: true }).pipe((
-      tap(() =>{
-        this.getAllEmployees(enterpriseId).subscribe(
-          response => {
-            this.employees.next(response)
-          },
-          err => {
-            console.error(err);
-          }
-        )
-      })
-    ))
+  addEmployee(enterpriseId: string, data: Employee): Observable<any> {
+    return this.httpClient.post<Employee>(`${this.baseUrl}/${enterpriseId}/employees/add-employee`, data, { withCredentials: true }).pipe(
+      switchMap(() => this.getAllEmployees(enterpriseId)),
+      tap((employees) => {
+        this.employees.next(employees)
+      }),
+      //pedimos rrhh
+      switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId)),
+    );
   }
   getParityGender(enterpriseId: String | null): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/${enterpriseId}/employees/filter/by-gender-parity`, { withCredentials: true })

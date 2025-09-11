@@ -3,6 +3,7 @@ import { EmployeesService } from '../../../../../../services/private/rrhh/employ
 import { EnterpriseService } from '../../../../../../services/private/enterprise/enterprise.service';
 import { Employee } from '../../../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
 
 @Component({
   selector: 'app-employees',
@@ -47,5 +48,8 @@ export class EmployeesComponent implements OnInit {
         this.loading = false
       }
     )
+  }
+  formatValue(num: Number){
+    return formatValue(num)
   }
 }

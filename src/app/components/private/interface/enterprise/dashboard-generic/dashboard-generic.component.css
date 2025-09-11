@@ -104,6 +104,9 @@ h1 {
 .fadeInContainer {
     animation: 0.3s fadeIn ease-in-out;
 }
+.btn-rrhh{
+    margin: 0.9px;
+}
 
 @keyframes fadeIn {
     0% {

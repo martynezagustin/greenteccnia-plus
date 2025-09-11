@@ -8,7 +8,8 @@
             <th scope="col">Apellido</th>
             <th scope="col">E-mail</th>
             <th scope="col">Género</th>
-            <th scope="col">Sindicato</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Salario en bruto</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
@@ -19,10 +20,11 @@
             <td>{{employee.personalInfo.lastname}}</td>
             <td>{{employee.personalInfo.email}}</td>
             <td>{{employee.personalInfo.gender}}</td>
-            <td>{{employee.jobInfo.syndicate.name}}</td>
+            <td>{{employee.jobInfo.status}}</td>
+            <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
                 <i class="fa-solid fa-eye m-1"></i>
-                <i class="fa-solid fa-trash m-1"></i>
+                <i style="color: red;" class="fa-solid fa-trash m-1"></i>
                 <i class="fa-solid fa-pencil m-1"></i>
             </td>
         </tr>
