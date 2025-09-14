@@ -5,7 +5,6 @@
                 width="50" class="d-inline-block align-text-top m-2">
             <h1>Añadir empleado</h1>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="addEmployee"></button>
     </div>
     <div class="offcanvas-body">
         <form class="form" [formGroup]="formAddEmployee" (submit)="handleSubmit($event)">
@@ -200,8 +199,8 @@
                             <option value={{syndicate.name}}>{{syndicate.name}}</option>
                             }
                         </select>
-                        <button type="button" data-bs-toggle="modal"
-                            data-bs-target="#syndicateModal" class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#syndicateModal"
+                            class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
                     </div>
                 </div>
             </fieldset>
@@ -213,8 +212,12 @@
                     <label class="form-label" for="ART">Aseguradora de riesgos</label>
                     <select class="form-control" name="ART" id="ART">
                         <option disabled selected>Seleccione una opción...</option>
+                        @for(art of arts; track art){
+                            <option value={{art.name}}>{{art.name}}</option>
+                        }
                     </select>
-                    <button class="btn mt-1 btn-success">+AÑADIR ART</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#ARTModal"
+                        class="btn mt-1 btn-success">+AÑADIR ART</button>
                 </div>
             </div>
             <hr>
@@ -249,7 +252,8 @@
                         <select class="form-control" formControlName="bank" name="bank" id="bank">
                             <option disabled selected>Selecciona una opción</option>
                         </select>
-                        <button class="btn mt-1 btn-success">+AÑADIR BANCO DE COBRO</button>
+                        <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#bankModal">+AÑADIR BANCO DE COBRO</button>
                     </div>
                 </div>
                 <div>
@@ -285,3 +289,5 @@
 
 <app-add-cct></app-add-cct>
 <app-add-syndicate></app-add-syndicate>
+<app-add-art></app-add-art>
+<app-add-bank></app-add-bank>

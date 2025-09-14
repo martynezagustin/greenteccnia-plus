@@ -9,10 +9,16 @@ import { AddCctComponent } from './add-cct/add-cct.component';
 import { CCT } from '../../../../../../../../interfaces/enterprise/rrhh/ccts/cct.interface';
 import { error } from 'console';
 import { AddSyndicateComponent } from './add-syndicate/add-syndicate.component';
+import { AddArtComponent } from './add-art/add-art.component';
+import { ART } from '../../../../../../../../interfaces/enterprise/rrhh/arts/art.interface';
+import { ArtService } from '../../../../../../../services/private/rrhh/art/art.service';
+import { BankService } from '../../../../../../../services/private/rrhh/bank/bank.service';
+import { Bank } from '../../../../../../../../interfaces/enterprise/rrhh/banks/bank.interface';
+import { AddBankComponent } from './add-bank/add-bank.component';
 
 @Component({
   selector: 'app-add-employee',
-  imports: [CommonModule, ReactiveFormsModule, AddCctComponent, AddSyndicateComponent],
+  imports: [CommonModule, ReactiveFormsModule, AddCctComponent, AddSyndicateComponent, AddArtComponent, AddBankComponent],
   templateUrl: './add-employee.component.html',
   styleUrl: './add-employee.component.css'
 })
@@ -22,9 +28,11 @@ export class AddEmployeeComponent implements OnInit {
   //sindicatos para indexar
   syndicates: any[] = []
   ccts: CCT[] = []
+  arts: ART[] = []
+  banks: Bank[] = []
   //mensajes de form
   messageError: String = ''
-  constructor(private fb: FormBuilder, private employeeService: EmployeesService, private enterpriseService: EnterpriseService, private syndicateService: SyndicatesService, private cctService: CctService) {
+  constructor(private fb: FormBuilder, private employeeService: EmployeesService, private enterpriseService: EnterpriseService, private syndicateService: SyndicatesService, private cctService: CctService, private artService: ArtService, private bankService: BankService) {
     this.formAddEmployee = this.fb.group({
       personalInfo: this.fb.group({
         name: new FormControl('', Validators.required),
@@ -68,6 +76,7 @@ export class AddEmployeeComponent implements OnInit {
     if (this.enterpriseId) {
       this.getAllSyndicates()
       this.getAllCCTs()
+      this.getAllARTs()
       this.cctService.CCTs$.subscribe(
         response => {
           this.ccts = response ?? []
@@ -80,6 +89,15 @@ export class AddEmployeeComponent implements OnInit {
       this.syndicateService.syndicates$.subscribe(
         response => {
           this.syndicates = response ?? []
+        },
+        error => {
+          console.error(error);
+        }
+      )
+      //arts
+      this.artService.ARTs$.subscribe(
+        response => {
+          this.arts = response ?? []
         },
         error => {
           console.error(error);
@@ -119,6 +137,26 @@ export class AddEmployeeComponent implements OnInit {
       },
       error => {
         console.error(error);
+      }
+    )
+  }
+  getAllARTs() {
+    this.artService.getAllARTs(this.enterpriseId).subscribe(
+      response => {
+        this.arts = response
+      },
+      error => {
+        console.error(error);
+      }
+    )
+  }
+  getAllBanks(){
+    this.bankService.banks$.subscribe(
+      response => {
+        this.banks = response ?? []
+      },
+      err => {
+        console.error(err);
       }
     )
   }
