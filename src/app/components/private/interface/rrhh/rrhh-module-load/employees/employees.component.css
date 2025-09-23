@@ -29,3 +29,11 @@
     transition: 0.5s ease-in all;
     background: linear-gradient(to right, black, rgb(12, 45, 2));
 }
+i{
+    cursor: pointer;
+    transition: 0.1s ease-in all;
+}
+i:hover{
+    transform: scale(1.15, 1.15);
+    transition: 0.1s ease-in all;
+}

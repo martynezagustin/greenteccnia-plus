@@ -27,6 +27,15 @@ export class RrhhSummaryComponent implements OnInit {
   ngOnInit(): void {
     this.getEnterpriseId()
     this.getData()
+    this.employeesService.parityGender$.subscribe(
+      response => {
+        this.printData(response)
+      },
+      err => {
+        console.error(err);
+
+      }
+    )
   }
   getEnterpriseId() {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
@@ -36,18 +45,7 @@ export class RrhhSummaryComponent implements OnInit {
     this.employeesService.getParityGender(this.enterpriseId).subscribe(
       response => {
         console.log(response)
-        this.pieChartLabels = Object.keys(response)
-        this.pieChartData = {
-          labels: this.pieChartLabels,
-          datasets: [{
-            data: Object.values(response),
-            backgroundColor: [
-              'rgb(0, 255, 21)',
-              'rgb(0, 120, 6)',
-              'rgb(72, 114, 71)'
-            ]
-          }]
-        }
+        this.printData(response)
         this.loading = false
         this.errorMessage = ''
       },
@@ -58,7 +56,21 @@ export class RrhhSummaryComponent implements OnInit {
       }
     )
   }
-  goToRRHH(){
+  goToRRHH() {
     this.router.navigate(['dashboard/rrhh'])
+  }
+  printData(response: any) {
+    this.pieChartLabels = Object.keys(response)
+    this.pieChartData = {
+      labels: this.pieChartLabels,
+      datasets: [{
+        data: Object.values(response),
+        backgroundColor: [
+          'rgb(0, 255, 21)',
+          'rgb(0, 120, 6)',
+          'rgb(72, 114, 71)'
+        ]
+      }]
+    }
   }
 }

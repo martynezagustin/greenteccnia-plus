@@ -24,8 +24,9 @@
             <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
                 <i class="fa-solid fa-eye m-1"></i>
-                <i style="color: red;" class="fa-solid fa-trash m-1"></i>
-                <i class="fa-solid fa-pencil m-1"></i>
+                <i style="color: red;" class="fa-solid fa-trash m-1" (click)="deleteEmployee(employee._id)"></i>
+                <i class="fa-solid fa-pencil m-1" (click)="setEmployeeToUpdate(employee)" data-bs-toggle="offcanvas"
+                    data-bs-target="#addEmployee" aria-controls="addEmployee"></i>
             </td>
         </tr>
         }
@@ -35,10 +36,9 @@
 <div class="d-flex flex-column align-items-center fade-in-container">
     <p class="zero_length_employees p-3"><strong>Aún no agregaste un empleado. ¿Deseas agregar un nuevo
             empleado?</strong></p>
-    <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
+    <button (click)="setEmployeeToUpdate(null)" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
         aria-controls="addEmployee">+AGREGAR UN NUEVO EMPLEADO</button>
-    <app-add-employee></app-add-employee>
-</div>
+    </div>
 }
 }@else {
 <div class="d-flex justify-content-center fade-in-container mt-3">
@@ -47,3 +47,4 @@
     </div>
 </div>
 }
+<app-add-employee></app-add-employee>

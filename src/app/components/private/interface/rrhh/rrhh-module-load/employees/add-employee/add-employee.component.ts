@@ -7,7 +7,6 @@ import { SyndicatesService } from '../../../../../../../services/private/rrhh/sy
 import { CctService } from '../../../../../../../services/private/rrhh/cct/cct.service';
 import { AddCctComponent } from './add-cct/add-cct.component';
 import { CCT } from '../../../../../../../../interfaces/enterprise/rrhh/ccts/cct.interface';
-import { error } from 'console';
 import { AddSyndicateComponent } from './add-syndicate/add-syndicate.component';
 import { AddArtComponent } from './add-art/add-art.component';
 import { ART } from '../../../../../../../../interfaces/enterprise/rrhh/arts/art.interface';
@@ -15,6 +14,7 @@ import { ArtService } from '../../../../../../../services/private/rrhh/art/art.s
 import { BankService } from '../../../../../../../services/private/rrhh/bank/bank.service';
 import { Bank } from '../../../../../../../../interfaces/enterprise/rrhh/banks/bank.interface';
 import { AddBankComponent } from './add-bank/add-bank.component';
+import { Employee } from '../../../../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
 
 @Component({
   selector: 'app-add-employee',
@@ -25,6 +25,7 @@ import { AddBankComponent } from './add-bank/add-bank.component';
 export class AddEmployeeComponent implements OnInit {
   formAddEmployee!: FormGroup
   enterpriseId!: any
+  title!: String
   //sindicatos para indexar
   syndicates: any[] = []
   ccts: CCT[] = []
@@ -32,6 +33,11 @@ export class AddEmployeeComponent implements OnInit {
   banks: Bank[] = []
   //mensajes de form
   messageError: String = ''
+  successfullyMessage: String = ''
+  loading: boolean = false
+  //los usos del formulario
+  isUpdate!: boolean
+  employeeToUpdate: Employee | null = null
   constructor(private fb: FormBuilder, private employeeService: EmployeesService, private enterpriseService: EnterpriseService, private syndicateService: SyndicatesService, private cctService: CctService, private artService: ArtService, private bankService: BankService) {
     this.formAddEmployee = this.fb.group({
       personalInfo: this.fb.group({
@@ -48,7 +54,7 @@ export class AddEmployeeComponent implements OnInit {
       }),
       jobInfo: this.fb.group({
         startDate: new FormControl(null, Validators.required),
-        leavingDate: new FormControl(null, Validators.required),
+        leavingDate: new FormControl(null),
         position: new FormControl('', Validators.required),
         status: new FormControl('', Validators.required),
         CCT: this.fb.group({
@@ -67,8 +73,10 @@ export class AddEmployeeComponent implements OnInit {
       financialInformation: this.fb.group({
         grossSalary: new FormControl(null, Validators.required),
         bank: new FormControl('', Validators.required),
-        cbu: new FormControl('', Validators.required)
-      })
+        cbu: new FormControl(null, [Validators.required, Validators.pattern(/^\d{22}$/)])
+      }),
+      verifiedData: new FormControl(false, Validators.requiredTrue),
+      privacityData: new FormControl(false, Validators.requiredTrue)
     })
   }
   ngOnInit(): void {
@@ -77,6 +85,7 @@ export class AddEmployeeComponent implements OnInit {
       this.getAllSyndicates()
       this.getAllCCTs()
       this.getAllARTs()
+      this.getAllBanks()
       this.cctService.CCTs$.subscribe(
         response => {
           this.ccts = response ?? []
@@ -103,19 +112,34 @@ export class AddEmployeeComponent implements OnInit {
           console.error(error);
         }
       )
-    }
-  }
-  handleSubmit(e: Event) {
-    e.preventDefault()
-    if (this.enterpriseId)
-      this.employeeService.addEmployee(this.enterpriseId, this.formAddEmployee.value).subscribe(
+      //banks
+      this.bankService.banks$.subscribe(
         response => {
-          console.log(response)
+          this.banks = response ?? []
         },
-        err => {
-          this.messageError = err.error.message
+        error => {
+          console.error(error);
         }
       )
+    }
+    this.employeeService.employeeToEdit$.subscribe(
+      response => {
+        this.employeeToUpdate = response;
+        this.isUpdate = this.employeeToUpdate != null
+        this.title = !this.isUpdate ? 'Agregar empleado' : 'Editar empleado';
+        this.loadingItemToUpdate()
+      }
+    )
+  }
+  handleSubmit(e: Event) {
+    this.loading = true
+    this.successfullyMessage = ''
+    this.messageError = ''
+    e.preventDefault()
+    console.log(this.formAddEmployee.value)
+    if (this.enterpriseId)
+      this.isUpdate ? this.updateEmployee() : this.addEmployee()
+
   }
   getEnterpriseId() {
     this.enterpriseId = this.enterpriseService.getEnterpriseId()
@@ -150,8 +174,8 @@ export class AddEmployeeComponent implements OnInit {
       }
     )
   }
-  getAllBanks(){
-    this.bankService.banks$.subscribe(
+  getAllBanks() {
+    this.bankService.getAllBanks(this.enterpriseId).subscribe(
       response => {
         this.banks = response ?? []
       },
@@ -159,6 +183,49 @@ export class AddEmployeeComponent implements OnInit {
         console.error(err);
       }
     )
+  }
+  addEmployee() {
+    this.employeeService.addEmployee(this.enterpriseId, this.formAddEmployee.value).subscribe(
+      () => {
+        this.successfullyMessage = 'Empleado creado con éxito.'
+        this.loading = false
+        this.formAddEmployee.reset()
+        setTimeout(() => {
+          this.successfullyMessage = ''
+        }, 3000);
+      },
+      err => {
+        this.messageError = err.error.message
+        this.loading = false
+      }
+    )
+  }
+  updateEmployee() {
+    const id = this.employeeToUpdate?._id;
+    if (typeof id === 'string') {
+      this.employeeService.updateEmployee(this.enterpriseId, id, this.formAddEmployee.value).subscribe(
+        () => {
+          this.successfullyMessage = 'Empleado actualizado con éxito.'
+          this.loading = false
+          this.formAddEmployee.reset()
+          setTimeout(() => {
+            this.successfullyMessage = ''
+          }, 3000);
+        },
+        err => {
+          this.messageError = err.error.message
+          this.loading = false
+        }
+      );
+    } else {
+      this.messageError = 'ID de empleado no válido para la actualización.';
+      this.loading = false;
+    }
+  }
+  loadingItemToUpdate() {
+    if (this.employeeToUpdate != null) {
+      this.formAddEmployee.patchValue(this.employeeToUpdate)
+    }
   }
   //validators
   get name() {

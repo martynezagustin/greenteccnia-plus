@@ -18,7 +18,7 @@ export class AddBankComponent {
   successfullyMessage!: String
   constructor(private fb: FormBuilder, private bankService: BankService) {
     this.formAddBank = this.fb.group({
-      bankName: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
       shortName: new FormControl('', Validators.required),
       CUIT: new FormControl('', Validators.required),
       bicSwift: new FormControl('', Validators.required),

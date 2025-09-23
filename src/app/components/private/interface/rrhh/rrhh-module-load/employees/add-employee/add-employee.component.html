@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center">
             <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png" alt="Logo"
                 width="50" class="d-inline-block align-text-top m-2">
-            <h1>Añadir empleado</h1>
+            <h1>{{title}}</h1>
         </div>
     </div>
     <div class="offcanvas-body">
@@ -182,12 +182,21 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px">
                     <div formGroupName="CCT" class="d-flex flex-column">
-                        <label class="form-label" for="CCT">Convenio Colectivo aplicable</label>
-                        <select name="CCT" id="CCT" class="form-control">
-                            @for(cct of ccts;track cct){
-                            <option value={{cct.name}}>{{cct.name}}</option>
-                            }
-                        </select>
+                        <div style="display: grid; grid-template-columns: 60% 40%; grid-gap:1px">
+                            <div>
+                                <label class="form-label" for="CCT">Convenio</label>
+                                <select name="CCT" id="CCT" formControlName="name" class="form-control">
+                                    @for(cct of ccts;track cct){
+                                    <option value={{cct.name}}>{{cct.name}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label for="cctNumber" class="form-label">Nº de Convenio</label>
+                                <input type="text" class="form-control" formControlName="cctNumber" id="cctNumber"
+                                    placeholder="Número de convenio">
+                            </div>
+                        </div>
                         <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
                             data-bs-target="#cct">+AÑADIR
                             CONVENIO COLECTIVO</button>
@@ -203,23 +212,23 @@
                             class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
                     </div>
                 </div>
-            </fieldset>
-            <div class="p-1 mt-1">
-                <h4>👉Riesgos del trabajo</h4>
-            </div>
-            <div class="grills">
-                <div class="mt-1 d-flex flex-column">
+                <hr>
+                <div class="p-1 mt-1">
+                    <h4>👉Riesgos del trabajo</h4>
+                </div>
+                <div formGroupName="ART" class="mt-1 d-flex flex-column">
                     <label class="form-label" for="ART">Aseguradora de riesgos</label>
-                    <select class="form-control" name="ART" id="ART">
+                    <select class="form-control" formControlName="name" name="name" id="name">
                         <option disabled selected>Seleccione una opción...</option>
                         @for(art of arts; track art){
-                            <option value={{art.name}}>{{art.name}}</option>
+                        <option value={{art.name}}>{{art.name}}</option>
                         }
                     </select>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#ARTModal"
                         class="btn mt-1 btn-success">+AÑADIR ART</button>
+
                 </div>
-            </div>
+            </fieldset>
             <hr>
             <div class="p-1">
                 <h3>Información financiera</h3>
@@ -250,38 +259,62 @@
                     <div class="d-flex flex-column">
                         <label for="bank" class="form-label">Banco</label>
                         <select class="form-control" formControlName="bank" name="bank" id="bank">
-                            <option disabled selected>Selecciona una opción</option>
+                            <option disabled selected>Seleccione una opción...</option>
+                            @for(bank of banks; track bank.name){
+                            <option value={{bank.name}}>{{bank.name}}</option>
+                            }
                         </select>
                         <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
                             data-bs-target="#bankModal">+AÑADIR BANCO DE COBRO</button>
                     </div>
                 </div>
                 <div>
-                    <label for="CBU" class="form-label">CBU</label>
-                    <input [ngClass]="{'ng-error': cbu.invalid && cbu.touched}" type="text" formControlName="cbu"
-                        id="cbu" class="form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
+                    <label for="cbu" class="form-label">CBU</label>
+                    <input [ngClass]="{'ng-error': cbu.invalid && cbu.touched}" type="text" maxlength="22"
+                        minlength="22" pattern="^\d{22}$" formControlName="cbu" id="cbu" class="form-control"
+                        placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
                 </div>
                 <div>
                     <div class="fade-in-container alert alert-danger mt-1" [hidden]="cbu.valid || cbu.pristine">
-                        <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce un CBU.
-                    </div>
-                    <div class="form-check mt-2">
-                        <input type="checkbox" class="form-check-input" name="verify-data" id="verify-data">
-                        <label for="verify-data" class="form-check-label">Confirmo que los datos ingresados son
-                            verídicos.</label>
-                    </div>
-                    <div class="form-check mt-2">
-                        <input type="checkbox" class="form-check-input" name="verify-privacity-employee"
-                            id="verify-privacity-employee">
-                        <label for="verify-privacity-employee" class="form-check-label">Confirmo que mantendré la
-                            privacidad de los datos del empleado.</label>
+                        <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce un CBU de 22 dígitos.
                     </div>
                 </div>
             </fieldset>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="verified-data" id="verified-data"
+                    formControlName="verifiedData">
+                <label for="verified-data" class="form-check-label">Confirmo que los datos ingresados son
+                    verídicos.</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="verify-privacity-employee"
+                    id="verify-privacity-employee" formControlName="privacityData">
+                <label for="verify-privacity-employee" class="form-check-label">Confirmo que mantendré la
+                    privacidad de los datos del empleado.</label>
+            </div>
+            @if(!loading){
+
+            @if(messageError){
+            <div class="alert alert-danger alert fade-in-container">
+                {{messageError}}
+            </div>
+            }
+            @if(successfullyMessage){
+            <div class="alert alert-success fade-in-container">
+                {{successfullyMessage}}
+            </div>
+            }
+            } @else {
+            <div class="d-flex justify-content-center fade-in-container m-2">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            }
+
             <div class="d-flex align-items-center justify-content-center m-2">
-                <input type="submit" class="btn btn-success m-1" value="Registrar"
+            <input type="submit" class="btn btn-success m-1" [value]="employeeToUpdate == null ? 'Registrar' : 'Actualizar'"
                     [disabled]="!this.formAddEmployee.valid">
-                <button class="btn btn-dark m-1">Cancelar</button>
             </div>
         </form>
     </div>

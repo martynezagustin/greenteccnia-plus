@@ -4,6 +4,7 @@ import { EnterpriseService } from '../../../../../../services/private/enterprise
 import { Employee } from '../../../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employees',
@@ -17,6 +18,9 @@ export class EmployeesComponent implements OnInit {
   //misc
   errorMessage!: String
   loading!: Boolean
+  //deleteds
+  deletedSuccessfully!: String
+  deletedErrorMessage!: String
   constructor(private employeesService: EmployeesService, private enterpriseService: EnterpriseService) { }
   ngOnInit(): void {
     this.getEnterpriseId()
@@ -49,7 +53,39 @@ export class EmployeesComponent implements OnInit {
       }
     )
   }
-  formatValue(num: Number){
+  deleteEmployee(employeeId: any) {
+    Swal.fire({
+      title: '<h2 style="font-family:Montserrat; letter-spacing:-1.2px">¿Estás seguro?</h2>',
+      text: "No podrás revertir esta acción una vez confirmada.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+      this.deletedSuccessfully = ''
+      this.employeesService.deleteEmployee(this.enterpriseId, employeeId).subscribe(
+        () => {
+          Swal.fire({
+            title: '<h2 style="font-family:Montserrat; letter-spacing:-1.2px">Empleado eliminado</h2>',
+            text: 'El empleado se eliminó correctamente.',
+            showCloseButton: true,
+          })
+        },
+        err => {
+          this.deletedErrorMessage = err.error.message
+        }
+      )
+    }).catch((err) => {
+      console.error(err);
+    })
+  }
+  formatValue(num: Number) {
     return formatValue(num)
+  }
+  setEmployeeToUpdate(employee: Employee | null) {
+    this.employeesService.setEmployeeToEdit(employee)
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment.prod';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { Bank } from '../../../../../interfaces/enterprise/rrhh/banks/bank.interface';
 
 @Injectable({
@@ -14,7 +14,9 @@ export class BankService {
   banks$ = this.banks.asObservable()
   constructor(private httpClient: HttpClient) { }
   createBank(enterpriseId: string, data: any) {
-    return this.httpClient.post(`${this.baseUrl}/${enterpriseId}/banks/create-bank`, data, { withCredentials: true })
+    return this.httpClient.post(`${this.baseUrl}/${enterpriseId}/banks/create-bank`, data, { withCredentials: true }).pipe(
+      switchMap(() => this.getAllBanks(enterpriseId))
+    )
   }
   getBank(enterpriseId: string, bankId: string) {
     return this.httpClient.get(`${this.baseUrl}/${enterpriseId}/banks/${bankId}`, { withCredentials: true })

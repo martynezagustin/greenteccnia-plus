@@ -40,6 +40,8 @@ export interface Employee {
     financialInformation: {
         grossSalary: number,
         bank: string,
-        cbu: string
-    }
+        cbu: number
+    },
+    verifyData: boolean,
+    privacityData: boolean
 }
