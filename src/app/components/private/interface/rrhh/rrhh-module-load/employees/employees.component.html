@@ -20,7 +20,7 @@
             <td>{{employee.personalInfo.lastname}}</td>
             <td>{{employee.personalInfo.email}}</td>
             <td>{{employee.personalInfo.gender}}</td>
-            <td>{{employee.jobInfo.status}}</td>
+            <td class="status-jon" [ngStyle]="{'background-color': employee.jobInfo.status === 'Presencial' ? 'darkturquoise' : employee.jobInfo.status === 'Híbrido' ? 'violet' : 'khaki'}">{{employee.jobInfo.status}}</td>
             <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
                 <i class="fa-solid fa-eye m-1"></i>

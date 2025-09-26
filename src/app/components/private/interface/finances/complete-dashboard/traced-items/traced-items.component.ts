@@ -29,9 +29,9 @@ export class TracedItemsComponent implements OnInit {
   //algun misc
   errorMessage!: String
   //charts
-  public lineChartData!: ChartConfiguration<'bar'>['data']
-  public lineChartType: ChartConfiguration<'bar'>['type'] = 'bar'
-  public lineChartOptions: ChartConfiguration<'bar'>['options'] = {
+  public lineChartData!: ChartConfiguration<'line'>['data']
+  public lineChartType: ChartConfiguration<'line'>['type'] = 'line'
+  public lineChartOptions: ChartConfiguration<'line'>['options'] = {
     responsive: true,
     plugins: {
       legend: {

@@ -5,10 +5,11 @@ import { Employee } from '../../../../../../../interfaces/enterprise/rrhh/employ
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-employees',
-  imports: [AddEmployeeComponent],
+  imports: [AddEmployeeComponent, CommonModule],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.css'
 })
@@ -43,7 +44,7 @@ export class EmployeesComponent implements OnInit {
     this.errorMessage = ''
     this.employeesService.getAllEmployees(this.enterpriseId).subscribe(
       response => {
-        this.employees = response
+        this.employees = response.slice(0, 5)
         console.log(this.employees)
         this.loading = false
       },

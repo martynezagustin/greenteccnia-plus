@@ -37,3 +37,8 @@ i:hover{
     transform: scale(1.15, 1.15);
     transition: 0.1s ease-in all;
 }
+.status-job{
+    border-radius: 6px solid gray;
+    padding: 5px;
+    text-align: center;
+}
