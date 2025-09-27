@@ -44,7 +44,7 @@ export class EmployeesComponent implements OnInit {
     this.errorMessage = ''
     this.employeesService.getAllEmployees(this.enterpriseId).subscribe(
       response => {
-        this.employees = response.slice(0, 5)
+        this.employees = response.slice(0,3)
         console.log(this.employees)
         this.loading = false
       },
