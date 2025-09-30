@@ -1,0 +1,16 @@
+<!--Data personal-->
+<div class="card-data" [ngClass]="{'montserrat-mode': isMontserrat,'poppins-mode': isPoppins, 'card-data-dark': isDark, 'card-data-light': isLight, 'rounded-buttons': roundedButtons, 'square-buttons': squareButtons, 'card-data-monochrome': isMonochrome}">
+    <h2 class="text-center mt-1"><i class="fa-regular fa-user"></i> DATOS PERSONALES</h2>
+    <hr>
+    <span class="label">Nombre</span>
+    <span class="data-user">{{user.name}}</span>
+    <span class="label mt-2">Apellido</span>
+    <span class="data-user">{{user.lastname}}</span>
+    <span class="label mt-2">Edad</span>
+    <span class="data-user">{{user.age}} años</span>
+    <span class="label mt-2">Género</span>
+    <span class="data-user">{{user.gender}}</span>
+    <div>
+      <a class="btn btn-info mt-1" style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px" routerLink="my-user" data-bs-dismiss="offcanvas">VER MIS DATOS</a>
+    </div>
+  </div>

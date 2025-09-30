@@ -1,0 +1,59 @@
+<div>
+    <div class="active d-flex flex-column align-items-center">
+        <h4 class="text-center h4-grid"><i class="fa-solid fa-list m-1"></i>ÚLTIMOS {{typeView == 'active' ? 'ACTIVOS' :
+            typeView == 'income' ? 'INGRESOS' : typeView == 'passive' ?
+            'PASIVOS' : 'EGRESOS'}} AÑADIDOS</h4>
+        @if(!loading){
+        @if(!errorMessage){
+
+        @for (item of totalItems; track item._id) {
+        <table class="table fadeIn"
+            [ngStyle]="{'background-color': typeView  == 'active' || typeView == 'income' ? '#a2fa7c!important' : 'red'}"
+            style="border-radius: 10px; margin: 0.2rem;">
+            <thead>
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">{{typeView == 'active' || typeView == 'passive' ? 'Tipo' : 'Concepto'}}</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="body-table">
+                    <th scope="row" style="font-size: 0.8rem; width: 20%;">{{item.formattedDate}}</th>
+                    <td class="td-actives-styles">{{typeView == "active" || typeView == 'passive' ? item.typeAccount :
+                        item.concept}}</td>
+                    <td class="td-actives-styles">{{item.category}}</td>
+                    <td class="td-actives-styles"
+                        [ngStyle]="{'color': typeView == 'income' || typeView == 'active' ? 'green' : 'red'}">
+                        <strong>$</strong>@if(typeView == 'income' || typeView =='active'){<i
+                            class="fa-solid fa-arrow-up m-2"></i>}@else if(typeView == 'expense' || typeView ==
+                        'passive'){<i class="fa-solid fa-arrow-down m-2"></i>}{{formatValue(item.amount)}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        }
+        @if(totalItems.length === 4){
+
+        <button class="btn btn-info mt-2" style="font-family: Montserrat; letter-spacing: -1.4px; font-weight: 800;"
+            (click)="viewMoreLastRegisters()">+VER MÁS</button>
+        }
+        } @else {
+        <div class="alert alert-danger" style="font-family: Montserrat; letter-spacing: -1.2px;">{{errorMessage}}</div>
+        }
+        } @else {
+        <div class="d-flex flex-column align-items-center m-5">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span style="font-size: 5rem" class="visually-hidden">Loading...</span>
+                </div>
+                <div>
+                    <p class="m-1" style="font-family: Montserrat; font-size: 1.4rem; letter-spacing: -1.2px;">
+                        OBTENIENDO INFORMACIÓN</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

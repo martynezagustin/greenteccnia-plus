@@ -1,0 +1,70 @@
+p {
+    color: white;
+}
+
+h1 {
+    font-family: Montserrat;
+    letter-spacing: -1.6px;
+    font-weight: 700;
+}
+
+.module-load {
+    display: grid;
+    grid-template-columns: 95% 5%;
+    min-height: 36.6vh;
+    min-width: 100%;
+}
+.fa-pen-to-square {
+    color: green;
+    cursor: pointer;
+}
+.view-dashboard-icon:hover {
+    color: black;
+    transition: 0.4s ease-in all;
+}
+.nav-rrhh {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: 0.5s ease-in all
+}
+.pre-nav{
+    background: linear-gradient(190deg, rgb(10,60,10), rgb(30,30,30));
+}
+.nav-rrhh li {
+    list-style-type: none;
+    color: rgb(60, 210, 60);
+    border-radius: 8px;
+    margin-top: 3px;
+}
+
+.nav-link {
+    font-family: Poppins;
+    letter-spacing: -1.8px;
+    font-size: 1.4rem;
+    padding: 0.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}
+
+.nav-rrhh li:hover {
+    color: springgreen;
+    background-color: rgb(60, 60, 60);
+    transition: 0.1s ease-in all;
+}
+
+.sidebar-toggle {
+    color: rgba(60, 210, 60,0.6)!important;
+    letter-spacing: -1.6px;
+    font-family: Poppins;
+    text-decoration: none;
+    text-align: center;
+    margin: 0.5rem;
+
+}
+
+.sidebar-toggle:hover {
+    color: rgb(70, 70, 70);
+    background-color: none;
+}

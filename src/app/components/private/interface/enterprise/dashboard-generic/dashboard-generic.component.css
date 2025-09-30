@@ -1,0 +1,119 @@
+h1 {
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    color: whitesmoke;
+    font-weight: 700;
+}
+
+.container {
+    display: grid;
+    grid-template-areas: "finances"
+        "rrhh";
+    grid-gap: 10px;
+}
+
+.finances {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "cashFlow netWorth";
+    grid-gap: 5px;
+    grid-area: finances;
+}
+.rrhh-and-sustainability{
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-areas: "rrhh sustainability";
+    grid-gap: 5px;
+}
+.cashFlow {
+    grid-area: cashFlow
+}
+
+.netWorth {
+    grid-area: netWorth
+}
+
+.sustainability {
+    grid-area: sustainability;
+}
+
+.p-description {
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+
+.alert-red {
+    background: linear-gradient(to right, rgba(255, 50, 50, 0.3), red, rgba(255, 10, 10, 1));
+    color: white;
+    border-radius: 8px;
+    font-family: Poppins;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+    width: 50%;
+}
+
+.alert-red_p {
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    text-align: start;
+    font-weight: 600;
+}
+
+.col {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.btn {
+    letter-spacing: -1.5px;
+    font-family: Poppins;
+    font-weight: 600;
+}
+
+.errorMessage {
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.h4-element {
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    font-weight: 700;
+}
+
+.form-label {
+    color: whitesmoke;
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    font-weight: 700;
+}
+
+.offcanvas {
+    width: 45rem;
+}
+
+.card {
+    min-height: 19vh;
+}
+
+.fadeInContainer {
+    animation: 0.3s fadeIn ease-in-out;
+}
+.btn-rrhh{
+    margin: 0.9px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,17 @@
+<div class="offcanvas offcanvas-start p-3" data-bs-scroll="true" tabindex="-1" id='offCanvasInterface'
+    aria-labelledby="cashFlowTitle"
+    [ngClass]="{'green-canvas': view == 'income' || view == 'active', 'red-canvas': view == 'expense' || view =='passive'}">
+    <div class="offcanvas-header">
+        <div class="d-flex">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+                alt="isotype-greenteccnia" width="45" class="mr-2">
+            <h5 class="offcanvas-title"
+                style="font-family: Poppins; font-size: 2rem; letter-spacing: -1.2px; font-weight: 700;"
+                id="cashFlowTitle">{{ showTitle}}</h5>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <app-add-item></app-add-item>
+    </div>
+</div>

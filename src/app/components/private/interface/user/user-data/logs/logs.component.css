@@ -1,0 +1,11 @@
+.container-logs{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% 50%;
+}
+h3{
+    font-size: 1rem;
+}
+.card{
+    border: 1px solid black;
+}

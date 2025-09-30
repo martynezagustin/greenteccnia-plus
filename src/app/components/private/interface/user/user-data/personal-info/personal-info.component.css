@@ -1,0 +1,66 @@
+*{
+    font-family: "Poppins";
+}
+.h2-privacity {
+    font-family: "Poppins";
+    letter-spacing: -1.9px;
+    font-weight: 700;
+}
+.grid-personal-info{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "col-1 col-2";
+    grid-gap: 11px;
+    animation-name: fadeInContainer;
+    animation-duration: 0.4s;
+}
+@keyframes fadeInContainer {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.label{
+    letter-spacing: -1.2px;
+    color: rgb(170,170,170);
+    font-size: 1.3rem;
+    display: inline-block;
+    font-weight: 600;
+}
+.form-control{
+    font-size: 0.95rem;
+    width: 90%;
+    border: none;
+    letter-spacing: -1.2px;
+    background: linear-gradient(180deg, #85eb99, #3aef5e);
+    margin-bottom: 2px;
+}
+.user-data{
+    font-size: 1.2rem;
+    letter-spacing: -2px;
+    color: #6fe085;
+}
+.col-1, .col-2{
+    width: 100%;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgb(40,40,40),  #12431c, #204428);
+    min-height: 45vh;
+    box-shadow: 0px 0px 12px 1px gray;
+}
+.col-1{
+    grid-area: col-1;
+}
+.sub-col-1{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.col-2{
+    grid-area: col-2;
+}
+.btn-primary{
+    background: linear-gradient(180deg, rgb(0,10,140), rgb(0,40,240));
+}

@@ -1,0 +1,62 @@
+form {
+    background: linear-gradient(190deg, #ffffff, #fbffd9);
+    font-family: "Poppins";
+    box-shadow: 0px 0px 14px 2px rgb(140, 140, 140);
+    border-radius: 35px;
+    max-width: 100%;
+    width: 400px;
+    aspect-ratio: 1/1;
+    letter-spacing: -1.2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: min-height 0.3s ease-in-out;
+}
+
+.container-verify-login {
+    animation-name: fadeInContainer;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: tomato;
+}
+
+input[type=text] {
+    background-color: #c7ffaf;
+    text-align: center;
+}
+
+input[type=text]::placeholder {
+    text-align: center;
+}
+
+.btn-back {
+    font-family: "Poppins";
+    letter-spacing: -1.1px;
+}
+
+#basic-addon1 {
+    background-color: black;
+    color: #c7ffaf;
+}
+
+.indication-p {
+    font-size: 0.9rem;
+    color: gray;
+}

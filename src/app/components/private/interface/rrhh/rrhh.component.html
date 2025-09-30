@@ -1,0 +1,77 @@
+@if(!loading){
+<div class="summary fade-in-container">
+    <div class="m-1">
+
+        <button class="btn btn-danger btn-back" (click)="back()"><i
+                class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+        <div class="fade-in-container">
+            <h1 class="h1">Resumen de recursos humanos</h1>
+            <div class="container-boxes">
+                <div class="box fade-in-container">
+                    <span class="data data-employees-quantity">{{employeesLength}}</span>
+                    @if(percentage !== 0 && employeesLength){
+
+                    <div class="p-1 text-center"
+                        style="color: white; font-family: Montserrat; font-weight: 600; letter-spacing: -1.2px; border-radius: 8px; background: linear-gradient(to right, green, rgb(10,70,10));">
+                        {{percentage}} VS ÚLTIMO MES</div>
+                    }
+                    <h3>Empleados</h3>
+                </div>
+
+                <div class="box fade-in-container">
+                    <div>
+                        @if(!errorMessageCanvas){
+
+                        <canvas class="data" style="letter-spacing: -0.6px!important;" baseChart [data]="pieChartData"
+                            [labels]="pieChartLabels" [options]="pieChartOptions" [legend]="true" [type]="pieChartType"
+                            width="180">
+                        </canvas>
+                        } @else {
+                        <div class="m-3 mt-5">
+                            <div class="alert fade-in-container alert-danger"><i
+                                    class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessageCanvas}}</div>
+                        </div>
+                        }
+                    </div>
+                    <h3><i class="fa-solid fa-person-half-dress m-1"></i> Paridad de género</h3>
+                </div>
+
+                <div class="box fade-in-container">
+                    <div class="d-flex justify-content-center">
+                        @if(!accidents){
+                        <p class="mt-4"
+                            style="font-family: Poppins; letter-spacing: -1.2px; color: rgb(13, 180, 13); font-size: 1.7rem;">
+                            <strong><i class="fa-solid fa-circle-check m-1"></i> No se han reportado
+                                accidentes.</strong>
+                        </p>
+                        } @else {
+                        <span class="data">{{accidents}}</span>
+                        }
+                    </div>
+                    <h3><i class="fa-solid fa-triangle-exclamation m-1"></i> Accidentes laborales</h3>
+                </div>
+
+                <div class="box fade-in-container">
+                    <div>
+
+                        <span class="data">${{(shortenNumber(payroll))}}</span>
+                    </div>
+                    <h3><i class="fa-solid fa-receipt m-1"></i> Presupuesto en salarios</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+} @else {
+<div class="d-flex flex-column align-items-center text-center mt-5 loadingFade">
+    <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3"
+        style="font-size: 2rem; letter-spacing: -1.3px; font-weight: 700; font-family: Poppins; color: whitesmoke;">
+        PROCESANDO PETICIÓN...</p>
+</div>
+}
+@if(!loading){
+<app-rrhh-module-load class="fade-in-container" style="height:100%"></app-rrhh-module-load>
+}

@@ -1,0 +1,26 @@
+<div class="p-3">
+    <h2 class="h2-dashboard-complete text-center">{{type == 'cashFlow' ? 'Flujo de caja' : 'Patrimonio neto'}} |
+        {{selectedPeriod === 'year' ? 'año actual' : selectedPeriod === 'month' ? "mes actual" : "trimestre actual"}}
+    </h2>
+
+    @if(!loading){
+    @if(!errorMessage){
+    <canvas style="border-radius: 8px;" class="m-2 fade-in-container" baseChart [data]="lineChartData" [type]="lineChartType"
+        [options]="lineChartOptions"></canvas>
+    } @else {
+    <div class="alert alert-danger fade-in-container mt-2"><i class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessage}}</div>
+    }
+    } @else {
+
+    <div class="d-flex justify-content-center m-3">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">Procesando
+            peticiones...</p>
+    </div>
+    }
+
+</div>

@@ -1,0 +1,98 @@
+.section {
+    display: grid;
+    grid-template-areas: "try-greenteccnia-info form";
+    align-items: center;
+    grid-template-columns: 45% 55%;
+    height: 100vh;
+}
+.container-animated{
+    animation-name: fadeInContainer;
+    animation-duration: 0.5s
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.try-greenteccnia-info {
+    font-family: "Poppins";
+    padding: 2rem;
+    background: linear-gradient(190deg, rgb(113, 255, 113), rgb(10,244,120), rgb(100,222,160), rgb(80,240,112));
+    height: 100%;
+    grid-area: try-greenteccnia-info;
+}
+
+.try-greenteccnia-info-h1 {
+    letter-spacing: -1.8px;
+    font-family: Montserrat;
+    font-weight: 800;
+}
+
+.try-greenteccnia-info-p {
+    letter-spacing: -1.6px;
+    font-size: 1.1rem;
+}
+.try-greenteccnia-info-profits{
+    font-size: 1rem;
+    letter-spacing: -1px;
+}
+.try-greenteccnia-info-h2{
+    font-size: 1.3rem;
+    letter-spacing: .1.1px;
+}
+.div-form-to-sing-up{
+    border-radius: 10px;
+}
+.div-form-to-sing-up h3{
+    text-align: start;
+    margin: 13px 8px 5px 8px;
+    padding: 0.4rem;
+    font-size: 2.2rem;
+    font-family: "Poppins";
+    letter-spacing: -2px;
+}
+select{
+    appearance: auto;
+    cursor: pointer;
+}
+.form-to-sing-up input[type=text], input[type=number], input[type=email], select, option, select:focus, input[type=password]{
+    background-color: rgb(50,50,50);
+    color: #c7ffaf;
+    border: none;
+    font-family: "Poppins";
+}
+.form-to-sing-up input[type=text]::placeholder, input[type=number]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder{
+    color: #c7ffaf;
+    opacity: 0.5;
+}
+.age-and-email{
+    display: flex;
+}
+.phone-and-username{
+    display: flex;
+}
+#basic-addon1 {
+    background-color: black;
+    border: none;
+    color: #c7ffaf;
+    margin-right: 2px;
+}
+#phone{
+    width: 50%;
+}
+.group-username{
+    width: 50%;
+}
+input[type=number]{
+    width: 35%;
+}
+.btn-submit{
+    font-family: "Poppins";
+    letter-spacing: -1px;
+    font-weight: 500;
+}

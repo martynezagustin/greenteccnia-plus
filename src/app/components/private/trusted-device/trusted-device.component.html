@@ -1,0 +1,49 @@
+<section class="d-flex flex-column align-items-center justify-content-center container-trusted mt-5">
+    <h2 class="confirm-device__h2"><i class="fa-solid fa-circle-check m-1"></i> Confirma el dispositivo</h2>
+    @if(loading){
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <p class="text-center mt-2" style="font-family: Poppins; letter-spacing: -1.4px; color: #1e7b31;">
+        Cargando...</p>
+    }
+    @else if(suspiciousDevice){
+    <p class="confirm-device__p">Es crucial que confirmes el siguiente dispositivo para reforzar la seguridad de tu
+        cuenta. <strong>GreenTeccnia+</strong> se compromete a proteger tus datos y garantizar una experiencia segura.
+        Confirmar este dispositivo nos ayuda a mantener la integridad de tu información personal y a prevenir accesos no
+        autorizados.</p>
+    <div class="confirm-device__container">
+        <div class="confirm-device__card">
+            <h4 class="text-center">Dispositivo: <strong>@if(suspiciousDevice.deviceType === "Escritorio"){<i
+                        class="fa-solid fa-desktop m-1"></i> }@else if(suspiciousDevice.deviceType === "Tablet"){<i
+                        class="fa-solid fa-tablet-screen-button m-1"></i>} @else{<i
+                        class="fa-solid fa-mobile-screen m-1"></i>} {{suspiciousDevice.deviceType}}</strong></h4>
+            <h5 class="text-center">Sistema operativo: <strong>{{suspiciousDevice.os}}</strong></h5>
+            <h5 class="text-center">IP: <strong>{{suspiciousDevice.ip}}</strong></h5>
+            <h5 class="text-center">Navegador: @if(suspiciousDevice.browser === "Firefox"){<i
+                    class="fa-brands fa-firefox m-1"></i>}<strong> {{suspiciousDevice.browser}}</strong></h5>
+            <div class="d-flex">
+                <button class="btn-success btn" (click)="confirmDevice(suspiciousDevice._id, true)">CONFIAR EN ESTE
+                    DISPOSITIVO</button>
+                <button class="btn-danger btn" (click)="confirmDevice(suspiciousDevice._id, false)">NO CONFIAR EN ESTE
+                    DISPOSITIVO</button>
+            </div>
+        </div>
+        @if(loadingConfirmOrNot){
+        <div class="d-flex justify-content-center mt-3">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <p class="text-center mt-2" style="font-family: Poppins; letter-spacing: -1.4px; color: #1e7b31;">
+            Procesando información...</p>
+        }
+    </div>
+    } @else {
+    <div class="alert alert-danger" role="alert">{{messageError}}</div>
+    <button class="btn btn-danger" style="letter-spacing: -1.3px; font-family: Poppins; font-weight: 600;"
+        routerLink="/log-in">VOLVER A INICIAR SESIÓN</button>
+    }
+</section>

@@ -1,0 +1,71 @@
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container-fluid {
+    padding: 0%;
+}
+.nav-item{
+    list-style-type: none;
+}
+
+.nav-link,
+.nav-sublink {
+    font-family: "Poppins";
+    color: rgb(40, 40, 40);
+    letter-spacing: -1.3px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+}
+
+.nav-link {
+    padding: 11px;
+    cursor: pointer;
+}
+
+.nav-sublink {
+    padding: 10px 0px 10px 20px;
+    text-align: end;
+    color: rgb(50,50,50);
+    font-weight: 700;
+}
+
+.nav-link:hover {
+    background-color: rgb(35, 35, 35);
+    color: whitesmoke;
+}
+
+.nav-sublink:hover {
+    background-color: rgb(5, 73, 5)!important;
+    color: #7ed957;
+}
+
+.btn-light:hover {
+    background-color: rgb(255, 70, 37);
+    color: whitesmoke;
+    border: none;
+}
+
+.my-profile {
+    padding: 0.6rem;
+    border-radius: 90px;
+    background-color: black;
+    color: whitesmoke;
+    margin: 0.5rem;
+    transform: scale(1, 1);
+    transition: 0.4s;
+}
+
+.my-profile:hover {
+    background-color: rgb(5, 90, 5);
+    color: whitesmoke;
+    transform: scale(1.1, 1.1);
+    transition: 0.4s;
+}

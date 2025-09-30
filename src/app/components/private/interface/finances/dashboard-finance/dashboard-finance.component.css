@@ -1,0 +1,192 @@
+.fadeIn {
+    animation: 0.9s fadeIn ease-in-out
+}
+
+.summary {
+    background-color: whitesmoke;
+    border-radius: 8px;
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
+    justify-items: center;
+}
+
+.summary h3 {
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+
+.indicator_projection {
+    font-size: 3rem;
+    margin: 0.7rem;
+    font-family: Montserrat;
+    text-align: center;
+    letter-spacing: -1.2px;
+}
+
+.labelSpanish {
+    text-align: center;
+    color: whitesmoke;
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+    border-radius: 6px;
+    margin: 0.6rem;
+}
+
+.span-value-total {
+    font-family: Montserrat;
+    font-weight: 800;
+    font-size: 2.6rem;
+}
+
+.grids {
+    display: grid;
+    grid-template-columns: 44% 55%;
+    grid-gap: 10px;
+    grid-template-areas: "composition evolution"
+        "projection lastRegisters";
+}
+
+.h4-grid {
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.h5-projection {
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 500;
+    font-size: 1rem
+}
+
+.td-actives-styles {
+    font-size: 0.8rem;
+    letter-spacing: -1.2px;
+    font-size: 0.91rem !important;
+    width: 25%;
+}
+
+.span-projection-items {
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 800;
+}
+
+.container-projection {
+    background-color: rgb(220, 220, 220);
+    border: 1px solid gray;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.grids>.composition,
+.evolution,
+.projection,
+.lastRegisters {
+    padding: 1rem;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    margin: 0.2rem;
+}
+
+.composition {
+    grid-area: composition;
+}
+
+.btn-change-filter {
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2rem;
+    color: #a2fa7c !important;
+    background-color: rgb(40, 40, 40) !important;
+    font-family: Montserrat !important;
+    letter-spacing: -1.2px !important;
+    font-weight: 700 !important;
+}
+
+.alert-danger {
+    background-color: whitesmoke;
+    border: 2px solid red;
+    text-align: center;
+    color: red;
+    font-size: 1.3rem;
+    margin: 0.8rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+}
+
+.evolution {
+    grid-area: evolution;
+}
+
+.projection {
+    grid-area: projection;
+}
+
+.lastRegisters {
+    grid-area: lastRegisters;
+}
+
+.projectedItems {
+    font-family: Montserrat;
+    color: green;
+    letter-spacing: -1.3px;
+    text-align: center;
+    font-size: 5.5rem;
+    margin: 2rem;
+    font-weight: 800;
+}
+
+.table {
+    font-family: Montserrat !important;
+    font-size: 1em;
+    letter-spacing: -1.2px;
+}
+
+.btn-light {
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+}
+
+/*
+.table> :not(caption)>*>* {
+    background-color: springgreen;
+}
+
+.table> :not(caption)>*>* {
+    background-color: red;
+    color: white;
+}
+    */
+
+
+.nav-composition-items {
+    background-color: rgb(40, 40, 40);
+    border-radius: 8px;
+    padding: 0.6rem;
+}
+
+.nav-composition-items>.nav-item>.nav-link {
+    margin: 0.3rem;
+    letter-spacing: -1.2px;
+    font-family: Montserrat;
+    font-weight: 700;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

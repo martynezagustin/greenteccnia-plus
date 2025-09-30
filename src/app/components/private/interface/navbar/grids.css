@@ -1,0 +1,36 @@
+.grids-my-profile{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+    grid-gap: 15px;
+}
+.card-data{
+    padding: 0.7rem;
+    background-color: black;
+    color: whitesmoke;
+    border-radius: 8px;
+    min-height: 53vh;
+    height: auto;
+    margin: 0.3rem;
+}
+.card-data h2{
+    letter-spacing: -1.5px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+.card-device{
+    letter-spacing: -1.2px;
+    background-color: white;
+    border-radius: 8px;
+    justify-content: center;
+    border: 1px solid gray;
+}
+.label{
+    display: block;
+    color: rgb(100,100,100);
+    letter-spacing: -1.1px;
+}
+.data-user{
+    font-size: 1.4rem;
+    letter-spacing: -1.1px;
+}

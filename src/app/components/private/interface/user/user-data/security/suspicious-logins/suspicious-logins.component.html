@@ -1,0 +1,53 @@
+<section class="container-security-panel p-3">
+    <a routerLink="/dashboard/my-user/security" class="btn btn-danger mb-2"
+        style="font-family: Poppins; letter-spacing: -1.3px;">&#8592;Atrás</a>
+    <h2 class="h2-security"><i class="fa-solid fa-user-secret m-1"></i> Inicios de sesión sospechosos</h2>
+    <p style="font-family: Poppins; letter-spacing: -1.3px; font-size: 1.2rem; color: rgb(80,80,80)">Acá podrás
+        gestionar tus inicios de sesión sospechosos, confirmando o anulando los mismos en caso de que sean producto de
+        actividad inusual.</p>
+    @if(loading){
+    <div class="d-flex flex-column align-items-center">
+
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <p class="text-center loading-p"
+            style="font-family: Poppins; letter-spacing: -1.4px; color: black; font-weight: 600;">
+            Cargando datos...</p>
+    </div>
+    }
+    <div>
+
+        @for(suspiciousLogin of suspiciousLogins; track suspiciousLogin.device){
+
+        <div class="div-login m-1 d-flex flex-column align-items-center p-2 m-3"
+            style="background-color: whitesmoke; box-shadow: 1px 1px 12px 1px gray; border-radius: 8px;">
+            <div class="d-flex flex-column align-items-center">
+                <div style="background-color: black; color: rgb(220,220,220); font-family: Poppins; letter-spacing: -1.3px; padding: 4px; width: 100%; border-radius: 5px;" class="mb-1 text-center">
+                    <span>ID: {{suspiciousLogin._id}}</span>
+                </div>
+                <p style="font-family: Poppins; letter-spacing: -1.6px; font-weight: 400; margin: 0%;">
+                    @if(suspiciousLogin.device
+                    === "Escritorio"){<i class="fa-solid fa-desktop m-1"></i>} @else if(suspiciousLogin.device
+                    === "Móvil"){<i class="fa-solid fa-mobile-screen"></i>} {{suspiciousLogin.device}} |
+                    {{suspiciousLogin.os}} | {{suspiciousLogin.browser}} </p>
+                <span
+                    style="font-family: 'Courier New', Courier, monospace; letter-spacing: -1.3px; margin: 0%;">{{suspiciousLogin.date
+                    | dateDevice: 'short'}}</span>
+
+            </div>
+            <div class="d-flex">
+                <button class="btn btn-success text-center" (click)="toggleSuspiciousDevice(suspiciousLogin._id, 'Confirmado')"
+                    style="font-family: Poppins; letter-spacing: -1.2px; padding: 0.3rem; margin:2px; font-weight: 700;"><i
+                        class="fa-solid fa-circle-check m-1"></i>FUI YO</button>
+                <button class="btn btn-danger text-center" (click)="toggleSuspiciousDevice(suspiciousLogin._id, 'Sospechoso')"
+                    style="font-family: Poppins; letter-spacing: -1.2px; padding: 0.3rem; margin:2px; font-weight: 600;"><i
+                        class="fa-solid fa-circle-exclamation m-1"></i>NO FUI YO</button>
+            </div>
+        </div>
+        <hr>
+        }
+    </div>
+</section>

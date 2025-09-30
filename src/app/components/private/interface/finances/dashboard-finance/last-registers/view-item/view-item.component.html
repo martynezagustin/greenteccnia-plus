@@ -1,0 +1,33 @@
+<section class="view-item m-1">
+    <button class="btn btn-danger btn-back" (click)="back()">VOLVER</button>
+    <div class="d-flex m-2 mt-3 align-items-center">
+
+        @if(item.category){ <!--Aca presuponemos un activo o pasivo, porque esa subpropiedad se aplica a ello-->
+        <h2>VIENDO: {{item.category}}</h2>
+        }
+        <button class="btn btn-info"
+            style="font-family: Montserrat; letter-spacing: -1.3px; font-weight: 700;">EDITAR</button>
+    </div>
+    <section class="item-desestructuring m-3" style="display: grid; grid-template-columns: 50% 50%; grid-gap: 8px;">
+        <div style="background: linear-gradient(180deg, #ffffff76, #ffffffac); padding: 1.5rem; border-radius: 7px;">
+            <h3 class="styles-h3-view-item"
+                [ngStyle]="{'color': itemType == 'active' || itemType == 'income' ? '#7ed957' : 'red'}">Monto del
+                item</h3>
+            <span class="generic-styles"
+                [ngStyle]="{'color': itemType == 'active' || itemType == 'income' ? 'rgb(0,100,0)': itemType == 'passive' || itemType =='expense' ? 'red' : 'white'}">${{formatValue(item.amount)}}</span>
+        </div>
+        <div style="background: linear-gradient(180deg, #ffffff76, #ffffffac); padding: 1.5rem; border-radius: 7px;">
+            <h3 class="styles-h3-view-item"
+                [ngStyle]="{'color': itemType == 'active' || itemType == 'income' ? '#7ed957' : itemType == 'passive' || itemType =='expense' ? 'red' : 'white'}">
+                Fecha del
+                item</h3>
+            <span class="generic-styles">{{formatDate(item.date)}}</span>
+        </div>
+        <div style="background: linear-gradient(180deg, #ffffff76, #ffffffac); padding: 1.5rem; border-radius: 7px;">
+            <h3 class="styles-h3-view-item"
+                [ngStyle]="{'color': itemType == 'active' || itemType == 'income' ? '#7ed957' : 'red'}">{{itemType == 'active' ? 'Tipo de activo declarado' : itemType == 'passive' ? 'Tipo de pasivo declarado' : itemType == 'income' ? 'Tipo de ingreso declarado' : 'Tipo de egreso declarado'}}</h3>
+            <span
+                style="font-size: 2.2rem; letter-spacing: -1.7px; font-family: Montserrat; font-weight: 800; color: black;">{{itemType == 'active' || itemType == 'passive' ? item.typeAccount : item.category}}</span>
+        </div>
+    </section>
+</section>

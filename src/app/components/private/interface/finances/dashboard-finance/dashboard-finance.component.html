@@ -1,0 +1,12 @@
+<section class="m-1">
+    <button class="btn btn-danger btn-back" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+    <div class="d-flex align-items-center">
+        <h1 class="h1-finances">{{title}}</h1>
+        @if(type){
+        <button class="btn btn-light m-1" (click)="goToDashboard(type)">+VER DASHBOARD <i
+                class="fa-solid fa-scale-unbalanced-flip m-1"></i></button>
+        }
+    </div>
+    <app-summary [loading]="loading" [enterpriseId]="enterpriseId" [type]="type"></app-summary>
+    <app-dashboard-items class="fadeIn" [type]="type"></app-dashboard-items>
+</section>

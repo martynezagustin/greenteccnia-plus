@@ -1,0 +1,25 @@
+<button class="btn btn-danger btn-back m-2" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+<section class="p-2 container-add-enterprise fadeInContainer" [hidden]="this.isVisible">
+    <div class="info p-2">
+        <h2 class="mt-2 h2-add-enterprise"><i class="fa-solid fa-building m-1 mb-3"></i> Crear mi empresa</h2>
+        <p style="font-family: Poppins; letter-spacing: -1.4px; color: rgb(200,200,200); font-size: 1.2rem;">
+            Para poder gestionar tu empresa de manera eficiente dentro de nuestra plataforma, es necesario que completes
+            el proceso de creación en el formulario que encontrarás a continuación.
+            Por favor, asegúrate de ingresar todos los datos de forma precisa y completa, ya que esta información será
+            utilizada para personalizar tu experiencia y garantizar un mejor rendimiento en el uso de nuestras
+            herramientas.
+        </p>
+        <div>
+            <ul
+                style="color: rgb(200,200,200); letter-spacing: -1.4px; font-family: Poppins; list-style-type: none; font-size: 1.2rem;">
+                <li class="m-2 mt-4">✔ Gestione liquidaciones de sueldos, accidentes laborales y asistencias.</li>
+                <li class="m-2 mt-4">✔ Calcule su huella de carbono basada en métricas reales y ajústelas a sus
+                    necesidades.</li>
+                <li class="m-2 mt-4">✔ Mantenga un registro de sus finanzas y proyecte a futuro.</li>
+                <li class="m-2 mt-4">✔ Registre negociaciones con clientes y mantenga un reporte constante.</li>
+            </ul>
+        </div>
+        <button (click)="viewForm()" class="btn btn-success add-enterprise"><i class="fa-solid fa-building-columns m-1"></i> Crear gratis mi empresa</button>
+    </div>
+</section>
+<app-form-add-enterprise [hidden]="!this.isVisible"></app-form-add-enterprise>

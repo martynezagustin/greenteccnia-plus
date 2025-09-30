@@ -1,0 +1,8 @@
+<div class="m-1 fade-in-container">
+    <button class="btn btn-danger btn-back" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+    <div class="m-2">
+        <h1 style="font-family: Poppins; color: whitesmoke; font-weight: 800; margin-bottom: 0.8rem;">Registros
+            del {{type == 'netWorth' ? 'patrimonio neto' : 'flujo de caja'}}</h1>
+        <app-table-last-items [showAllItems]="true"></app-table-last-items>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+.summary-items {
+    display: grid;
+    grid-template-columns: 24.5% 24.5% 24.5% 25.5%;
+    grid-template-areas: "balance positive negative projection";
+    grid-gap: 4px;
+}
+
+.h2-dashboard-complete,
+.h3-dashboard-complete {
+    font-family: Montserrat;
+    letter-spacing: -1.9px;
+    font-weight: 800;
+    margin: 0%;
+}
+
+.h3-dashboard-complete {
+    font-size: 1.5rem;
+
+}
+
+.charts,
+.composition, .last-items-box {
+    border-radius: 8px;
+
+}
+.btn-info{
+    border:  none;
+}
+.btn-info:hover{
+    background-color: whitesmoke;
+    color: green;
+    transition: 0.2s ease-in all;
+}
+.btn-view-more{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+    text-decoration: none;
+}
+.charts {
+    background-color: whitesmoke;
+    border: 2px solid white;
+    grid-gap: 8px;
+}
+
+.composition {
+    background-color: whitesmoke;
+}
+
+.summary-items>div {
+    background-color: whitesmoke;
+    border-radius: 8px;
+}
+.last-items-box{
+    background-color: white;
+}
+.styles-data{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 500;
+}
+.number-summary {
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.styles-icons {
+    box-shadow: 1px 1px 7px 1px gray;
+    border-radius: 8px;
+}
+
+.balance {
+    grid-area: balance;
+}
+
+.positive {
+    grid-area: positive;
+}
+
+.negative {
+    grid-area: negative;
+}
+
+.projection {
+    grid-area: projection;
+}
+
+.green-span {
+    color: green;
+}
+
+.red-span {
+    color: red;
+}

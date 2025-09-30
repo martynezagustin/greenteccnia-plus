@@ -1,0 +1,29 @@
+<div>
+    <div class="active d-flex flex-column">
+        <h4 class="h4-grid"><i class="fa-solid fa-rocket m-1"></i>PROYECCIONES ESTIMADAS</h4>
+        @if(!loading){
+        @for (period of periods; track period.value) {
+
+        <h5 class="indicator_projection" [style.color]='getProjectedColor(period.value)'>
+            <i class="fa-solid m-2" [ngClass]="getArrowIcon(period.value)"></i> 
+            <strong>$</strong>{{formatValue(getProjectedAmount(period.value))}}
+        </h5>
+        <span class="labelSpanish"
+            [ngStyle]="{'background-color': typeView == 'income' || typeView == 'active' ? 'green' : 'red'}">Para el <b>{{period.labelSpanish}}</b> actual.</span>
+        }
+        }
+        @else {
+        <div class="d-flex flex-column align-items-center m-5">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span style="font-size: 5rem" class="visually-hidden">Loading...</span>
+                </div>
+                <div>
+                    <p class="m-1" style="font-family: Montserrat; font-size: 1.4rem; letter-spacing: -1.2px;">
+                        OBTENIENDO INFORMACIÓN</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

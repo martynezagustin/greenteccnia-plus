@@ -1,0 +1,60 @@
+.h1 {
+    font-family: Montserrat;
+    letter-spacing: -1.9px;
+    font-weight: 800;
+    color: whitesmoke;
+}
+
+h3 {
+    letter-spacing: -1.7px;
+    color: black;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.summary {
+    background: linear-gradient(190deg, rgb(0, 120, 6), rgb(0, 83, 0), gray, black, rgb(25, 159, 92), rgb(72, 100, 69));
+    padding: 2rem;
+}
+
+.container-boxes {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+    grid-gap: 6px;
+    font-family: Poppins;
+}
+
+.box {
+    background: linear-gradient(210deg, whitesmoke, rgb(180, 255, 180));
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.data-employees-quantity{
+    font-size: 8rem!important;
+}
+.box .data {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+@media (max-width:1200px) {
+    .container-boxes {
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+    .data{
+        font-size: 2rem!important;
+    }
+    .box{
+        justify-content: center;
+        align-items: center;
+    }
+    h3{
+        font-size: 1rem;
+    }
+}

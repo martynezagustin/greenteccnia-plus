@@ -1,0 +1,26 @@
+<div class="module-load">
+    <div style="background-color: white;" class="p-3 fade-in-container">
+        <h1 class="m-2">{{title}} <i class="view-dashboard-icon fa-solid fa-pen-to-square m-1 fade-in-container"></i></h1>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="pre-nav">
+        <nav class="nav-rrhh mt-2">
+            <div>
+                <a style="font-family: Poppins; font-size: 1rem;" class="sidebar-toggle p-1" href=""><i
+                        class="fa-solid fa-eye-slash m-1"></i></a>
+                <li class="p-1">
+                    <a routerLink="employees" (click)="setViewRRHHElement('employees')" class="nav-link"><i class="fa-solid fa-users m-1"></i> </a>
+                </li>
+                <li class="p-1">
+                    <a routerLink="assists" (click)="setViewRRHHElement('assists')" class="nav-link"><i class="fa-regular fa-file-lines m-1"></i> </a>
+                </li>
+                <li class="p-1">
+                    <a routerLink="liquidations" (click)="setViewRRHHElement('liquidations')" class="nav-link"><i class="fa-solid fa-receipt m-1"></i> </a>
+                </li>
+                <li class="p-1">
+                    <a routerLink="accidents" (click)="setViewRRHHElement('accidents')" class="nav-link"><i class="fa-solid fa-triangle-exclamation m-1"></i> </a>
+                </li>
+            </div>
+        </nav>
+    </div>
+</div>

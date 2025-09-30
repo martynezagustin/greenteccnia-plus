@@ -1,0 +1,38 @@
+<div>
+    <form class="d-flex flex-column align-items-center" [formGroup]="formUpdateRetentionData" (submit)="handleSubmit()">
+
+        <div class="delete-data-to-inactivity"
+            style="font-family: Poppins; letter-spacing: -1.4px; color: white; font-weight: 500;">
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioInactivityPeriod" id="30D"
+                    formControlName="inactivityPeriod" value="30D" checked>
+                <label class="form-check-label" for="30D">
+                    Eliminar datos luego de 30 días de inactividad
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioInactivityPeriod" id="3M"
+                    formControlName="inactivityPeriod" value="3M">
+                <label class="form-check-label" for="3M">
+                    Eliminar datos luego de 90 días de inactividad
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioInactivityPeriod" id="6M"
+                    formControlName="inactivityPeriod" value="6M">
+                <label class="form-check-label" for="6M">
+                    Eliminar datos luego de 6 meses de inactividad
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioInactivityPeriod" id="9M"
+                    formControlName="inactivityPeriod" value="9M">
+                <label class="form-check-label" for="9M">
+                    Eliminar datos luego de 9 meses de inactividad
+                </label>
+            </div>
+        </div>
+        <button class="btn btn-success mt-1">ACTUALIZAR PERIODICIDAD</button>
+    </form>
+</div>

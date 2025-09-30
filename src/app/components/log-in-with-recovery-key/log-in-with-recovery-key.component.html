@@ -1,0 +1,41 @@
+<section class="d-flex flex-direction-column justify-content-center mt-3 fade-in-container">
+    <form [formGroup]="logInForm" class="m-5 d-flex flex-column" style="width: 35%;" (submit)="handleSubmit()">
+        <div class="container-isotype d-flex flex-column align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+                alt="isotype-greenteccnia" width="50">
+        </div>
+        <div class="container-welcome">
+            <h2 class="text-center mb-4">Iniciar sesión con clave de recuperación</h2>
+            <p style="letter-spacing: -1.4px; font-family: Poppins; color: rgb(90,90,90);" class="text-center">Ten en
+                cuenta que este inicio de sesión no es el más seguro, pero es optativo en caso de olvidar tu contraseña.
+            </p>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario</label>
+            <div class="input-group mb-1">
+                <span class="input-group-text" id="basic-addon1">&#64;</span>
+                <input type="text" class="form-control" id="username" placeholder="Nombre de usuario" name="username"
+                    formControlName="username" aria-label="username" aria-describedby="basic-addon1" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="recoveryKey" class="form-label">Tu clave de recuperación</label>
+            <input type="text" style="font-size: 1.4rem;" class="form-control text-center" id="recoveryKey"
+            placeholder="Tu recovery key" name="recoveryKey" formControlName="recoveryKey" required>
+        </div>
+        @if(errorMessage){
+            <p style="color: red; font-size: 0.8rem; letter-spacing: -0.6px; font-weight: 700;" class="p-2 m-2 alert alert-danger text-center">{{errorMessage}}</p>
+        }
+        @if(loading){
+        <div class="d-flex flex-column align-items-center mb-2">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        }
+        <button type="submit" class="btn btn-success mt-2"><strong>Iniciar sesión con clave</strong></button>
+        <a class="btn-danger btn mt-2" routerLink="/forgot-password"><strong>&#8592; Volver</strong></a>
+    </form>
+</section>

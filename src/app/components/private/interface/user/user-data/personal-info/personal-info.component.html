@@ -1,0 +1,172 @@
+<div class="p-3">
+    <h2 class="h2-privacity"><i class="fa-solid fa-circle-info m-1"></i> Acerca de mí</h2>
+    <button class="btn btn-primary mb-4 mt-3" (click)="toggleEdit()" [disabled]="isErrorMessage || isLoading">@if(!isEditable){Editar}
+        @else{Cancelar}</button>
+    @if(!isEditable){
+    <div class="grid-personal-info">
+        <div class="col-1">
+            <h4
+                style="letter-spacing: -1.4px; background-color: white; padding: 4px; border-radius: 5px;text-align: center;">
+                <i class="fa-solid fa-person m-2"></i> Información básica
+            </h4>
+            @if(!isLoading){
+
+            <div class="sub-col-1">
+                <div class="area-1">
+                    <span class="label">Nombre</span>
+                    <div>
+                        <p class="user-data">{{user.name}}</p>
+                    </div>
+                    <!--Apellido-->
+                    <span class="label">Apellido</span>
+                    <div>
+                        <p class="user-data">{{user.lastname}}</p>
+                    </div>
+                    <!--Edad-->
+                    <span class="label">Edad</span>
+                    <div>
+                        <p class="user-data">{{user.age}} años</p>
+                    </div>
+                </div>
+                <div class="area-2">
+                    <!--Género-->
+                    <span class="label">Género</span>
+                    <div>
+                        <p class="user-data">{{user.gender}}</p>
+                    </div>
+                    <span class="label">Cédula de identidad</span>
+                    <div>
+                        <p class="user-data">{{user.identityCard}}</p>
+                    </div>
+                    <!--Apellido-->
+                    <span class="label">Alias</span>
+                    <div>
+                        <p class="user-data">{{user.username}}</p>
+                    </div>
+                </div>
+            </div>
+            } @else {
+                <div class="d-flex justify-content-center mt-3">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                    Cargando...</p>
+            }
+        </div>
+        <div class="col-2">
+            @if(!isEditable){
+            <h4
+                style="letter-spacing: -1.4px; background-color: white; padding: 4px; border-radius: 5px;text-align: center;">
+                <i class="fa-solid fa-id-card-clip m-2"></i> Información de contacto
+            </h4>
+            @if(!isLoading){
+
+            <!--Correo-->
+            <span class="label">Correo electŕonico</span>
+            <div>
+                <p class="user-data">{{user.email}}</p>
+            </div>
+            <!--Teléfono-->
+            <span class="label">Teléfono</span>
+            <div>
+                <p class="user-data">{{user.phone}}</p>
+            </div>
+            }@else {
+
+                <div class="d-flex justify-content-center mt-3">
+                    <div class="spinner-border text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <p class="text-center loading-p" style="font-family: Poppins; letter-spacing: -1.4px; color: #6fe085;">
+                    Cargando...</p>
+            }
+            }
+        </div>
+    </div>
+    } @else{
+    <form [formGroup]="updateForm" (submit)="handleSubmit()">
+        <div class="grid-personal-info">
+            <div class="col-1">
+                <h4
+                    style="letter-spacing: -1.4px; background-color: white; padding: 4px; border-radius: 5px;text-align: center;">
+                    <i class="fa-solid fa-person m-2"></i> Información básica
+                </h4>
+                <div class="sub-col-1">
+                    <div class="area-1">
+
+                        <div>
+                            <label class="label form-label" for="name">Nombre</label>
+                            <input type="text" class="form-control" placeholder="Nombre" formControlName="name"
+                                id="name" required>
+                        </div>
+
+                        <!--Apellido-->
+                        <div>
+                            <label class="label form-label" for="lastname">Apellido</label>
+                            <input type="text" class="form-control" placeholder="Apellido" formControlName="lastname"
+                                id="lastname" required>
+                        </div>
+
+                        <!--Edad-->
+                        <div>
+                            <label class="label form-label" for="age">Edad</label>
+                            <input type="number" class="form-control" id="age" formControlName="age" required>
+                        </div>
+
+                        <input type="submit" class="btn btn-success mt-2"
+                            style="font-family: Poppins; font-weight: 600;" value="ACTUALIZAR">
+                    </div>
+                    <div class="area-2">
+                        <!--Género-->
+                        <div>
+                            <label class="label form-label" for="gender">Género</label>
+                            <select formControlName="gender" id="gender" class="form-control" required style="cursor: pointer; appearance: auto;">
+                                <option selected disabled><strong>Género</strong></option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="No binario">No binario</option>
+                                <option value="Otro">Otro</option>
+                                <option value="Prefiero no decir">Prefiero no decir</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label form-label" for="identityCard">Cédula de identidad</label>
+                            <input type="text" class="form-control" id="identityCard" formControlName="identityCard"
+                                required>
+                        </div>
+                        <!--Apellido-->
+                        <div>
+                            <label class="label form-label" for="username">Alias</label>
+                            <input type="text" class="form-control" id="username" formControlName="username" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <h4
+                    style="letter-spacing: -1.4px; background-color: white; padding: 4px; border-radius: 5px;text-align: center;">
+                    <i class="fa-solid fa-id-card-clip m-2"></i> Información de contacto
+                </h4>
+                <!--Correo-->
+                <div>
+                    <label class="label form-label" for="email">Correo electŕonico</label>
+                    <input class="form-control" type="email" id="email" formControlName="email" required>
+                </div>
+                <!--Teléfono-->
+                <div>
+                    <label class="label form-label" for="phone">Teléfono</label>
+                    <input class="form-control" type="text" id="phone" formControlName="phone" required>
+                </div>
+            </div>
+            @if(isErrorMessage && !isWarned){
+            <div class="alert alert-danger">{{isErrorMessage}}</div>
+            } @else if(isSuccessMessage && !isWarned) {
+            <div class="alert alert-success">{{isSuccessMessage}}</div>
+            }
+        </div>
+    </form>
+    }
+</div>

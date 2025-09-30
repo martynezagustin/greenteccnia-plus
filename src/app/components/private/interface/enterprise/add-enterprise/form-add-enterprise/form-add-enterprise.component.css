@@ -1,0 +1,71 @@
+h1{
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    color: whitesmoke;
+    font-weight: 700;
+}
+.form-label{
+    color: rgb(210,210,210);
+    font-family: "Poppins";
+    letter-spacing: -1.3px;
+    font-weight: 500;
+}
+input[type=text], select, input[type=date], textarea, input[type=number]{
+    background-color: #2af05a;
+    border: none;
+    letter-spacing: -1.2px;
+    font-family: "Poppins";
+}
+
+select{
+    appearance: auto;
+    cursor: pointer;
+}
+.formAddEnterprise{
+    background: linear-gradient(180deg, #2af05b3e, #26833d9e);
+    border-radius: 12px;
+    border: 1px solid #2af05a;
+    padding: 1.1rem;
+}
+.input-error{
+    background: linear-gradient(160deg, red, rgb(255,20,20));
+    border: 1px solid white !important;
+}
+.input-error::placeholder{
+    color: whitesmoke;
+    opacity: 0.7;
+}
+.alert-danger{
+    font-size: 0.8rem;
+    color: whitesmoke;
+    padding: 0.4rem;
+    background: none;
+    border: 2px solid red;
+    margin: 0.3rem 0% 0% 0%;
+}
+h4{
+    font-family: Poppins;
+    letter-spacing: -1.2px;
+    opacity: 0.8;
+    color: springgreen;
+}
+.description_section{
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    color: rgb(230,230,230);
+    opacity: 0.9;
+    margin: 2px 0px 8px 0px;
+}
+.fadeInContainer, .alert-danger{
+    animation-name: fadeInContainer;
+    animation-duration: 0.4s;
+}
+
+@keyframes fadeInContainer {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

@@ -1,0 +1,66 @@
+.h2-label {
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+
+.box {
+    padding: 1.3rem;
+    margin: 0.4rem;
+    border-radius: 8px;
+}
+
+.green-box,
+.red-box {
+    border: 2px solid black;
+}
+
+.green-box {
+    background-color: rgb(180, 250, 180);
+}
+
+.red-box {
+    background-color: rgb(215, 20, 20);
+    color: whitesmoke;
+}
+
+.label {
+    margin-top: 1rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+}
+
+select {
+    appearance: auto;
+    cursor: pointer;
+}
+
+.btn {
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+    font-weight: 700;
+}
+
+.form-control,
+.form-control::placeholder {
+    letter-spacing: -1.2px;
+    font-weight: 500;
+    font-family: Montserrat;
+    border: none;
+}
+.alert-danger, .alert-success{
+    background-color: whitesmoke;
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+    font-weight: 700;
+}
+.alert-success{
+    color: green;
+    border: 2px solid green;
+    transition: 0.3s ease-in all;
+}
+.alert-danger{
+    color: red;
+    border: 2px solid red;
+}

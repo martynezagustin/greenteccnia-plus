@@ -1,0 +1,82 @@
+<div class="formAddSustainabilityData m-2">
+    @if(!loading){
+
+
+    <h3>Añade algunos objetivos sustentables para terminar</h3>
+    <p style="font-family: Poppins; color: whitesmoke; letter-spacing: -1.3px;">Haz una inclusión de objetivos que
+        pueden ayudar a mejorar la sustentabilidad de tu empresa. <strong>Comprométete con tu empresa y el medio
+            ambiente.</strong></p>
+    <fieldset class="d-flex justify-content-center m-3">
+        @if(selectedObjectives.length !== avaiableObjectives.length){
+        @for(objective of displayedObjectives; track objective.title){
+        <div class="m-1 p-2 w-50 box-objective">
+            <h4 style="font-family: Poppins; font-size: 1.5rem; letter-spacing: -1.3px; min-height: 11vh;"
+                class="text-center">
+                {{objective.title}}</h4>
+            <p style="font-family: Poppins; letter-spacing: -1.3px; color: whitesmoke; background-color: rgb(50,50,50); border-radius: 10px; font-size: 1.2rem;"
+                class="text-center">IMPACTO: <span
+                    [style.color]="getImpactColor(objective.impact)">{{objective.impact}}</span></p>
+            <p style="font-family: Poppins; letter-spacing: -1px; font-size: 1.2rem;"><i
+                    class="fa-solid fa-handshake m-1" style="color: rgb(0,200,0);"></i> RELACIÓN CON ODS:
+                <strong>{{objective.relationWithODS}}</strong>
+            </p>
+            <div class="d-flex flex-column align-items-center">
+                @if(!selectedObjectives.includes(objective) && !objective.loading){
+                <button class="btn btn-success" style="font-family: Poppins; letter-spacing: -1px; font-weight: 800;"
+                    (click)="addObjective(objective)"><i class="fa-solid fa-plus m-1"></i>AÑADIR OBJETIVO</button>
+
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">GreenTeccnia+</strong>
+                            <small>11 mins ago</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Añadiste un objetivo con éxito.
+                        </div>
+                    </div>
+                </div>
+
+                }@else if(selectedObjectives.includes(objective) && !objective.loading) {
+                <button disabled="true" class="btn btn-success"
+                    style="font-family: Poppins; letter-spacing: -1px; font-weight: 800;"
+                    (click)="addObjective(objective)"><i class="fa-solid fa-circle-check m-1"></i>AÑADIDO</button>
+                }
+                @if(objective.loading){
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden" style="font-size: 0.8rem;">Loading...</span>
+                </div>
+                }
+            </div>
+        </div>
+        }
+        }@else {
+        <div class="alert alert-danger">No hay objetivos sustentables disponibles para agregar.</div>
+        }
+    </fieldset>
+    <div class="d-flex">
+        <button type="submit" class="btn btn-success m-1" (click)="handleSubmitObjectives()"
+            style="font-family: Poppins; letter-spacing: -0.7px; font-weight: 700; background-color: whitesmoke; color: green;">SIGUIENTE
+            <i class="fa-solid fa-arrow-right m-1"></i></button>
+        <button class="btn btn-light m-1"
+            style="font-family: Poppins; letter-spacing: -0.7px; font-weight: 700;" (click)="omit()">OMITIR</button>
+    </div>
+    } @else {
+    <div class="fadeInContainer">
+        <h3>Estamos procesando tus objetivos. Espera un instante...</h3>
+        <div class="d-flex flex-column align-items-center mb-2">
+            <div class="d-flex justify-content-center mt-2">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <p class="mt-3" style="color: whitesmoke; font-weight: 700; font-family: Poppins; letter-spacing: -1.3px;">
+                CARGANDO...</p>
+            @if(successMessage){
+                <div style="font-family: Poppins; letter-spacing: -1.2px; font-weight: 800;" class="fade-in-container alert alert-success" role="alert">{{successMessage}}</div>
+            }
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,37 @@
+<!--Panel de seguridad-->
+<div class="card-data"
+    [ngClass]="{'montserrat-mode': isMontserrat,'poppins-mode': isPoppins, 'card-data-dark': isDark, 'card-data-light': isLight, 'rounded-buttons': roundedButtons, 'square-buttons': squareButtons, 'card-data-monochrome': isMonochrome}">
+    <h2 class="text-center mt-1"><i class="fa-solid fa-shield-halved"></i> PANEL DE SEGURIDAD Y PRIVACIDAD</h2>
+    <hr>
+    <p>GreenTeccnia+ se preocupa por tus datos.</p>
+    <div class="d-flex align-items-center">
+        @if(!isChecked){
+        <a class="btn btn-danger m-1" routerLink="my-user/security"
+            style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px;width: 50%;"
+            data-bs-dismiss="offcanvas"><i class="fa-solid fa-lock-open m-1"></i> DESACTIVADA</a>
+        } @else if(isChecked) {
+        <a class="btn btn-success m-1" routerLink="my-user/security"
+            style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px;width: 50%;"
+            data-bs-dismiss="offcanvas"><i class="fa-solid fa-lock m-1"></i> ACTIVADA</a>
+        }
+        <label for="activateOrDesactivate2FA" class="form-check-label m-1">Autenticación 2FA</label>
+    </div>
+    <div class="d-flex align-items-center">
+        <button class="btn btn-info m-1"
+            style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px; width: 50%;"><i
+                class="fa-solid fa-key m-1"></i> ACTUALIZAR</button>
+        <label for="password" class="form-check-label m-1">Contraseña</label>
+    </div>
+    <div class="d-flex align-items-center">
+        <a class="btn btn-secondary m-1" routerLink="my-user/logs" data-bs-dismiss="offcanvas"
+            style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px; width: 50%;"><i
+                class="fa-solid fa-user-secret m-1"></i> VER MÁS</a>
+        <label for="logs" class="form-check-label m-1">Logs y auditorías</label>
+    </div>
+    <div class="d-flex align-items-center">
+        <button class="btn btn-primary m-1"
+            style="font-weight: 700; font-family: Montserrat; letter-spacing: -1.1px; width: 50%;"><i
+                class="fa-solid fa-circle-info m-1"></i> EXPORTAR</button>
+        <label for="personal-data" class="form-check-label m-1">Datos personales</label>
+    </div>
+</div>

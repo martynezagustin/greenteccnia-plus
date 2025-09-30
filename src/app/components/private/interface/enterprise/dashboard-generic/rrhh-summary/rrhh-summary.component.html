@@ -1,0 +1,44 @@
+<div style="background-color: whitesmoke;" class="col">
+
+    @if(!loading){
+
+    @if(!errorMessage){
+    <div>
+        <div>
+
+            <div class="p-2">
+                <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions"
+                    [legend]="true" [type]="pieChartType">
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-2">
+        <h4 class="h4-element">Participación de género en la empresa</h4>
+    </div>
+    } @else {
+        <p class="alert-danger">{{errorMessage}}</p>
+    }
+    <div class="d-flex align-items-center justify-content-center">
+        <div>
+            <button class="btn btn-rrhh btn-dark mt-1"
+                style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" routerLink="finances"
+                (click)="goToRRHH()">+RESUMEN</button>
+        </div>
+        <div>
+            <button class="btn btn-rrhh btn-success mt-1"
+                style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;" data-bs-toggle="offcanvas"
+                data-bs-target="#addEmployee" aria-controls="addEmployee">+EMPLEADO</button>
+        </div>
+    </div>
+    } @else {
+    <div class="d-flex justify-content-center mt-2">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    }
+
+</div>
+<app-add-employee></app-add-employee>

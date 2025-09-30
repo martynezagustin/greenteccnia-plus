@@ -1,0 +1,44 @@
+.table {
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    color: green;
+}
+
+.zero_length_employees {
+    font-family: Montserrat;
+    text-align: center;
+    letter-spacing: -1.3px;
+    font-size: 1.3rem;
+}
+
+.btn {
+    margin: 0.6rem;
+    font-size: 1.7rem;
+    font-family: Montserrat;
+    letter-spacing: -1.7px;
+    font-weight: 700;
+}
+
+.btn-success {
+    background: linear-gradient(to right, green, rgb(44, 85, 50));
+    border: none;
+    transition: 0.5s ease-in all;
+}
+
+.btn-success:hover {
+    transition: 0.5s ease-in all;
+    background: linear-gradient(to right, black, rgb(12, 45, 2));
+}
+i{
+    cursor: pointer;
+    transition: 0.1s ease-in all;
+}
+i:hover{
+    transform: scale(1.15, 1.15);
+    transition: 0.1s ease-in all;
+}
+.status-job{
+    border-radius: 6px solid gray;
+    padding: 5px;
+    text-align: center;
+}

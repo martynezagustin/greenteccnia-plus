@@ -1,0 +1,13 @@
+.dashboard-container{
+    min-height: 100vh;
+    background-color: rgb(34,34,34);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+
+.content{
+    width: 100%!important;
+}

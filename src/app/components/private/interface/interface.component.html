@@ -1,0 +1,7 @@
+<div class="dashboard-container">
+    <app-navbar class="navbar-routing" [user]="user" [enterprise]="enterprise" [devices]="devices" [userId]="userId"
+        [loading]="loading" [errorMessage]="errorMessage"></app-navbar>
+    <main class="content">
+        <router-outlet class="router_outlet"></router-outlet>
+    </main>
+</div>

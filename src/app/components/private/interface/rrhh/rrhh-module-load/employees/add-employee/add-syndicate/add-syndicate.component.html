@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" id="syndicateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="syndicateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="syndicateModalLabel">Añadir sindicato</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="formAddSyndicate" (submit)="handleSubmit($event)">
+                    <div>
+                        <label for="name" class="form-label">Nombre</label>
+                        <input formControlName="name" type="text" class="form-control"
+                            placeholder="Nombre del sindicato" required="true">
+                    </div>
+
+                    <div>
+                        <div>
+                            <label for="email" class="form-label">Email de contacto principal</label>
+                            <input formControlName="email" type="email" class="form-control"
+                                placeholder="example@sindicato.com" required="true">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="jurisdiction" class="form-label">Jurisdicción</label>
+                        <select style="margin: 0%;" formControlName="jurisdiction" class="form-control" required="true">
+                            <option value="Internacional">Internacional</option>
+                            <option value="Nacional">Nacional</option>
+                            <option value="Provincial/Estatal">Provincial/Estatal</option>
+                            <option value="Municipal">Municipal</option>
+                            <option value="Departamental">Departamental</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="type" class="form-label">Tipo de sindicato</label>
+                        <select name="type" id="type" formControlName="type" class="form-control" required="true">
+                            <option value="Sindicato con personería gremial">Sindicato con personería gremial
+                            </option>
+                            <option value="Sindicato simplemente inscripto">Sindicato simplemente inscripto</option>
+                            <option value="Sindicato de empresa">Sindicato de empresa</option>
+                            <option value="Sindicato de actividad">Sindicato de actividad</option>
+                            <option value="Federación">Federación</option>
+                            <option value="Confederación">Confederación</option>
+                        </select>
+                    </div>
+                    @if(!loading){
+
+                    @if(messageError){
+                    <div class="alert alert-danger fade-in-container">
+                        {{messageError}}
+                    </div>
+                    }
+                    @if(successfullyMessage){
+                    <div class="alert alert-success fade-in-container">
+                        {{successfullyMessage}}
+                    </div>
+                    }
+                    } @else {
+                    <div class="d-flex justify-content-center fade-in-container m-2">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    }
+                    <div class="d-flex justify-content-center mt-2">
+                        <input class="btn btn-dark" type="submit" value="AGREGAR SINDICATO">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.offcanvas{
+    width: 50rem;
+}
+.green-canvas{
+    background: linear-gradient(190deg, rgb(230,255,230), whitesmoke) ;
+}
+.red-canvas{
+        background: linear-gradient(190deg, rgb(255,215,215), whitesmoke) ;
+}

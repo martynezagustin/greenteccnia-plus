@@ -1,0 +1,20 @@
+<section class="m-1 fade-in-container">
+    <button class="btn btn-danger btn-back" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
+    <div class="d-flex align-items-center">
+        <h1 class="h1-finances">Dashboard del {{type == 'netWorth' ? "patrimonio neto" : type == 'cashFlow' ? 'flujo de
+            caja' : ''}}</h1>
+        <button class="btn-info btn m-1" (click)="setPeriod()"
+            style="font-family: Montserrat; letter-spacing: -1.1px; font-weight: 800;"><i
+                class="fa-solid fa-filter"></i> {{selectedPeriod =='month' ? 'MENSUAL' : selectedPeriod == 'year' ?
+            'ANUAL' : 'TRIMESTRAL'}}</button>
+    </div>
+
+    <app-summary-complete class="summary"></app-summary-complete>
+    @if(selectedPeriod){
+    <div style="display: grid; grid-template-columns: 66.3% 33%; grid-gap: 8px;" class="m-1">
+        <app-traced-items class="charts" [selectedPeriod]="selectedPeriod"></app-traced-items>
+        <app-composition-items class="composition"></app-composition-items>
+    </div>
+    }
+    <app-last-items [type]="type"></app-last-items>
+</section>

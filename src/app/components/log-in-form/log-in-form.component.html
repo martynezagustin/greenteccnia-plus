@@ -1,0 +1,52 @@
+<section class="d-flex fadeInContainer flex-direction-column justify-content-center mt-3">
+    <form [formGroup]="logInForm" class="m-5" (submit)="handleSubmit()">
+        <div class="container-isotype d-flex flex-column align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+                alt="isotype-greenteccnia" width="50">
+        </div>
+        <div class="container-welcome">
+            <h2 class="text-center mb-4">{{welcome}}</h2>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Nombre de usuario</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">&#64;</span>
+                <input type="text" class="form-control" id="username" placeholder="Nombre de usuario" name="username"
+                    formControlName="username" aria-label="username" aria-describedby="basic-addon1" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" placeholder="*******" name="password"
+                formControlName="password" required>
+        </div>
+        <!--Success-->
+        @if(this.successMessage && !this.errorMessage){
+        <div class="alert alert-success" role="alert">
+            {{successMessage}}
+        </div>
+        } @else if ((this.errorMessage && !this.successMessage)) {
+        <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+
+        }
+        @if(loading){
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success"><strong>Iniciar sesión</strong></button>
+        </div>
+        <div class="text-center mt-3">
+            <a class="forgot-password" routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+    </form>
+</section>
+<p class="text-center sing-up-offer">¿No tienes una cuenta? Puedes registrarte
+    <a routerLink="/sing-up">aquí</a>
+
+</p>

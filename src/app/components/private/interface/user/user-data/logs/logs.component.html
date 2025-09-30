@@ -1,0 +1,42 @@
+<div class="container-security-panel p-3">
+    <a routerLink="/dashboard/my-user/security" class="btn btn-danger mb-2"
+        style="font-family: Poppins; letter-spacing: -1.3px;">&#8592;Atrás</a>
+    <h2 class="h2-security"> <i class="fa-solid fa-book m-1"></i> Actividad del usuario y auditoría</h2>
+    <p style="font-family: Poppins; letter-spacing: -1.3px; font-size: 1.2rem; color: rgb(80,80,80)">GreenTeccnia hace
+        un registro de toda la actividad que se detecta en tu usuario para que tengas acceso a tu información y puedas
+        prevenir o detectar actividad inusual en tu cuenta.</p>
+    @if(loading){
+    <div class="d-flex flex-column align-items-center">
+
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <p class="text-center loading-p"
+            style="font-family: Poppins; letter-spacing: -1.4px; color: black; font-weight: 600;">
+            Cargando logs del usuario...</p>
+    </div>
+    }
+    <div class="container-logs">
+        @for(log of logs; track log.event){
+        <div class="card p-2 m-2">
+            <p style="letter-spacing: -1.6px; margin: 0%; color:rgb(120,120,120)"><u>FECHA: {{log.date | dateDevice:
+                    'short'}}</u></p>
+                    @if(log.clasificationSecurity === "Normal"){
+                        <h3 style="color: rgb(0,145,0)"><strong>{{log.event}}</strong></h3>
+                    } @else if(log.clasificationSecurity === "Advertencia"){
+                        <h3 style="color: rgb(184, 184, 10)"><strong>{{log.event}}</strong></h3>
+                    } @else if(log.clasificationSecurity === "Crítico"){
+                        <h3 style="color: red"><strong>{{log.event}}</strong></h3>
+                    } @else {
+                        <h3 style="color: tomato"><strong>{{log.event}}</strong></h3>
+                    } 
+            <p><strong>Detalles:</strong> {{log.details}}</p>
+            <p><strong>Clasificación: </strong> <span class="p-1" 
+                    [ngStyle]="{'background-color': log.clasificationSecurity === 'Normal' ? 'rgb(0,255,0)' : log.clasificationSecurity === 'Advertencia' ? 'yellow' : log.clasificationSecurity === 'Crítico' ? 'red' : 'tomato'}" style="text-align: center;border-radius: 5px; margin: 4px;">@if(log.clasificationSecurity === "Advertencia"){<i class="fa-solid fa-triangle-exclamation m-1"></i>} @else if(log.clasificationSecurity === "Normal"){<i class="fa-solid fa-circle-check m-1"></i>}@else {<i class="fa-solid fa-xmark m-1"></i>}
+                    {{log.clasificationSecurity}}</span></p>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="p-3">
+    <h2 class="h2-dashboard-complete text-center">Composición</h2>
+    @if(!loading){
+    @if(!errorMessage){
+    <canvas class="fade-in-container" baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType"></canvas>
+    }@else {
+    <div class="alert fade-in-container alert-danger"><i class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessage}}</div>
+    }
+    } @else {
+
+    <div class="d-flex justify-content-center m-3">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <p style="font-family:  Montserrat; letter-spacing: -1.2px; font-weight: 700;" class="text-align">Procesando
+            peticiones...</p>
+    </div>
+    }
+
+</div>

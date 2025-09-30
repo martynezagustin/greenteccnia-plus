@@ -1,0 +1,86 @@
+<!-- Modal -->
+<div class="modal fade" id="ARTModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="ARTModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ARTModalLabel">Añadir aseguradora de riesgos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="formAddART" (submit)="handleSubmit($event)">
+                    <div style="display: grid; grid-template-columns:50% 50%; grid-gap:1px">
+                        <div>
+                            <label for="name" class="form-label">Nombre</label>
+                            <input formControlName="name" type="text" class="form-control"
+                            placeholder="Nombre de la aseguradora de riesgos" required="true">
+                        </div>
+                        <div>
+                            <label for="CUIT" class="form-label">CUIT</label>
+                            <input type="text" class="form-control" placeholder="XX-XXXXXXXX-X" formControlName="CUIT" required="true">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div>
+                            <label for="email" class="form-label">Email de contacto principal</label>
+                            <input formControlName="email" type="email" class="form-control"
+                                placeholder="example@art.com" required="true">
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" placeholder="+XX XXXX XXXXXX"
+                                formControlName="phone">
+                        </div>
+                        <div>
+                            <label for="address" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" placeholder="Av. Siempre Viva 123" formControlName="address">
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: grid; grid-template-columns:50% 50%; grid-gap:1px">
+
+                            <div>
+                                <label for="dateOfContract" class="form-label">Fecha de inicio de contrato</label>
+                                <input type="date" name="dateOfContract" id="dateOfContract" class="form-control"
+                                    formControlName="dateOfContract">
+                            </div>
+
+                            <div>
+                                <label for="endOfContract" class="form-label">Fin del contrato</label>
+                                <input type="date" name="endOfContract" id="endOfContract" class="form-control"
+                                    formControlName="endOfContract">
+                            </div>
+                        </div>
+                    </div>
+                    @if(!loading){
+
+                    @if(messageError){
+                    <div class="alert alert-danger fade-in-container">
+                        {{messageError}}
+                    </div>
+                    }
+                    @if(successfullyMessage){
+                    <div class="alert alert-success fade-in-container">
+                        {{successfullyMessage}}
+                    </div>
+                    }
+                    } @else {
+                    <div class="d-flex justify-content-center fade-in-container m-2">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    }
+                    <div class="d-flex justify-content-center mt-2">
+                        <input class="btn btn-dark" type="submit" value="AGREGAR ART">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

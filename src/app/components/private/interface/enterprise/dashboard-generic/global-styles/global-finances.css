@@ -1,0 +1,83 @@
+form {
+    background-color: whitesmoke;
+    border-radius: 12px;
+    box-shadow: 0px 0px 12px 1px rgb(118, 118, 118);
+}
+
+.form-label {
+    font-family: Poppins;
+    letter-spacing: -1.2px;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.form-control {
+    background-color: rgb(50, 50, 50);
+    color: #c7ffaf;
+    border: none;
+    font-family: "Poppins";
+}
+
+.form-control::placeholder {
+    color: #c7ffafb3;
+    font-family: Poppins;
+}
+
+.carousel-indicators {
+    position: fixed;
+}
+
+select {
+    cursor: pointer;
+    appearance: auto;
+}
+
+.h3-form {
+    font-family: Poppins;
+    letter-spacing: -1.2px;
+    text-align: start;
+}
+
+textarea::placeholder {
+    color: #c7ffafb3;
+    font-family: Poppins;
+}
+
+input[type=number]::placeholder {
+    color: #c7ffaf;
+    font-family: Poppins;
+}
+
+.fadeInContainer {
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+input[type=submit],
+button {
+    font-family: Poppins;
+    letter-spacing: -1.1px;
+    font-weight: 700;
+}
+
+.background-green {
+    background-color: rgb(98, 255, 125);
+}
+
+.background-red {
+    background-color: rgb(255, 160, 160);
+}
+
+.container-last-buttons>button,
+input {
+    margin: 0.1rem
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

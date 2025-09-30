@@ -1,0 +1,136 @@
+<nav style="background:linear-gradient(180deg,#8bf75c, #2af05a); min-height: 100%;">
+  <a routerLink="/dashboard"><img
+      src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740787350/logotype-greenteccnia.png" alt="Logo"
+      width="150" height="38" class="d-inline-block align-text-top m-3"></a>
+  <a aria-current="page" href="#" data-bs-toggle="offcanvas" data-bs-target="#myProfile" aria-controls="myProfile"><i
+      class="fa-solid fa-grip my-profile m-3"></i></a>
+  <button style="background: none; border: none;"><i class="fa-solid fa-eye-slash"></i></button>
+  <hr>
+  @if(loading){
+  <div class="d-flex flex-column align-items-center text-center mt-5 loadingFade">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3"
+      style="font-size: 0.8em; letter-spacing: -1.3px; font-weight: 700; font-family: Poppins; color: whitesmoke;">
+      CARGANDO</p>
+  </div>
+  } @else {
+
+  @if(enterprise){
+  <div class="fade-in-container">
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-microchip m-1"></i> <span>Tecnología</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-parachute-box m-1"></i> <span>Proveedores</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#showOptionsFinance" aria-expanded="false"
+        aria-controls="showOptionsFinance"><i class="fa-solid fa-comment-dollar m-1"></i> <span>
+          Finanzas</span></a>
+
+      <div id="showOptionsFinance" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <li class="nav-item align-items-center">
+          <a class="nav-sublink" href="#"><i class="fa-solid fa-chart-pie m-1"></i> <span>Flujo de caja</span></a>
+        </li>
+        <li class="nav-item align-items-center">
+          <a class="nav-sublink" href="#"><i class="fa-solid fa-stamp m-1"></i> <span>Patrimonio neto</span></a>
+        </li>
+      </div>
+
+
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-seedling m-1"></i> <span>Sostenibilidad</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-people-group m-1"></i> <span>Clientes</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-diagram-project m-1"></i> <span>Proyectos</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-restroom m-1"></i> <span>RRHH</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-handshake m-1"></i> <span>Negociaciones</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa-solid fa-boxes-stacked m-1"></i> <span>Inventario</span></a>
+    </li>
+  </div>
+  } @else if(errorMessage) {<li class="nav-item"><span
+      style="font-family: Poppins; letter-spacing: -1.5px; color: red; font-size: 0.8rem;" class="m-2">Aún no agregaste
+      tu empresa.</span></li>
+  <li class="nav-item">
+    <a class="nav-link" routerLink="add-enterprise"><i class="fa-solid fa-building-columns m-1"></i> <span>Añadir
+        empresa</span></a>
+  </li>
+  }
+  }
+
+</nav>
+<div class="offcanvas offcanvas-start" [ngClass]="{
+  'dark-mode':isDark,
+  'light-mode':isLight,
+  'montserrat-mode': isMontserrat,
+  'poppins-mode': isPoppins,
+  'rounded-buttons': roundedButtons,
+  'square-buttons': squareButtons,
+  'monochrome': isMonochrome 
+  }" data-bs-scroll="true" tabindex="-1" id="myProfile" aria-labelledby="myProfileLabel">
+  @if(user){
+
+  <div class="offcanvas-header m-1">
+    @if(isLight){<img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+      alt="isotype-greenteccnia" width="50" class="mr-2">} @else if(isDark){<img
+      src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1741499471/light-isotype_fa2wuq.png"
+      alt="isotype-greenteccnia" width="50" class="mr-2"> } @else if(isMonochrome){<img
+      src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1741564374/monochrome-isotype_tftmjb.png"
+      alt="isotype-greenteccnia" width="50" class="mr-2"> }
+    <h2 class="offcanvas-title" id="myProfileLabel" style="letter-spacing: -2.4px!important; margin: 0.3rem;">Gestión
+      del usuario
+      {{user.name}} {{user.lastname}}</h2>
+    <button class="btn btn-light m-2"
+      style="font-family: Montserrat; letter-spacing: -1.1px; font-weight: 800; border: none;" (click)="logOut()">CERRAR
+      SESIÓN</button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="grids-my-profile">
+      <!--Data personal-->
+      <data-user [user]="user" [isMontserrat]="isMontserrat" [isPoppins]="isPoppins" [isDark]="isDark"
+        [isLight]="isLight" [roundedButtons]="roundedButtons" [squareButtons]="squareButtons"
+        [isMonochrome]="isMonochrome"></data-user>
+      <!--Dispositivos registrados-->
+      <devices [devices]="devices" [isMontserrat]="isMontserrat" [isPoppins]="isPoppins" [isDark]="isDark"
+        [isLight]="isLight" [roundedButtons]="roundedButtons" [squareButtons]="squareButtons"
+        [isMonochrome]="isMonochrome"></devices>
+      <!--Panel de seguridad-->
+      <security-panel [user]="user" [isMontserrat]="isMontserrat" [isPoppins]="isPoppins" [isDark]="isDark"
+        [isLight]="isLight" [roundedButtons]="roundedButtons" [squareButtons]="squareButtons"
+        [isMonochrome]="isMonochrome"></security-panel>
+      <!--Panel de sustentabilidad-->
+      <div class="card-data"
+        [ngClass]="{'montserrat-mode': isMontserrat,'poppins-mode': isPoppins, 'card-data-dark': isDark, 'card-data-light': isLight, 'card-data-monochrome': isMonochrome}">
+        <h2 class="text-center mt-1"><i class="fa-solid fa-seedling"></i> PERSONALIZACIÓN DEL CANVAS</h2>
+        <hr>
+        <div class="d-flex flex-column">
+          <button (click)="toggleDarkMode()" class="btn btn-info m-1" [disabled]="isMonochrome">@if(isLight){CAMBIAR A
+            OSCURO <i class="fa-solid fa-moon"></i>} @else if(!isLight){CAMBIAR A
+            CLARO <i class="fa-solid fa-lightbulb"></i>} @else {DESACTIVA EL MONOCROMÁTICO PARA CAMBIAR DE TEMA}
+          </button>
+          <button (click)="toggleFontFamily()" class="btn btn-info m-1">@if(isMontserrat){CAMBIAR A TIPOGRAFÍA POPPINS }
+            @else{CAMBIAR A TIPOGRAFÍA MONTSERRAT} <i class="fa-solid fa-font m-1"></i></button>
+          <button class="btn btn-info m-1" (click)="toggleRoundedButtons()">@if(roundedButtons){CAMBIAR A BORDES
+            CUADRADOS <i class="fa-solid fa-square m-1"></i>}@else{CAMBIAR A BORDES REDONDEADOS <i
+              class="fa-solid fa-circle m-1"></i>}</button>
+          <button class="btn btn-info m-1" (click)="toggleMonochrome()">@if(!isMonochrome){ACTIVAR MONOCROMÁTICO} @else
+            {DESACTIVAR MONOCROMÁTICO } <i class="fa-solid fa-camera m-1"></i> </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

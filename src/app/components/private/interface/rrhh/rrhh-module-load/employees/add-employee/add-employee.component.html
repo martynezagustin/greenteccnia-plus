@@ -1,0 +1,326 @@
+<div class="offcanvas addEmployee offcanvas-end" tabindex="-1" id="addEmployee" aria-labelledby="addEmployeeLabel">
+    <div class="offcanvas-header">
+        <div class="d-flex align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png" alt="Logo"
+                width="50" class="d-inline-block align-text-top m-2">
+            <h1>{{title}}</h1>
+        </div>
+    </div>
+    <div class="offcanvas-body">
+        <form class="form" [formGroup]="formAddEmployee" (submit)="handleSubmit($event)">
+            <div class="p-1">
+                <h3>Información personal</h3>
+                <p>✍🏻Completa la información personal del empleado.</p>
+            </div>
+
+            <fieldset formGroupName="personalInfo" class="personal-info grills mt-4">
+                <div style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+                    <div>
+                        <label for="name" class="form-label">Nombre</label>
+                        <input [ngClass]="{'ng-error': name.invalid && name.touched}" type="text" class="form-control"
+                            placeholder="Claudio" formControlName="name" id="name">
+                        <div class="fade-in-container alert alert-danger mt-1" [hidden]="name.valid || name.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El nombre es obligatorio.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="lastname" class="form-label">Apellido</label>
+                        <input [ngClass]="{'ng-error': lastname.invalid && lastname.touched}" type="text"
+                            class="form-control" placeholder="Sinasterra" formControlName="lastname" id="lastname">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="lastname.valid || lastname.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El apellido es obligatorio.
+                        </div>
+                    </div>
+                    <div>
+                        <label for="gender" class="form-label">Género</label>
+                        <select name="gender" class="form-control" formControlName="gender" id="gender">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="No binario">No binario</option>
+                            <option value="Otro">Otro</option>
+                            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="address" class="form-label">Dirección</label>
+                        <input [ngClass]="{'ng-error': address.invalid && address.touched}" type="text"
+                            class="form-control" placeholder="Domicilio" formControlName="address" id="address">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="address.valid || address.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El domicilio es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <fieldset formGroupName="identityCard"
+                    style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+
+                    <div>
+                        <label for="value" class="form-label">Número de identificación</label>
+                        <input [ngClass]="{'ng-error': identityCardValue.invalid && identityCardValue.touched}"
+                            type="text" class="form-control" placeholder="123456789" formControlName="value" id="value">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="identityCardValue.valid || identityCardValue.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> El número de identificación fiscal es
+                            obligatorio.
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="type" class="form-label">Tipo</label>
+                        <select name="type" formControlName="type" class="form-control" id="type">
+                            <option value="DNI">DNI</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Cédula de identidad">Cédula de identidad</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                </fieldset>
+                <div>
+                    <div style="display: grid;grid-template-columns: 50% 50%; grid-gap: 3px;">
+
+                        <div>
+                            <label for="email" class="form-label">Correo o e-mail</label>
+                            <input [ngClass]="{'ng-error': email.invalid && email.touched}" type="email"
+                                class="form-control" placeholder="claudiosinasterra@example.com" formControlName="email"
+                                id="email">
+                            <div class="fade-in-container alert alert-danger mt-1"
+                                [hidden]="email.valid || email.pristine">
+                                <i class="fa-solid fa-triangle-exclamation m-1"></i> El e-mail es obligatorio.
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input [ngClass]="{'ng-error': phone.invalid && phone.touched}" type="text"
+                                class="form-control" placeholder="+XX XXXX XXXXXX" formControlName="phone" id="phone">
+                            <div class="fade-in-container alert alert-danger mt-1"
+                                [hidden]="phone.valid || phone.pristine">
+                                <i class="fa-solid fa-triangle-exclamation m-1"></i> El teléfono es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <hr>
+
+            <!--Informacion laboral-->
+
+            <div class="p-1">
+                <h3>Información laboral</h3>
+                <p>📁Introduce los datos del rol del empleado en la empresa para mejorar la eficiencia en la gestión de
+                    Recursos Humanos.</p>
+            </div>
+            <fieldset formGroupName="jobInfo" class="grills mt-2">
+                <div style="display: grid; grid-template-columns: 25% 25% 50%; grid-gap: 2px">
+                    <div>
+                        <label class="form-label" for="startDate">Fecha de inicio</label>
+                        <input type="date" name="startDate" formControlName="startDate" id="startDate"
+                            class="form-control">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="startDate.valid || startDate.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> Asigna una fecha de inicio laboral.
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="position">Posición</label>
+                        <input [ngClass]="{'ng-error': position.invalid && position.touched}" type="text"
+                            placeholder="Auxiliar" name="position" formControlName="position" id="position"
+                            class="form-control">
+                        <div class="fade-in-container alert alert-danger mt-1"
+                            [hidden]="position.valid || position.pristine">
+                            <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce posición laboral.
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="department">Departamento</label>
+                        <select name="department" formControlName="department" class="form-control" id="department">
+                            <option value="Administración">Administración</option>
+                            <option value="Recursos Humanos">Recursos Humanos</option>
+                            <option value="Finanzas">Finanzas</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Ventas">Ventas</option>
+                            <option value="Producción">Producción</option>
+                            <option value="Logística">Logística</option>
+                            <option value="Tecnología de la Información">Tecnología de la Información</option>
+                            <option value="Atención al Cliente">Atención al Cliente</option>
+                            <option value="Investigación y Desarrollo">Investigación y Desarrollo</option>
+                            <option value="Calidad">Calidad</option>
+                            <option value="Legal">Legal</option>
+                            <option value="Compras">Compras</option>
+                            <option value="Proyectos">Proyectos</option>
+                            <option value="Comunicación">Comunicación</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px" class="mt-1">
+                    <div>
+                        <label class="form-label" for="contractType">Tipo de contrato laboral</label>
+                        <select class="form-control" formControlName="contractType" name="contractType"
+                            id="contractType">
+                            <option value="Contrato de trabajo a plazo fijo">Contrato de trabajo a plazo fijo</option>
+                            <option value="Contrato de trabajo a tiempo parcial">Contrato de trabajo a tiempo parcial
+                            </option>
+                            <option value="Contrato de trabajo de temporada">Contrato de trabajo de temporada</option>
+                            <option value="Contrato de trabajo eventual">Contrato de trabajo eventual</option>
+                            <option value="Contrato de trabajo de grupo o por equipo">Contrato de trabajo de grupo o por
+                                equipo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="status" class="form-label">Estado</label>
+                        <select name="status" id="status" class="form-control" formControlName="status">
+                            <option disabled selected>Seleccione una opción...</option>
+                            <option value="Presencial">Presencial</option>
+                            <option value="Remoto">Remoto</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px">
+                    <div formGroupName="CCT" class="d-flex flex-column">
+                        <div style="display: grid; grid-template-columns: 60% 40%; grid-gap:1px">
+                            <div>
+                                <label class="form-label" for="CCT">Convenio</label>
+                                <select name="CCT" id="CCT" formControlName="name" class="form-control">
+                                    @for(cct of ccts;track cct){
+                                    <option value={{cct.name}}>{{cct.name}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label for="cctNumber" class="form-label">Nº de Convenio</label>
+                                <input type="text" class="form-control" formControlName="cctNumber" id="cctNumber"
+                                    placeholder="Número de convenio">
+                            </div>
+                        </div>
+                        <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#cct">+AÑADIR
+                            CONVENIO COLECTIVO</button>
+                    </div>
+                    <div formGroupName="syndicate" class="d-flex flex-column">
+                        <label class="form-label" for="syndicate">Sindicato</label>
+                        <select name="syndicate" formControlName="name" id="syndicate" class="form-control">
+                            @for(syndicate of syndicates; track syndicate){
+                            <option value={{syndicate.name}}>{{syndicate.name}}</option>
+                            }
+                        </select>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#syndicateModal"
+                            class="btn mt-1 btn-success">+AÑADIR SINDICATO</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="p-1 mt-1">
+                    <h4>👉Riesgos del trabajo</h4>
+                </div>
+                <div formGroupName="ART" class="mt-1 d-flex flex-column">
+                    <label class="form-label" for="ART">Aseguradora de riesgos</label>
+                    <select class="form-control" formControlName="name" name="name" id="name">
+                        <option disabled selected>Seleccione una opción...</option>
+                        @for(art of arts; track art){
+                        <option value={{art.name}}>{{art.name}}</option>
+                        }
+                    </select>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#ARTModal"
+                        class="btn mt-1 btn-success">+AÑADIR ART</button>
+
+                </div>
+            </fieldset>
+            <hr>
+            <div class="p-1">
+                <h3>Información financiera</h3>
+                <p>🧾¿En qué banco se liquida el salario del empleado? ¿Qué monto? ¿Cuál es su CVU? Ingresa esta
+                    información.</p>
+            </div>
+            <fieldset formGroupName="financialInformation" class="grills">
+                <div style="display: grid; grid-template-columns:50% 50%;">
+                    <div class="input-group mb-3">
+                        <div class="d-flex flex-column">
+                            <label class="form-label" for="grossSalary">Salario en bruto</label>
+                            <div>
+                                <div class="d-flex">
+                                    <span [ngClass]="{'ng-error': grossSalary.invalid && grossSalary.touched}"
+                                        class="input-group-text currency-sign">$</span>
+                                    <input [ngClass]="{'ng-error': grossSalary.invalid && grossSalary.touched}"
+                                        type="number" formControlName="grossSalary" class="form-control"
+                                        id="grossSalary" aria-label="Amount (to the nearest dollar)"
+                                        placeholder="XX.XXX.XXX">
+                                </div>
+                                <div class="fade-in-container alert alert-danger mt-1"
+                                    [hidden]="grossSalary.valid || grossSalary.pristine">
+                                    <i class="fa-solid fa-triangle-exclamation m-1"></i> Ingresa un salario en bruto.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="bank" class="form-label">Banco</label>
+                        <select class="form-control" formControlName="bank" name="bank" id="bank">
+                            <option disabled selected>Seleccione una opción...</option>
+                            @for(bank of banks; track bank.name){
+                            <option value={{bank.name}}>{{bank.name}}</option>
+                            }
+                        </select>
+                        <button type="button" class="btn mt-1 btn-success" data-bs-toggle="modal"
+                            data-bs-target="#bankModal">+AÑADIR BANCO DE COBRO</button>
+                    </div>
+                </div>
+                <div>
+                    <label for="cbu" class="form-label">CBU</label>
+                    <input [ngClass]="{'ng-error': cbu.invalid && cbu.touched}" type="text" maxlength="22"
+                        minlength="22" pattern="^\d{22}$" formControlName="cbu" id="cbu" class="form-control"
+                        placeholder="XXXXXXXXXXXXXXXXXXXXXXXXX">
+                </div>
+                <div>
+                    <div class="fade-in-container alert alert-danger mt-1" [hidden]="cbu.valid || cbu.pristine">
+                        <i class="fa-solid fa-triangle-exclamation m-1"></i> Introduce un CBU de 22 dígitos.
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="verified-data" id="verified-data"
+                    formControlName="verifiedData">
+                <label for="verified-data" class="form-check-label">Confirmo que los datos ingresados son
+                    verídicos.</label>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" name="verify-privacity-employee"
+                    id="verify-privacity-employee" formControlName="privacityData">
+                <label for="verify-privacity-employee" class="form-check-label">Confirmo que mantendré la
+                    privacidad de los datos del empleado.</label>
+            </div>
+            @if(!loading){
+
+            @if(messageError){
+            <div class="alert alert-danger alert fade-in-container">
+                {{messageError}}
+            </div>
+            }
+            @if(successfullyMessage){
+            <div class="alert alert-success fade-in-container">
+                {{successfullyMessage}}
+            </div>
+            }
+            } @else {
+            <div class="d-flex justify-content-center fade-in-container m-2">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            }
+
+            <div class="d-flex align-items-center justify-content-center m-2">
+            <input type="submit" class="btn btn-success m-1" [value]="employeeToUpdate == null ? 'Registrar' : 'Actualizar'"
+                    [disabled]="!this.formAddEmployee.valid">
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-add-cct></app-add-cct>
+<app-add-syndicate></app-add-syndicate>
+<app-add-art></app-add-art>
+<app-add-bank></app-add-bank>

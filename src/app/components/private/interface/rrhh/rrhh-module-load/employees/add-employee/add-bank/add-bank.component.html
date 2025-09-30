@@ -1,0 +1,87 @@
+<!-- Modal -->
+<div class="modal fade" id="bankModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="bankModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bankModalLabel">AÑADIR BANCO DE COBRO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formAddBank" (submit)="handleSubmit($event)">
+          <div>
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nombre del banco">
+          </div>
+          <div>
+            <label for="shortName" class="form-label">Nombre abreviado</label>
+            <input type="text" class="form-control" id="shortName" formControlName="shortName"
+              placeholder="Nombre abreviado del banco">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px;">
+            <div>
+              <label for="CUIT" class="form-label">CUIT</label>
+              <input type="text" name="CUIT" id="CUIT" formControlName="CUIT" class="form-control"
+                placeholder="00-00000000-0">
+            </div>
+            <div>
+              <label for="bicSwift" class="form-label">Código BIC</label>
+              <input type="text" name="bicSwift" id="bicSwift" formControlName="bicSwift" class="form-control"
+                placeholder="Código BIC">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid: gap 1px;">
+            <div>
+              <label for="supportPhone" class="form-label">Teléfono de soporte</label>
+              <input type="text" class="form-control" formControlName="supportPhone" id="supportPhone"
+                placeholder="Teléfono del banco">
+            </div>
+            <div>
+              <label for="supportEmail" class="form-label">Teléfono de soporte</label>
+              <input type="email" class="form-control" formControlName="supportEmail" id="supportEmail"
+                placeholder="banco@example.com">
+            </div>
+          </div>
+          <div style="display: grid;grid-template-columns: 1fr 1fr; grid-gap: 1px">
+            <div>
+              <label for="city" class="form-label">Ciudad</label>
+              <input type="text" class="form-control" formControlName="city" id="city" placeholder="Ciudad">
+            </div>
+            <div>
+              <label class="form-label" for="provinceOrEstate">Provincia o Estado</label>
+              <input type="text" name="provinceOrEstate" id="provinceOrEstate" formControlName="provinceOrEstate"
+                placeholder="Provincia o Estado" class="form-control">
+            </div>
+          </div>
+          @if(!loading){
+
+          @if(messageError){
+          <div class="alert alert-danger fade-in-container">
+            {{messageError}}
+          </div>
+          }
+          @if(successfullyMessage){
+          <div class="alert alert-success fade-in-container">
+            {{successfullyMessage}}
+          </div>
+          }
+          } @else {
+          <div class="d-flex justify-content-center fade-in-container m-2">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          }
+          <div class="d-flex justify-content-center mt-2">
+            <input class="btn m-1  btn-dark" type="submit" value="AGREGAR BANCO">
+            <button type="button" class="btn m-1 btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+          </div>
+        </form>
+        <div class="alert alert-info mt-3" role="alert" style="font-size: 0.95rem;">
+          <strong>Nota:</strong> Esta información se utiliza únicamente para optimizar la gestión y recopilación de
+          datos de tu empresa. No compartiremos ni utilizaremos tus datos personales para otros fines.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

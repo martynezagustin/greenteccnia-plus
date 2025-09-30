@@ -1,0 +1,17 @@
+h4{
+    letter-spacing: -1.8px;
+    font-weight: 600;
+}
+.box-objective{
+    background: linear-gradient(150deg, whitesmoke, rgb(160,255,190), white);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: Montserrat;
+    letter-spacing: -1.4px;
+}
+.success-add-message{
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+    transition: 0.4s ease-in all;
+}

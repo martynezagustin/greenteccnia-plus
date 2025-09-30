@@ -1,0 +1,144 @@
+<div class="m-1 fade-in-container">
+    <div class="box"
+        [ngClass]="{'green-box': view == 'active' || view == 'income', 'red-box': view == 'passive' || view == 'expense'}">
+        <h2 class="h2-label text-start"><i class="fa-regular m-1"
+                [ngClass]="{'fa-square-caret-up': view =='active' || view == 'income', 'fa-square-caret-down':view == 'passive' || view == 'expense'}"></i>
+            {{ !itemToUpdate ? 'Registrar un ' + labels[view] : 'Actualizar un ' + labels[view] }} </h2>
+        @if(formAddItem){
+        <form [formGroup]="formAddItem" (submit)=" handleSubmit()">
+            @switch (typeFinance) {
+            @case ('cashFlow') {
+            <!-- Aca van los de cash flow -->
+            <div class="text-start">
+                <label for="concept" class="form-label label">Concepto</label>
+            </div>
+            <input type="text" class="form-control form-text" name="concept" id="concept" formControlName="concept" 
+                [placeholder]="view == 'income' ? 'Ej. Ingreso por venta de panel solar.' : 'Ej. Egreso por compra de maquinaria agrícola.'">
+
+            <div style="display: grid; grid-template-columns: 49% 50%; grid-gap: 4px;">
+
+
+                <div>
+                    <div class="text-start">
+                        <label for="amount" class="form-label label">Valor</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="number" class="form-control form-text" name="amount" id="amount"
+                            formControlName="amount">
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div class="text-start">
+                        <label for="date" class="form-label label">Fecha</label>
+                    </div>
+                    <div>
+                        <input type="date" class="form-control form-text" formControlName="date"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text-start">
+                <label for="paymentMethod" class="form-label label">Método de pago</label>
+            </div>
+            <select class="form-control" name="paymentMethod" id="paymentMethod" formControlName="paymentMethod">
+                <option disabled selected>Selecciona una opción</option>
+                @for(paymentMethod of declarePaymentMethods; track paymentMethod){
+                <option value={{paymentMethod}}>{{paymentMethod}}</option>
+                }
+            </select>
+
+            <div class="text-start">
+                <label for="category" class="form-label label">Tipo</label>
+            </div>
+            <select class="form-control" name="category" id="category" formControlName="category">
+                <option disabled selected>Selecciona una opción</option>
+                @for(category of declareCategories[view]; track category){
+                <option value={{category}}>{{category}}</option>
+                }
+            </select>
+            }
+            @case('netWorth'){
+            <!-- Aca van los de net worth -->
+            <div class="text-start">
+                <label for="category" class="form-label label">Categoría</label>
+            </div>
+            <select class="form-control" name="category" id="category" formControlName="category">
+                <option disabled selected>Selecciona una opción</option>
+                @for(category of declareCategories[view]; track category){
+                <option value={{category}}>{{category}}</option>
+                }
+            </select>
+
+            <div>
+
+
+                <div>
+                    <div class="text-start">
+                        <label for="amount" class="form-label label">Tipo de cuenta</label>
+                    </div>
+                    <div>
+                        <select name="typeAccount" id="typeAccount" class="form-control" formControlName="typeAccount">
+                            <option disabled selected>Selecciona una opción</option>
+                            @for(type of groupedNetWorthCategories; track type){
+                            <option value={{type}} id={{type}}>{{type}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+
+                <div>
+
+                    <div class="text-start">
+                        <label for="date" class="form-label label">Fecha</label>
+                    </div>
+                    <div>
+                        <input type="date" class="form-control form-text" formControlName="date" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="text-start">
+                    <label for="amount" class="form-label label">Valor</label>
+                </div>
+                <div class="d-flex align-items-center">
+                    <input type="number" class="form-control form-text" name="amount" id="amount"
+                        formControlName="amount">
+                </div>
+            </div>
+
+            <div class="text-start">
+                <label for="details" class="form-label label">Detalles</label>
+            </div>
+            <textarea name="details" class="form-control" id="details" formControlName="details"
+                [placeholder]="view == 'active' ? 'Activo de maquinaria perteneciente a dosificadora manual...' : 'Pasivo perteneciente al préstamo otorgado por el Banco 123...'"></textarea>
+            }
+            }
+            @if(!loading){
+
+            @if(successMessage){
+            <div class="alert alert-success fade-in-container mt-2">
+                <p>{{successMessage}}</p>
+            </div>
+            } @else if(errorMessage){
+            <div class="alert alert-danger fade-in-container mt-2">
+                <p>{{errorMessage}}</p>
+            </div>
+            }
+            }
+            @else{
+            <div class="d-flex justify-content-center fade-in-container mt-3">
+                <div class="spinner-border"
+                    [ngClass]="{'text-success': view == 'active' || view == 'income', 'text-light': view == 'passive' || view =='expense'}"
+                    role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            }
+            <input type="submit" class="btn btn-dark mt-3" [value]="itemToUpdate == null ? 'Añadir' : 'Actualizar'">
+        </form>
+        }
+    </div>
+</div>

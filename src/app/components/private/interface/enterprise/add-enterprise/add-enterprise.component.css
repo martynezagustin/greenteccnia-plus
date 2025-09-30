@@ -1,0 +1,23 @@
+
+.info{
+    border-right: 1px solid white;
+}
+.h2-add-enterprise {
+    font-family: Poppins;
+    color: white;
+    font-weight: 700 !important;
+    letter-spacing: -1.9px;
+}
+.add-enterprise{
+    font-family: Poppins;
+    letter-spacing: .1.3px;
+    background: linear-gradient(190deg, springgreen, rgb(40,220,22));
+    color: black;
+    font-weight: 700;
+}
+.formAddEnterprise{
+    background: linear-gradient(180deg, #2af05b3e, #26833d9e);
+    border-radius: 12px;
+    border: 1px solid #2af05a;
+    padding: 1.1rem;
+}

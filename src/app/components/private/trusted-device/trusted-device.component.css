@@ -1,0 +1,43 @@
+*{
+    font-family: "Poppins";
+}
+.confirm-device__h2{
+    letter-spacing: -1.9px;
+    color: rgb(70,70,70);
+}
+.confirm-device__card{
+    background-color: #aeff8c;
+    padding: 1.4rem;
+    border-radius: 8px;
+    box-shadow: 1px 1px 12px 1px rgb(70,70,70);
+    opacity: 0.9;
+    letter-spacing: -1.6px;
+}
+.btn{
+    font-weight: 600;
+    letter-spacing: -1.4px;
+    margin: 0.4rem;
+}
+.container-trusted{
+    animation-name: fadeInContainer;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in;
+}
+.confirm-device__p{
+    letter-spacing: -1.3px;
+    margin: 0%;
+    text-align: center;
+    color: rgb(120,120,120);
+    width: 75%;
+    font-size: 1.3rem;
+    padding: 1.4rem;
+}
+
+@keyframes fadeInContainer {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

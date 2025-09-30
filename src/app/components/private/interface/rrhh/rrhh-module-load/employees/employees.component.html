@@ -1,0 +1,55 @@
+@if(!loading){
+
+@if(employees.length !==0){
+<table class="table m-1 fade-in-container">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Género</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Salario en bruto</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(employee of employees; track employee._id){
+        <tr>
+            <td>{{employee.personalInfo.name}}</td>
+            <td>{{employee.personalInfo.lastname}}</td>
+            <td>{{employee.personalInfo.email}}</td>
+            <td>{{employee.personalInfo.gender}}</td>
+            <td class="status-jon" [ngStyle]="{'background-color': employee.jobInfo.status === 'Presencial' ? 'darkturquoise' : employee.jobInfo.status === 'Híbrido' ? 'violet' : 'khaki'}">{{employee.jobInfo.status}}</td>
+            <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
+            <td>
+                <i class="fa-solid fa-eye m-1"></i>
+                <i style="color: red;" class="fa-solid fa-trash m-1" (click)="deleteEmployee(employee._id)"></i>
+                <i class="fa-solid fa-pencil m-1" (click)="setEmployeeToUpdate(employee)" data-bs-toggle="offcanvas"
+                    data-bs-target="#addEmployee" aria-controls="addEmployee"></i>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@if(employees.length >= 3){
+    <div class="d-flex mt-2 flex-column align-items-center justify-content-center">
+        <a class="btn btn-info" routerLink="/dashboard/employees">+VER MÁS</a>
+    </div>
+}
+}@else{
+<div class="d-flex flex-column align-items-center fade-in-container">
+    <p class="zero_length_employees p-3"><strong>Aún no agregaste un empleado. ¿Deseas agregar un nuevo
+            empleado?</strong></p>
+    <button (click)="setEmployeeToUpdate(null)" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
+        aria-controls="addEmployee">+AGREGAR UN NUEVO EMPLEADO</button>
+    </div>
+}
+}@else {
+<div class="d-flex justify-content-center fade-in-container mt-3">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+}
+<app-add-employee></app-add-employee>

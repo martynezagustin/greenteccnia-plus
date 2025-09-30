@@ -1,0 +1,32 @@
+<!--Dispositivos registrados-->
+<div class="card-data"
+    [ngClass]="{'montserrat-mode': isMontserrat,'poppins-mode': isPoppins, 'card-data-dark': isDark, 'card-data-light': isLight, 'rounded-buttons': roundedButtons, 'square-buttons': squareButtons, 'card-data-monochrome': isMonochrome}">
+    <h2 class="text-center mt-1"><i class="fa-regular fa-hard-drive"></i> DISPOSITIVOS REGISTRADOS</h2>
+    <hr>
+    <div class="d-flex flex-column align-items-center">
+
+        @if(devices.length === 0){
+        <div class="alert alert-danger" role="alert">No se han encontrado dispositivos del usuario.</div>
+        }@else{
+        <div class="card card-device" style="width: 20rem;">
+            <div class="card-body text-center">
+                <h5 class="card-title">@if(devices[0].deviceType == "Escritorio"){<i class="fa-solid fa-desktop"></i>}
+                    @else if(devices[0].deviceType == "Móvil"){<i class="fa-solid fa-mobile-screen"></i>} @else {<i
+                        class="fa-solid fa-tablet-screen-button"></i>} Dispositivo: <b>{{devices[0].deviceType}}</b>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Sistema operativo: <b>{{devices[0].os}}</b></h6>
+                <h6 class="card-text">Navegador: <b>{{devices[0].browser}}</b></h6>
+                <h6>Últ. vez: <b>{{devices[0].lastLogin | dateDevice: 'short'}}</b></h6>
+                <button class="btn btn-danger"
+                    style="font-family: Montserrat; letter-spacing: -1.1px; font-weight: 600; font-size: 0.9rem;">¿DESCONOCES
+                    ESTE DISPOSITIVO?</button>
+            </div>
+        </div>
+        @if(devices.length > 1){
+        <div class="alert alert-info mt-3" style="font-family: Montserrat; letter-spacing: -1.1px; font-weight: 500;" role="alert">Hay más dispositivos registrados. Puedes verlos en la sección de
+            <a routerLink="/dashboard/private/interface/navbar/devices" class="alert-link">Dispositivos</a>.
+        </div>
+        }
+        }
+    </div>
+</div>

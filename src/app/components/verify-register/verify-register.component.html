@@ -1,0 +1,35 @@
+<section class="d-flex container-fade-in flex-column align-items-center mt-3">
+    <form class="m-5" [formGroup]="formVerifyRegister" (submit)="handleSubmit()">
+        <div class="container-isotype d-flex flex-column align-items-center">
+            <img src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png"
+                alt="isotype-greenteccnia" width="50">
+        </div>
+        <div class="container-welcome">
+            <h2 class="text-center mb-4">Ingresa el código 2FA que llegó a tu mail</h2>
+            <p>Este requisito es indispensable para terminar de crear tu cuenta. Te ha llegado un código 2FA que no
+                debes <span style="color:red">compartir con nadie.</span></p>
+        </div>
+        <div class="mb-3">
+            <label for="code" class="form-label">Tu código 2FA</label>
+            <input type="text" style="font-family: Poppins;text-align: center;font-size: 1.5rem;" class="form-control"
+                id="code" placeholder="Ingrese el código" name="text" formControlName="code" required>
+        </div>
+        @if(errorMessage){
+            <p style="color: red; font-size: 0.8rem; letter-spacing: -0.6px; font-weight: 700;"
+            class="p-2 m-2 alert alert-danger text-center"><i class="fa-solid fa-triangle-exclamation m-1"></i>
+            {{errorMessage}}</p>
+        }
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success"><strong>Verificar</strong></button>
+        </div>
+    </form>
+    @if(loading){
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <p class="text-center loading-p mt-2" style="font-family: Poppins; letter-spacing: -1.4px;">
+        Procesando petición...</p>
+    }
+</section>

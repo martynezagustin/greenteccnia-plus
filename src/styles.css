@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/*regular style toast*/
+@import 'ngx-toastr/toastr';
+
+body {
+    background: linear-gradient(to right, #fdffea, #efffe8);
+
+}
+.ngx-toastr{
+    box-shadow: none!important;
+    font-family: Montserrat;
+    letter-spacing:-1.4px;
+}
+/* reset p */
+p {
+    margin: 0%;
+}
+
+.btn-back {
+    font-family: Montserrat;
+    margin: 0.3rem;
+    letter-spacing: -1.3px;
+    font-weight: 800;
+}
+
+.fade-in-container {
+    animation-name: fadeInContainer;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes fadeInContainer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.h1-finances {
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    color: whitesmoke;
+    font-weight: 700;
+    margin: 0.6rem;
+}
+
+.alert-danger {
+    background-color: whitesmoke;
+    border: none;
+    text-align: center;
+    color: red;
+    font-size: 1.3rem;
+    margin: 0.8rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+}
+
+.alert-success {
+    background-color: whitesmoke;
+    border: none;
+    text-align: center;
+    color: green;
+    font-size: 1.3rem;
+    margin: 0.8rem;
+    font-family: Montserrat;
+    letter-spacing: -1.2px;
+    font-weight: 700;
+}
+.modal-title{
+    font-family: Montserrat;
+    text-transform: uppercase;
+    letter-spacing: -1.2px;
+    color: rgb(50,50,50);
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
