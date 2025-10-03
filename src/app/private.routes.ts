@@ -30,6 +30,7 @@ import { AccidentsComponent } from './components/private/interface/rrhh/rrhh-mod
 import { EmployeesComponent } from './components/private/interface/rrhh/rrhh-module-load/employees/employees.component';
 import { rrhhRoutes } from './rrhh.routes';
 import { DashboardEmployeesComponent } from './components/private/interface/rrhh/dashboard-employees/dashboard-employees.component';
+import { employeesRoutes } from './employees.routes';
 
 export const privateRoutes: Routes = [
     {
@@ -68,6 +69,6 @@ export const privateRoutes: Routes = [
         path: 'rrhh', component: RrhhComponent, canActivate: [AuthGuardService], children: rrhhRoutes
     },
     { path: "my-enterprise", component: DashboardGenericComponent, canActivate: [AuthGuardService] },
-    { path: 'employees', component: DashboardEmployeesComponent, canActivate: [AuthGuardService] },
+    { path: 'employees', component: DashboardEmployeesComponent, canActivate: [AuthGuardService], children: employeesRoutes },
     { path: "**", component: DashboardGenericComponent, canActivate: [AuthGuardService] }
 ];

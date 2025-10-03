@@ -23,7 +23,7 @@ export class AddSustainableObjectivesComponent implements OnInit {
   successPush: Boolean = false
   itemAdded: string = ''
   errorMessage: string = ''
-  constructor(private sustainabilityObjectiveService: SustainabilityObjectiveService, private userService: UserService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService, private router: Router, private toastService: ToastService) {
+  constructor( private userService: UserService, private enterpriseService: EnterpriseService, private handlersRoutes: HandlersRoutesService, private router: Router, private toastService: ToastService) {
     this.userId = this.userService.getUserId()
   }
   public avaiableObjectives = [
@@ -40,6 +40,7 @@ export class AddSustainableObjectivesComponent implements OnInit {
   public displayedObjectives = this.avaiableObjectives.slice(0, this.maxDisplayed)
   ngOnInit(): void {
     this.getEnterpriseId()
+    this.getUserId()
   }
   getImpactColor(impact: string): string {
     switch (impact) {
@@ -86,7 +87,7 @@ export class AddSustainableObjectivesComponent implements OnInit {
     console.log(this.enterpriseId)
     this.loading = true
     const requests = this.selectedObjectives.map((objective: any) =>
-      this.sustainabilityObjectiveService.addSustainabilityObjective(this.enterpriseId, objective)
+      this.enterpriseService.addInitialsSustainableObjectives(this.userId, objective)
     )
     forkJoin(requests).subscribe(
       () => {
@@ -103,5 +104,8 @@ export class AddSustainableObjectivesComponent implements OnInit {
   omit() {
     this.router.navigate(['/dashboard'])
     this.handlersRoutes.reload()
+  }
+  getUserId(){
+    this.userId = this.userService.getUserId()
   }
 }

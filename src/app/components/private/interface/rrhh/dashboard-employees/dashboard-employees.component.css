@@ -1,0 +1,22 @@
+h1{
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    color: whitesmoke;
+    font-weight: 700;
+}
+.btn-outline-success{
+    font-family: Montserrat;
+    letter-spacing: -1.5px;
+    font-weight: 600;
+}
+.btn-success{
+    font-family: Montserrat;
+    letter-spacing: -1.4px;
+    font-weight: 600;
+    background: linear-gradient(190deg, green,rgb(40,150,40), rgb(5,90,5));
+    border: none;
+}
+.btn-success:hover{
+    color: black;
+    background: linear-gradient(190deg, whitesmoke, white, rgb(200,200,200));
+}

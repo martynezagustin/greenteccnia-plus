@@ -10,7 +10,7 @@ h1 {
 
 .module-load {
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 94% 6%;
     min-height: 36.6vh;
     min-width: 100%;
 }

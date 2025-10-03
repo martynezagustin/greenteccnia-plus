@@ -29,16 +29,40 @@
     transition: 0.5s ease-in all;
     background: linear-gradient(to right, black, rgb(12, 45, 2));
 }
-i{
+.fa-eye, .fa-trash, .fa-pencil{
     cursor: pointer;
     transition: 0.1s ease-in all;
 }
-i:hover{
+.form-control{
+    font-family: Poppins;
+    letter-spacing: -1.3px;
+    background: linear-gradient(190deg, rgb(30,30,30), rgb(20,70,40))!important;
+    color: whitesmoke;
+}
+.form-control::placeholder{
+    color: springgreen;
+    opacity: 0.5;
+}
+option{
+    color: black;
+}
+select{
+    color: springgreen;
+    cursor: pointer;
+    appearance: auto;
+}
+.fa-eye:hover, .fa-trash:hover, .fa-pencil:hover{
     transform: scale(1.15, 1.15);
     transition: 0.1s ease-in all;
+}
+.form-search{
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 .status-job{
     border-radius: 6px solid gray;
     padding: 5px;
     text-align: center;
+}.alert-danger{
+    border: 1px solid red;
 }

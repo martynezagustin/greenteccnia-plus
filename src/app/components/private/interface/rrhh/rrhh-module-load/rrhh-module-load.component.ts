@@ -11,6 +11,7 @@ import { RrhhService } from '../../../../../services/private/rrhh/rrhh/rrhh.serv
 export class RrhhModuleLoadComponent implements OnInit {
   constructor(private rrhhService: RrhhService) { }
   title!: String
+  view!: String
   linksGenerated: any = [
     {
       employees: {
@@ -56,6 +57,7 @@ export class RrhhModuleLoadComponent implements OnInit {
           default:
             break;
         }
+        this.view = response 
       },
       err => {
         console.error(err);

@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment.prod';
 import { Employee } from '../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
 import { RrhhService } from '../rrhh/rrhh.service';
 import { RRHHSummary } from '../../../../../interfaces/enterprise/rrhh/models/rrhh-sumary.interface';
+import { SummaryEmployees } from '../../../../../interfaces/enterprise/rrhh/employees/dashboard/summary-employeees.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -73,4 +74,7 @@ export class EmployeesService {
       switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId))
     )
   }
+  printDashboard(enterpriseId: string): Observable<SummaryEmployees>{
+    return this.httpClient.get<SummaryEmployees>(`${this.baseUrl}/${enterpriseId}/print/dashboard`, {withCredentials: true})
+  } 
 }

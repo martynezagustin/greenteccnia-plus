@@ -1,6 +1,21 @@
 @if(!loading){
-
-@if(employees.length !==0){
+    <div class="mt-2 m-1 container-options">
+        <div style="display: grid; grid-template-columns: 50% 50%;">
+            <div>
+                <label for="name" class="form-label">Buscar por nombre o apellido</label>
+                <input type="text" [(ngModel)]="nameControl" [disabled]="filteredEmployees.length === 0" name="name" id="name" class="form-control" placeholder="🔍 Ingresa un valor...">
+            </div>
+            <div>
+                <label for="departmentControl" class="form-label">Filtrar por departamento</label>
+                <select name="departmentControl" id="departmentControl" [(ngModel)]='departmentControl' class="form-control">
+                    @for(department of departments; track department){
+                        <option value={{department}}>{{department}}</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+@if(filteredEmployees.length !==0){
 <table class="table m-1 fade-in-container">
     <thead>
         <tr>
@@ -14,13 +29,15 @@
         </tr>
     </thead>
     <tbody>
-        @for(employee of employees; track employee._id){
+        @for(employee of filteredEmployees; track employee._id){
         <tr>
             <td>{{employee.personalInfo.name}}</td>
             <td>{{employee.personalInfo.lastname}}</td>
             <td>{{employee.personalInfo.email}}</td>
             <td>{{employee.personalInfo.gender}}</td>
-            <td class="status-jon" [ngStyle]="{'background-color': employee.jobInfo.status === 'Presencial' ? 'darkturquoise' : employee.jobInfo.status === 'Híbrido' ? 'violet' : 'khaki'}">{{employee.jobInfo.status}}</td>
+            <td class="status-jon"
+                [ngStyle]="{'background-color': employee.jobInfo.status === 'Presencial' ? 'darkturquoise' : employee.jobInfo.status === 'Híbrido' ? 'violet' : 'khaki'}">
+                {{employee.jobInfo.status}}</td>
             <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
                 <i class="fa-solid fa-eye m-1"></i>
@@ -33,17 +50,16 @@
     </tbody>
 </table>
 @if(employees.length >= 3){
-    <div class="d-flex mt-2 flex-column align-items-center justify-content-center">
-        <a class="btn btn-info" routerLink="/dashboard/employees">+VER MÁS</a>
-    </div>
+<div class="d-flex mt-2 flex-column align-items-center justify-content-center">
+    <a class="btn btn-info" routerLink="/dashboard/employees">+VER MÁS</a>
+</div>
 }
 }@else{
 <div class="d-flex flex-column align-items-center fade-in-container">
-    <p class="zero_length_employees p-3"><strong>Aún no agregaste un empleado. ¿Deseas agregar un nuevo
-            empleado?</strong></p>
-    <button (click)="setEmployeeToUpdate(null)" class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
-        aria-controls="addEmployee">+AGREGAR UN NUEVO EMPLEADO</button>
+    <div class="alert alert-danger" role="alert">
+        <i class="fa-solid fa-circle-exclamation m-1"></i> No se han encontrado empleados.
     </div>
+</div>
 }
 }@else {
 <div class="d-flex justify-content-center fade-in-container mt-3">

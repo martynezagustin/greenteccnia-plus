@@ -32,8 +32,6 @@ p {
 .form{
     padding: 5px;
 }
-input{
-}
 input[type=text] {
     font-family: Poppins;
 }
@@ -43,6 +41,9 @@ select{
 }
 option{
     color: black;
+}
+.input-group{
+    display: block;
 }
 .form-label {
     font-weight: 600;

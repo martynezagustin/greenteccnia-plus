@@ -36,6 +36,9 @@ export class EnterpriseService {
   addCertificationsAccomplished(userId: String, body: any): Observable<any> {
     return this.httpClient.post(`${this.baseUrl}/${userId}/enterprise/add-certifications-accomplished`, body, { withCredentials: true })
   }
+  addInitialsSustainableObjectives(userId: String, body: any): Observable<any>{
+    return this.httpClient.post(`${this.baseUrl}/${userId}/enterprise/add-initials-sustainable-objectives`, body, {withCredentials: true})
+  }
   getEnterprise(enterpriseId: String): Observable<Enterprise> {
     return this.httpClient.get<Enterprise>(`${this.baseUrl}/get-enterprise/${enterpriseId}`, { withCredentials: true })
   }
