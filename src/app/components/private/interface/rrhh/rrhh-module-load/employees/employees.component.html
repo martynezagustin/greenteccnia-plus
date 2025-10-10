@@ -1,20 +1,22 @@
 @if(!loading){
-    <div class="mt-2 m-1 container-options">
-        <div style="display: grid; grid-template-columns: 50% 50%;">
-            <div>
-                <label for="name" class="form-label">Buscar por nombre o apellido</label>
-                <input type="text" [(ngModel)]="nameControl" [disabled]="filteredEmployees.length === 0" name="name" id="name" class="form-control" placeholder="🔍 Ingresa un valor...">
-            </div>
-            <div>
-                <label for="departmentControl" class="form-label">Filtrar por departamento</label>
-                <select name="departmentControl" id="departmentControl" [(ngModel)]='departmentControl' class="form-control">
-                    @for(department of departments; track department){
-                        <option value={{department}}>{{department}}</option>
-                    }
-                </select>
-            </div>
+<div class="mt-2 m-1 container-options">
+    <div style="display: grid; grid-template-columns: 50% 50%;">
+        <div>
+            <label for="name" class="form-label">Buscar por nombre o apellido</label>
+            <input type="text" [(ngModel)]="nameControl" name="name"
+                id="name" class="form-control" placeholder="🔍 Ingresa un valor...">
+        </div>
+        <div>
+            <label for="departmentControl" class="form-label">Filtrar por departamento</label>
+            <select name="departmentControl" id="departmentControl" [(ngModel)]='departmentControl'
+                class="form-control">
+                @for(department of departments; track department){
+                <option value={{department}}>{{department}}</option>
+                }
+            </select>
         </div>
     </div>
+</div>
 @if(filteredEmployees.length !==0){
 <table class="table m-1 fade-in-container">
     <thead>
@@ -40,7 +42,8 @@
                 {{employee.jobInfo.status}}</td>
             <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
-                <i class="fa-solid fa-eye m-1"></i>
+                <i class="fa-solid fa-eye m-1" data-bs-toggle="offcanvas" data-bs-target="#viewEmployee"
+                    (click)="setEmployeeToView(employee)" aria-controls="viewEmployee"></i>
                 <i style="color: red;" class="fa-solid fa-trash m-1" (click)="deleteEmployee(employee._id)"></i>
                 <i class="fa-solid fa-pencil m-1" (click)="setEmployeeToUpdate(employee)" data-bs-toggle="offcanvas"
                     data-bs-target="#addEmployee" aria-controls="addEmployee"></i>
@@ -69,3 +72,4 @@
 </div>
 }
 <app-add-employee></app-add-employee>
+<app-view-employee></app-view-employee>

@@ -32,15 +32,21 @@
                             <i class="fa-solid fa-triangle-exclamation m-1"></i> El apellido es obligatorio.
                         </div>
                     </div>
-                    <div>
-                        <label for="gender" class="form-label">Género</label>
-                        <select name="gender" class="form-control" formControlName="gender" id="gender">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="No binario">No binario</option>
-                            <option value="Otro">Otro</option>
-                            <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-                        </select>
+                    <div style="display: grid; grid-template-columns: 50% 49%; grid-gap: 3px;">
+                        <div>
+                            <label for="gender" class="form-label">Género</label>
+                            <select name="gender" class="form-control" formControlName="gender" id="gender">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="No binario">No binario</option>
+                                <option value="Otro">Otro</option>
+                                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="dateOfBirthday" class="form-label">Fecha de nacimiento</label>
+                            <input type="date" formControlName="dateOfBirthday" name="dateOfBirthday" id="dateOfBirthday" class="form-control">
+                        </div>
                     </div>
                     <div>
                         <label for="address" class="form-label">Dirección</label>
@@ -313,7 +319,8 @@
             }
 
             <div class="d-flex align-items-center justify-content-center m-2">
-            <input type="submit" class="btn btn-success m-1" [value]="employeeToUpdate == null ? 'Registrar' : 'Actualizar'"
+                <input type="submit" class="btn btn-success m-1"
+                    [value]="employeeToUpdate == null ? 'Registrar' : 'Actualizar'"
                     [disabled]="!this.formAddEmployee.valid">
             </div>
         </form>

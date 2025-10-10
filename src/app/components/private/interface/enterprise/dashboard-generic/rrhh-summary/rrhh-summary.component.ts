@@ -73,4 +73,7 @@ export class RrhhSummaryComponent implements OnInit {
       }]
     }
   }
+  setNullEmployeeToEdit(){
+    this.employeesService.setEmployeeToEdit(null)
+  }
 }

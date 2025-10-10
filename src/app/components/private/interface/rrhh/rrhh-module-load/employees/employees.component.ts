@@ -10,10 +10,11 @@ import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { combineLatest, debounceTime, startWith, Subject, takeUntil } from 'rxjs';
 import { ToastService } from '../../../../../../services/private/enterprise/misc/toast/toast.service';
+import { ViewEmployeeComponent } from "./view-employee/view-employee.component";
 
 @Component({
   selector: 'app-employees',
-  imports: [AddEmployeeComponent, CommonModule, RouterLink, FormsModule],
+  imports: [AddEmployeeComponent, CommonModule, RouterLink, FormsModule, ViewEmployeeComponent],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.css'
 })
@@ -50,7 +51,7 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       .subscribe({
         next: employees => {
           this.employees = employees;
-          if(this.employees.length > 0){
+          if (this.employees.length > 0) {
             this.toastService.info('Con el medidor de satisfacción de GreenTeccnia+, podrás encuestar a tus empleados para medir su satisfacción laboral y así tomar medidas al respecto', '🤔 ¿Lo sabías?')
           }
           this.errorMessage = '';
@@ -105,8 +106,8 @@ export class EmployeesComponent implements OnInit, OnDestroy {
       if (!result.isConfirmed) return;
       this.deletedSuccessfully = '';
       this.employeesService.deleteEmployee(this.enterpriseId, employeeId).subscribe({
-        next: () => {
-          Swal.fire({
+        next: async () => {
+          await Swal.fire({
             title: '<h2 style="font-family:Montserrat; letter-spacing:-1.2px">Empleado eliminado</h2>',
             text: 'El empleado se eliminó correctamente.',
             showCloseButton: true,
@@ -125,5 +126,9 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   }
   setEmployeeToUpdate(employee: Employee | null): void {
     this.employeesService.setEmployeeToEdit(employee);
+  }
+  setEmployeeToView(employee: Employee) {
+    console.log(employee)
+    this.employeesService.setEmployeeToView(employee)
   }
 }

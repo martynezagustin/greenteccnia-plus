@@ -44,6 +44,7 @@ export class AddEmployeeComponent implements OnInit {
         name: new FormControl('', Validators.required),
         lastname: new FormControl('', Validators.required),
         gender: new FormControl(''),
+        dateOfBirthday: new FormControl('', Validators.required),
         identityCard: this.fb.group({
           value: new FormControl(null, Validators.required),
           type: new FormControl('', Validators.required)
@@ -224,7 +225,19 @@ export class AddEmployeeComponent implements OnInit {
   }
   loadingItemToUpdate() {
     if (this.employeeToUpdate != null) {
-      this.formAddEmployee.patchValue(this.employeeToUpdate)
+      const formattedDateStartDate = new Date(this.employeeToUpdate.jobInfo.startDate).toISOString().split('T')[0]
+      const formattedDateOfBirthday = new Date(this.employeeToUpdate.personalInfo.dateOfBirthday).toISOString().split('T')[0]
+      this.formAddEmployee.patchValue({
+        ...this.employeeToUpdate,
+        personalInfo: {
+          ...this.employeeToUpdate.personalInfo,
+          dateOfBirthday: formattedDateOfBirthday
+        },
+        jobInfo: {
+          ...this.employeeToUpdate.jobInfo,
+          startDate: formattedDateStartDate
+        }
+      })
     }
   }
   //validators

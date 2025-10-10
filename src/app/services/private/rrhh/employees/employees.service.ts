@@ -21,6 +21,10 @@ export class EmployeesService {
   employeeToEdit = new BehaviorSubject<Employee | null>(null)
   employeeToEdit$ = this.employeeToEdit.asObservable()
 
+  //para ver
+  employeeToView = new BehaviorSubject<Employee | null>(null)
+  employeeToView$ = this.employeeToView.asObservable()
+
   //paridad de genero
   parityGender = new BehaviorSubject<any | null>(null)
   parityGender$ = this.parityGender.asObservable()
@@ -35,6 +39,10 @@ export class EmployeesService {
       switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId)),
       switchMap(() => this.getParityGender(enterpriseId))
     );
+  }
+  getEmployee(enterpriseId: string, employeeId: string): Observable<Employee> {
+    console.log(employeeId)
+    return this.httpClient.get<Employee>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
   }
   getParityGender(enterpriseId: String | null): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/${enterpriseId}/employees/filter/by-gender-parity`, { withCredentials: true }).pipe(
@@ -65,6 +73,9 @@ export class EmployeesService {
   setEmployeeToEdit(employee: Employee | null) {
     this.employeeToEdit.next(employee)
   }
+  setEmployeeToView(employee: Employee | null) {
+    this.employeeToView.next(employee)
+  }
   updateEmployee(enterpriseId: string, employeeId: string, data: Employee): Observable<any> {
     return this.httpClient.put<any>(`${this.baseUrl}/${enterpriseId}/employees/update-employee/${employeeId}`, data, { withCredentials: true }).pipe(
       tap((e) => {
@@ -74,7 +85,7 @@ export class EmployeesService {
       switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId))
     )
   }
-  printDashboard(enterpriseId: string): Observable<SummaryEmployees>{
-    return this.httpClient.get<SummaryEmployees>(`${this.baseUrl}/${enterpriseId}/print/dashboard`, {withCredentials: true})
-  } 
+  printDashboard(enterpriseId: string): Observable<SummaryEmployees> {
+    return this.httpClient.get<SummaryEmployees>(`${this.baseUrl}/${enterpriseId}/print/dashboard`, { withCredentials: true })
+  }
 }

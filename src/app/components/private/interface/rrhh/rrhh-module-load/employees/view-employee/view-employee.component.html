@@ -1,0 +1,72 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="viewEmployee" aria-labelledby="viewEmployeeLabel">
+    <div class="offcanvas-body" #employeeContent id="employeeContent">
+        <div class="body">
+            <div class="d-flex flex-column">
+                <p class="beta_tag">BETA</p>
+                <button class="btn btn-light mb-3 p-2" (click)="downloadPDF()">⤵️ DESCARGAR REPORTE (.pdf)</button>
+            </div>
+            <div class="technical-sheet">
+                <div class="technical-sheet__name_and_lastname box-data">
+                    <h5>{{employee?.personalInfo?.lastname}}, {{employee?.personalInfo?.name}}</h5>
+                    <span>{{employee?.jobInfo?.position}} - {{employee?.jobInfo?.department}}</span>
+                </div>
+                <div class="technical-sheet__satisfaction box-data">
+                    <h4>ÍNDICE DE SATISFACCIÓN</h4>
+                    <div class="text-center">
+                        <span class="satisfaction-index">9.7</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3>🧑‍🦱 Datos personales</h3>
+            <div class="personal-data mt-2">
+                <div class="box-data personal-data__name_and_lastname d-flex flex-column">
+                    <label for="name" class="form-label mb-1">Nombre</label>
+                    <h5 class="fact" id="name">{{employee?.personalInfo?.name}}</h5>
+                    <label for="lastname" class="form-label mt-4 mb-1">Apellido</label>
+                    <h5 class="fact" id="lastname">{{employee?.personalInfo?.lastname}}</h5>
+                </div>
+                <div class=" box-data personal-data__name_and_lastname d-flex flex-column">
+                    <label for="name" class="form-label mb-1">📧Correo electrónico</label>
+                    <h5 class="fact" id="name">{{employee?.personalInfo?.email}}</h5>
+                    <label for="dateOfBirthday" class="form-label mt-4 mb-1">🎂Fecha de nacimiento</label>
+                    <h5 class="fact" id="dateOfBirthday">{{formatDate(employee?.personalInfo?.dateOfBirthday)}}</h5>
+
+                </div>
+            </div>
+        </div>
+        <div class="body mt-2">
+            <h3>📋 Información de trabajo</h3>
+            <div class="job-info-data mt-2">
+                <div>
+                    <div class="box-data">
+                        <label for="department" class="form-label mb-1">Departamento</label>
+                        <h5 class="fact" id="department">{{employee?.jobInfo?.department}}</h5>
+                        <label for="position" class="form-label mt-4 mb-1">Posición</label>
+                        <h5 class="fact" id="position">{{employee?.jobInfo?.position}}</h5>
+                        <label for="contractType" class="form-label mt-4 mb-1">Tipo de contrato</label>
+                        <h5 id="contractType" class="fact">{{employee?.jobInfo?.contractType}}</h5>
+                    </div>
+                    <div class="box-data mt-1">
+                        <label for="CCTName" class="form-label mb-1">Convenio colectivo</label>
+                        <h5 class="fact" id="CCTName">{{employee?.jobInfo?.CCT?.name}}</h5>
+                        <label for="CCTNumber" class="form-label mt-4 mb-1">Número</label>
+                        <h5 class="fact" id="CCTNumber">{{employee?.jobInfo?.CCT?.cctNumber}}</h5>
+                    </div>
+                </div>
+                <div class="box-data">
+                    <label for="status" class="form-label mb-1">Estado</label>
+                    <h5 class="fact" id="status">{{!employee?.jobInfo?.leavingDate ? 'Activo' : 'De baja'}}</h5>
+                    <label for="startDate" class="form-label mt-4 mb-1">Fecha de inicio</label>
+                    <h5 class="fact" id="startDate">{{formatDate(employee?.jobInfo?.startDate)}}</h5>
+                    <label for="mood" class="form-label mt-4 mb-1">Modalidad de trabajo</label>
+                    <h5 class="fact" id="mood">{{employee?.jobInfo?.status}}</h5>
+                    <label for="syndicate" class="form-label mt-4 mb-1">Sindicato</label>
+                    <h5 class="fact" id="syndicate">{{employee?.jobInfo?.syndicate?.name}}</h5>
+                    <label for="ART" class="form-label mt-4 mb-1">ART</label>
+                    <h5 class="fact" id="ART">{{employee?.jobInfo?.ART?.name}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

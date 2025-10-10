@@ -12,7 +12,8 @@ export interface Employee {
         },
         address: string,
         phone: string,
-        email: string
+        email: string,
+        dateOfBirthday: Date
     },
     jobInfo: {
         startDate: Date,

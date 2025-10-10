@@ -22,6 +22,7 @@ export class RrhhComponent implements OnInit {
   percentage!: Number
   // -- respecto a paridad de genero
   public pieChartLabels: string[] = []
+  chartRendered = false
   public pieChartData!: ChartData<'pie'>
   public pieChartType: ChartType = 'pie'
   public pieChartOptions: ChartOptions = {

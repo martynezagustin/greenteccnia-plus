@@ -1,0 +1,76 @@
+*{
+    padding: 0%;
+    margin: 0%;
+}
+.body{
+    color: rgb(30,255,40);
+    font-family: Montserrat;
+    padding: 0.8rem;
+    letter-spacing: -1.5px;
+    margin: 15px 0px 15px 10px;
+    background-color: rgba(50,255,20,0.4);
+    border-radius: 10px 0px 0px 10px;
+}
+.body h3{
+    color: /*rgba(3,33,3,0.9)*/white;
+    font-weight: 700;
+}
+.offcanvas{
+    background: linear-gradient(180deg, rgb(10,55,10), rgb(5,50,25), rgb(5,110,4));
+    width: 48rem;
+}
+.beta_tag{
+    padding: 2px;
+    border-radius: 5px;
+    font-family: Montserrat;
+    letter-spacing: -1.1px;
+}
+.technical-sheet{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-gap: 2px;
+    border-radius: 8px;
+}
+.box-data{
+    background: linear-gradient(180deg,rgba(3,44,3,0.8), rgba(5,80,8,0.9));
+    border-radius: 6px;
+    padding: 0.7rem;
+    border: 1px solid springgreen;
+}
+.technical-sheet__satisfaction h4{
+    font-size: 0.9rem;
+    text-align: center;
+}
+.technical-sheet__name_and_lastname h5{
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+.personal-data{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 2px;
+}
+.job-info-data{
+    display: grid;
+    grid-gap: 2px;
+    grid-template-rows: auto auto;
+    grid-template-columns: 60% 40%;
+}
+.satisfaction-index{
+    font-size: 2rem;
+}
+hr{
+    color: rgba(3,44,3,0.8);
+    margin: 0.7rem 0 0.7rem 0;
+}
+.fact{
+    font-weight: 600;
+}
+.form-label{
+    color: whitesmoke;
+}
+.btn-light{
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    font-weight: 700;
+}
