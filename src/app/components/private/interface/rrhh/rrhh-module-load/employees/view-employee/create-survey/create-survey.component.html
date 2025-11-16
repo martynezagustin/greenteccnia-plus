@@ -1,0 +1,118 @@
+<!-- Modal -->
+<div class="modal fade" id="createSurvey" tabindex="-1" aria-labelledby="createSurveyLabel">
+    <form [formGroup]="CreateSurvey" (submit)="handleSubmit()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="beta-survey-green">BETA</span>
+                    <h1 class="modal-title fs-5" id="createSurveyLabel">🤝 Encuesta de satisfacción laboral</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @switch(step){
+                    @case(1){
+                    <h2 class="h2-survey-green">👀 ¿Qué tan satisfecho estás con tu trabajo?</h2>
+                    <div class="d-flex justify-content-around mt-4">
+                        @if(step === 1){
+
+                        @for (option of satisfactionOptions; track option.icon) {
+                        <input type="radio" class="btn-check" name="satisfaction"
+                            [id]="'satisfaction-' + option.value" [value]="option.value"
+                            formControlName="satisfaction" autocomplete="off" />
+                        <label class="btn btn-satisfaction" [ngClass]="option.color"
+                            [for]="'satisfaction-' + option.value">
+                            {{ option.icon }}
+                        </label>
+                        }
+                        }
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="relationshipWithTeam" class="form-label">🤔¿Cómo calificarías tu relación con tu
+                            equipo?</label>
+                        <input type="range" name="relationship-with-team" min="1" max="5" id="relationshipWithTeam"
+                            formControlName="relationshipWithTeam" class="form-range">
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="surveyPeriod" class="form-label">💭Ingresa el periodo de medición</label>
+                        <select name="" id="" class="form-control" formControlName="surveyPeriod">
+                            <option value="Mensual">Mensual</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="Anual">Anual</option>
+                            <option value="Ad-hoc">Ad-hoc</option>
+                        </select>
+                    </div>
+                    }
+                    @case(2){
+                    <fieldset formGroupName="categories">
+                        <div class="fade-in-container">
+                            <h2 class="h2-survey-green">🧠 Responde en las siguientes categorías</h2>
+                            <div class="mt-2">
+                                @for(category of categories; track category.id){
+                                <div class="mt-1">
+                                    <label [for]="category.id" class="form-label">{{category.name}}</label>
+                                    <input type="range" class="form-range" min="1" max="5" [id]="category.id"
+                                        [formControlName]="category.id">
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </fieldset>
+                    }
+                    @case(3){
+                    <fieldset formGroupName="workEnvironment">
+                        <div class="fade-in-container">
+                            <h2 class="h2-survey-green">🏢 Respecto a tu entorno de trabajo</h2>
+                            <div class="form-check form-switch mt-1">
+                                <input class="form-check-input" type="checkbox" role="switch" id="remote" checked>
+                                <label class="form-check-label" for="remote">Remoto</label>
+                            </div>
+                            <div class="mt-1 p-1">
+                                @for(environment of workEnvironment; track environment){
+                                @if(environment.id !== 'remote'){
+                                <label [for]="environment.id" class="form-label">{{environment.name}}</label>
+                                <input type="range" class="form-range" min="1" max="5" [id]="environment.id"
+                                    [formControlName]="environment.id">
+                                }
+                                }
+                            </div>
+                        </div>
+                    </fieldset>
+                    }
+                    @case(4){
+                    <div class="fade-in-container" formGroupName="mood">
+                        <h2 class="h2-survey-green">🧠 ¿Qué estados de ánimos has sentido?</h2>
+                        <div>
+                            <div class="d-flex flex-wrap justify-content-center mt-1">
+                                @for(mood of moodOptions; track mood.label){
+                                <div class="form-check m-2">
+                                    <input class="form-check-input" type="checkbox" value="" [id]="mood.label" (change)="onMoodChange($event, mood)">
+                                    <label class="form-check-label" [for]="mood.label">
+                                       {{mood.icon}}{{mood.label}}
+                                    </label>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <label for="comments" class="form-label">📄 Comentarios adicionales</label>
+                        <textarea name="comments" id="comments" class="form-control"
+                            placeholder="Puedes añadir algo que sea indispensable para la gestión de emociones del empleado..."></textarea>
+                    </div>
+                    }
+                    }
+                </div>
+                <div class="modal-footer">
+                    @if(step > 1){
+                    <button type="button" class="btn btn-secondary" (click)="previousStep()">🔙 Anterior</button>
+                    }
+                    @if(step < 4){ <button type="button" class="btn btn-dark" (click)="nextStep()">🔜 Siguiente</button>
+                        }
+                        @if(step === 4){
+                        <button type="submit" class="btn btn-primary">☑️ Registrar</button>
+                        }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

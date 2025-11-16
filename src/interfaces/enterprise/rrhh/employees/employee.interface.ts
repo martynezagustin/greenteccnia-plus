@@ -1,3 +1,6 @@
+import { Assist } from "../assists/assist.interface"
+import { PunctualityHistory } from "./punctuality/punctuality.interface"
+
 export interface Employee {
     _id: string,
     enterpriseId: string,
@@ -15,6 +18,8 @@ export interface Employee {
         email: string,
         dateOfBirthday: Date
     },
+    punctualityHistory: PunctualityHistory,
+    generalPunctualityIndex: Number,
     jobInfo: {
         startDate: Date,
         leavingDate: Date,
@@ -32,7 +37,7 @@ export interface Employee {
             name: string,
             cuit: string,
         },
-        checkInNormal: string,
+        expectedCheckInTime: string,
         syndicate: {
             id: string,
             name: string
@@ -43,6 +48,7 @@ export interface Employee {
         bank: string,
         cbu: number
     },
+    assists: Assist[],
     verifyData: boolean,
     privacityData: boolean
 }

@@ -3,8 +3,8 @@
     <div style="display: grid; grid-template-columns: 50% 50%;">
         <div>
             <label for="name" class="form-label">Buscar por nombre o apellido</label>
-            <input type="text" [(ngModel)]="nameControl" name="name"
-                id="name" class="form-control" placeholder="🔍 Ingresa un valor...">
+            <input type="text" [(ngModel)]="nameControl" name="name" id="name" class="form-control"
+                placeholder="🔍 Ingresa un valor...">
         </div>
         <div>
             <label for="departmentControl" class="form-label">Filtrar por departamento</label>
@@ -43,7 +43,7 @@
             <td>${{formatValue(employee.financialInformation.grossSalary)}}</td>
             <td>
                 <i class="fa-solid fa-eye m-1" data-bs-toggle="offcanvas" data-bs-target="#viewEmployee"
-                    (click)="setEmployeeToView(employee)" aria-controls="viewEmployee"></i>
+                    (click)="setEmployeeToView(employee._id)" aria-controls="viewEmployee"></i>
                 <i style="color: red;" class="fa-solid fa-trash m-1" (click)="deleteEmployee(employee._id)"></i>
                 <i class="fa-solid fa-pencil m-1" (click)="setEmployeeToUpdate(employee)" data-bs-toggle="offcanvas"
                     data-bs-target="#addEmployee" aria-controls="addEmployee"></i>
@@ -51,12 +51,18 @@
         </tr>
         }
     </tbody>
+    <div class="d-flex" style="font-size: 1rem;">
+        @if(employees.length > 0){
+        <button class="btn btn-success" data-bs-toggle="offcanvas"
+            data-bs-target="#addEmployee" aria-controls="addEmployee" (click)="setNullEmployeeToEdit()">+CREAR</button>
+        }
+        @if(employees.length >= 3){
+        <div class="d-flex mt-2 flex-column align-items-center justify-content-center">
+            <a class="btn btn-info" routerLink="/dashboard/employees">+VER MÁS</a>
+        </div>
+        }
+    </div>
 </table>
-@if(employees.length >= 3){
-<div class="d-flex mt-2 flex-column align-items-center justify-content-center">
-    <a class="btn btn-info" routerLink="/dashboard/employees">+VER MÁS</a>
-</div>
-}
 }@else{
 <div class="d-flex flex-column align-items-center fade-in-container">
     <div class="alert alert-danger" role="alert">

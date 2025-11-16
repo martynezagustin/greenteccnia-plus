@@ -1,19 +1,36 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="viewEmployee" aria-labelledby="viewEmployeeLabel">
     <div class="offcanvas-body" #employeeContent id="employeeContent">
-        <div class="body">
+        @if(!loading){
+
+        <div class="body fade-in-container">
             <div class="d-flex flex-column">
-                <p class="beta_tag">BETA</p>
-                <button class="btn btn-light mb-3 p-2" (click)="downloadPDF()">⤵️ DESCARGAR REPORTE (.pdf)</button>
+                <button class="btn btn-light mb-3 p-2" (click)="downloadPDF()">⤵️ DESCARGAR SCREENSHOT (.pdf)</button>
             </div>
             <div class="technical-sheet">
                 <div class="technical-sheet__name_and_lastname box-data">
                     <h5>{{employee?.personalInfo?.lastname}}, {{employee?.personalInfo?.name}}</h5>
-                    <span>{{employee?.jobInfo?.position}} - {{employee?.jobInfo?.department}}</span>
+                    <span class="expected-check-in-time">HORARIO DE ENTRADA:
+                        <strong>{{employee?.jobInfo?.expectedCheckInTime}}</strong></span>
+
+                    <div class="box-tags d-flex justify-content-center align-items-center flex-wrap m-1 mt-2">
+                        <div class="tag">
+                            <span>{{employee?.jobInfo?.position}}</span>
+                        </div>
+                        <div class="tag">
+                            <span>{{employee?.jobInfo?.department}}</span>
+                        </div>
+                        <div class="tag">
+                            <span>CCT {{employee?.jobInfo?.CCT?.name}} {{employee?.jobInfo?.CCT?.cctNumber}}</span>
+                        </div>
+                        <div class="tag">
+                            <span>{{employee?.jobInfo?.syndicate?.name}}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="technical-sheet__satisfaction box-data">
-                    <h4>ÍNDICE DE SATISFACCIÓN</h4>
-                    <div class="text-center">
-                        <span class="satisfaction-index">9.7</span>
+                    <h4 class="h4_index">ÍNDICE DE SATISFACCIÓN</h4>
+                    <div class="text-center mt-2">
+                        <span class="index">{{surveyGreen?.lastSurvey?.lastSurvey?.totalScore}}</span>
                     </div>
                 </div>
             </div>
@@ -36,37 +53,207 @@
             </div>
         </div>
         <div class="body mt-2">
-            <h3>📋 Información de trabajo</h3>
-            <div class="job-info-data mt-2">
-                <div>
-                    <div class="box-data">
-                        <label for="department" class="form-label mb-1">Departamento</label>
-                        <h5 class="fact" id="department">{{employee?.jobInfo?.department}}</h5>
-                        <label for="position" class="form-label mt-4 mb-1">Posición</label>
-                        <h5 class="fact" id="position">{{employee?.jobInfo?.position}}</h5>
-                        <label for="contractType" class="form-label mt-4 mb-1">Tipo de contrato</label>
-                        <h5 id="contractType" class="fact">{{employee?.jobInfo?.contractType}}</h5>
+            <h3>📋 Asistencias</h3>
+            @if(!alert){
+                <span class="alert-assist mt-1 m-2">No hay asistencia del día de hoy. <span style='cursor:pointer' class="add-assist_alert-button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">¿Deseas agregar un registro? 🤔</span> </span>
+            }
+            @if(assists.length === 0){
+            <div class="alert alert-danger p-2 mt-2 m-2">🚫 No hay asistencias registradas.</div>
+            } @else {
+            <div class="assist-data mt-2" style="align-items: start;">
+                <div class="box-data">
+                    <table class="table">
+                        <thead>
+                            <tr class="table-dark">
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Entrada</th>
+                                <th scope="col">Salida</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Puntualidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(assist of assists; track assist){
+                            <tr>
+                                <td>{{formatDate(assist.dateAssist)}}</td>
+                                <td>{{assist.checkIn | date: 'HH:mm'}}</td>
+                                <td>{{assist.checkOut | date: 'HH:mm'}}</td>
+                                <td
+                                    [ngClass]="{'table-primary': assist.status === 'Presente', 'table-warning': assist.status === 'Vacaciones'}">
+                                    {{assist.status}}</td>
+                                <td
+                                    [ngClass]="{'table-s': assist.punctualityStatus === 'PUNTUAL', 'table-w': assist.punctualityStatus === 'TARDE', 'table-d': assist.punctualityStatus === 'MUY TARDE'}">
+                                    {{assist.punctualityStatus}}</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if(assists.length >= 3){
+                    <div class="d-flex flex-column">
+                        <a class="btn btn-info p-1 mt-2" routerLink="/dashboard/assists">+VER MÁS</a>
                     </div>
-                    <div class="box-data mt-1">
-                        <label for="CCTName" class="form-label mb-1">Convenio colectivo</label>
-                        <h5 class="fact" id="CCTName">{{employee?.jobInfo?.CCT?.name}}</h5>
-                        <label for="CCTNumber" class="form-label mt-4 mb-1">Número</label>
-                        <h5 class="fact" id="CCTNumber">{{employee?.jobInfo?.CCT?.cctNumber}}</h5>
-                    </div>
+                    }
                 </div>
                 <div class="box-data">
-                    <label for="status" class="form-label mb-1">Estado</label>
-                    <h5 class="fact" id="status">{{!employee?.jobInfo?.leavingDate ? 'Activo' : 'De baja'}}</h5>
-                    <label for="startDate" class="form-label mt-4 mb-1">Fecha de inicio</label>
-                    <h5 class="fact" id="startDate">{{formatDate(employee?.jobInfo?.startDate)}}</h5>
-                    <label for="mood" class="form-label mt-4 mb-1">Modalidad de trabajo</label>
-                    <h5 class="fact" id="mood">{{employee?.jobInfo?.status}}</h5>
-                    <label for="syndicate" class="form-label mt-4 mb-1">Sindicato</label>
-                    <h5 class="fact" id="syndicate">{{employee?.jobInfo?.syndicate?.name}}</h5>
-                    <label for="ART" class="form-label mt-4 mb-1">ART</label>
-                    <h5 class="fact" id="ART">{{employee?.jobInfo?.ART?.name}}</h5>
+                    <h4 class="h4_index">ÍNDICE DE PUNTUALIDAD</h4>
+                    @if(!employee?.assists){
+                    <div class="alert alert-danger">No hay asistencias registradas.</div>
+                    }
+                    <div class="text-center">
+                        <span class="index"
+                            [ngClass]="{'text-green': (employee?.punctualityHistory?.generalIndexNumber ?? 0) > 80, 'text-orange':  (employee?.punctualityHistory?.generalIndexNumber ?? 0) < 80 && (employee?.punctualityHistory?.generalIndexNumber ?? 0) > 65, 'text-red': (employee?.punctualityHistory?.generalIndexNumber ?? 0) < 65}">{{employee?.punctualityHistory?.generalIndexNumber
+                            ?? 0}}</span>
+                    </div>
+                    <!-- Example using Angular's *ngIf for conditional rendering -->
+                    @if((employee?.punctualityHistory?.generalIndexNumber || 0) > 85){
+                    <div class="alert p-1 alert-success">
+                        😁 ¡Excelente puntualidad!
+                    </div>
+                    }
+                    @else if((employee?.punctualityHistory?.generalIndexNumber || 0) < 85 &&
+                        (employee?.punctualityHistory?.generalIndexNumber || 0)> 65){
+                        <div class="alert p-1 alert-warning">
+                            😐 Puntualidad aceptable.
+                        </div>
+                        }@else {
+                        <div class="alert p-1 alert-danger">
+                            😖 Puntualidad baja.
+                        </div>
+                        }
+                </div>
+            </div>
+            }
+        </div>
+        <!--En esta parte, se incluirá satisfacción laboral-->
+        <div class="body mt-2">
+            <div class="d-flex align-items-center">
+                <h3>💆‍♂️Satisfacción laboral</h3>
+                <button data-bs-target="#createSurvey" (click)="employee && setIdOffEmployee(employee._id)"
+                    data-bs-toggle="modal" class="btn btn-light p-1 m-2">+NUEVO
+                    REGISTRO</button>
+            </div>
+            <span class="powered-span-surveygreen">POWERED BY <span id="surveyGreen">SurveyGreen+</span></span>
+            <div>
+
+            </div>
+            @if(!surveyGreen || !surveyGreen.surveyHistory){
+            <div class="alert alert-danger p-2 mt-2 m-2">🚫 No hay encuestas de satisfacción laboral registradas.</div>
+
+            }
+            @else{
+            <div class="survey-data">
+                <div>
+                    <div class="box-data mt-2">
+                        @if(surveyGreen){
+                        <div>
+                            <label class="form-label mb-1">Últ. vez medida</label>
+                            <h5 class="fact">{{formatDate(surveyGreen.lastSurvey.lastSurvey.createdAt)}}</h5>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label mb-1">Puntaje actual</label>
+                            <div class="d-flex align-items-center">
+                                <h5 class="fact survey_score"
+                                    [ngClass]="{'perfect-score': surveyGreen.lastSurvey.lastSurvey.totalScore >= 9,'success-score': surveyGreen.lastSurvey.lastSurvey.totalScore >= 8, 'alert-score': surveyGreen.lastSurvey.lastSurvey.totalScore < 8,'danger-score': surveyGreen.lastSurvey.lastSurvey.totalScore < 5}">
+                                    {{surveyGreen.lastSurvey.lastSurvey.totalScore}}</h5>
+                                <div>
+                                    @if(surveyGreen.lastSurvey.growth !=null){
+
+                                    <span class="growth-score m-1"
+                                        [ngClass]="{'negative-growth': surveyGreen.lastSurvey.growth < 0, 'positive-growth': surveyGreen.lastSurvey.growth > 1}">
+                                        @if(surveyGreen.lastSurvey.growth < 0){ <i class="fa-solid fa-angle-down"></i>
+                                            }
+                                            @else{
+                                            <i class="fa-solid fa-angle-up"></i>
+                                            }
+                                            {{surveyGreen.lastSurvey.growth}}%
+                                    </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div class="box-data">
+                        <div>
+                            <label class="form-label mb-1">Estados de ánimo más comunes</label>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                @for(mood of commonMoods; track mood._id){
+                                    <div class="tag_mood m-1">
+                                        <span>{{mood._id}} <span class="count">{{mood.count}}</span></span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-data mt-2">
+                    <div>
+                        <label class="form-label mb-1">Puntaje más alto registrado</label>
+                        <div>
+                            <h5 class="fact survey_score"
+                                [ngClass]="{'perfect-score': surveyGreen.mostScoredSurvey >= 9,'success-score': surveyGreen.mostScoredSurvey >= 8, 'alert-score': surveyGreen.mostScoredSurvey < 8,'danger-score': surveyGreen.mostScoredSurvey < 5}">
+                                {{surveyGreen.mostScoredSurvey}}</h5>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label mb-1">Puntaje más bajo registrado</label>
+                            <div class="d-flex align-items-center">
+                                <h5 class="fact survey_score"
+                                    [ngClass]="{'perfect-score': surveyGreen.lowestScoredSurvey >= 9, 'success-score': surveyGreen.lowestScoredSurvey >= 8, 'alert-score': surveyGreen.lowestScoredSurvey < 8,'danger-score': surveyGreen.lowestScoredSurvey < 5}">
+                                    {{surveyGreen.lowestScoredSurvey}}</h5>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label mb-1">Puntaje promedio</label>
+                            <div class="d-flex align-items-center">
+                                <h5 class="fact survey_score"
+                                    [ngClass]="{'perfect-score': surveyGreen.averageScore >= 9, 'success-score': surveyGreen.averageScore >= 8, 'alert-score': surveyGreen.averageScore < 8,'danger-score': surveyGreen.averageScore < 5}">
+                                    {{surveyGreen.averageScore}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        } @else {
+        <div class="d-flex flex-column align-items-center p-4 fade-in-container">
+
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
         </div>
+        }
     </div>
+</div>
+
+<app-create-survey></app-create-survey>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
 </div>

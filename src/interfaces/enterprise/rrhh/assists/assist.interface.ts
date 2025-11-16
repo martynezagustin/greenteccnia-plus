@@ -20,5 +20,6 @@ export interface Assist {
         transport: Number,
         unit: 'kgCO₂eq'
     },
+    punctualityStatus: 'PUNTUAL' | 'TARDE' | 'MUY TARDE',
     surveyId: String
 }

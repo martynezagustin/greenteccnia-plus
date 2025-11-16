@@ -6,9 +6,9 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { combineLatest, debounceTime, startWith, Subject, takeUntil } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { ToastService } from '../../../../../../services/private/enterprise/misc/toast/toast.service';
 import { ViewEmployeeComponent } from "./view-employee/view-employee.component";
 
@@ -52,8 +52,12 @@ export class EmployeesComponent implements OnInit, OnDestroy {
         next: employees => {
           this.employees = employees;
           if (this.employees.length > 0) {
-            this.toastService.info('Con el medidor de satisfacción de GreenTeccnia+, podrás encuestar a tus empleados para medir su satisfacción laboral y así tomar medidas al respecto', '🤔 ¿Lo sabías?')
+            if (localStorage.getItem('shownToastEmployee') !== 'true') {
+              this.toastService.info('Con el medidor de satisfacción de GreenTeccnia+, podrás encuestar a tus empleados para medir su satisfacción laboral y así tomar medidas al respecto', '🤔 ¿Lo sabías?')
+              localStorage.setItem('shownToastEmployee', 'true')
+            }
           }
+          console.log(employees)
           this.errorMessage = '';
         },
         error: err => {
@@ -127,8 +131,11 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   setEmployeeToUpdate(employee: Employee | null): void {
     this.employeesService.setEmployeeToEdit(employee);
   }
-  setEmployeeToView(employee: Employee) {
-    console.log(employee)
-    this.employeesService.setEmployeeToView(employee)
+  setNullEmployeeToEdit(): void {
+    this.employeesService.setEmployeeToEdit(null)
+  }
+  setEmployeeToView(id: string) {
+    console.log(id)
+    this.employeesService.setEmployeeToView(id)
   }
 }

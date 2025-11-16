@@ -9,11 +9,13 @@ body {
     background: linear-gradient(to right, #fdffea, #efffe8);
 
 }
-.ngx-toastr{
-    box-shadow: none!important;
+
+.ngx-toastr {
+    box-shadow: none !important;
     font-family: Montserrat;
-    letter-spacing:-1.4px;
+    letter-spacing: -1.4px;
 }
+
 /* reset p */
 p {
     margin: 0%;
@@ -50,11 +52,12 @@ p {
     margin: 0.6rem;
 }
 
-.alert-danger {
+.alert-danger,
+.alert-warning,
+.alert-success {
     background-color: whitesmoke;
     border: none;
     text-align: center;
-    color: red;
     font-size: 1.3rem;
     margin: 0.8rem;
     font-family: Montserrat;
@@ -62,22 +65,31 @@ p {
     font-weight: 700;
 }
 
-.alert-success {
-    background-color: whitesmoke;
-    border: none;
-    text-align: center;
-    color: green;
-    font-size: 1.3rem;
-    margin: 0.8rem;
-    font-family: Montserrat;
-    letter-spacing: -1.2px;
-    font-weight: 700;
+.alert-danger {
+    color: red;
 }
-.modal-title{
+
+.alert-warning {
+    color: orange;
+}
+
+.alert-success {
+    color: green;
+}
+
+.modal-title {
     font-family: Montserrat;
     text-transform: uppercase;
     letter-spacing: -1.2px;
-    color: rgb(50,50,50);
+    color: rgb(50, 50, 50);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

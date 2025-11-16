@@ -45,13 +45,14 @@
                         </div>
                         <div>
                             <label for="dateOfBirthday" class="form-label">Fecha de nacimiento</label>
-                            <input type="date" formControlName="dateOfBirthday" name="dateOfBirthday" id="dateOfBirthday" class="form-control">
+                            <input type="date" formControlName="dateOfBirthday" name="dateOfBirthday"
+                                id="dateOfBirthday" class="form-control">
                         </div>
                     </div>
                     <div>
                         <label for="address" class="form-label">Dirección</label>
                         <input [ngClass]="{'ng-error': address.invalid && address.touched}" type="text"
-                            class="form-control" placeholder="Domicilio" formControlName="address" id="address">
+                            class="form-control" placeholder="Av. Siempre Viva 123" formControlName="address" id="address">
                         <div class="fade-in-container alert alert-danger mt-1"
                             [hidden]="address.valid || address.pristine">
                             <i class="fa-solid fa-triangle-exclamation m-1"></i> El domicilio es obligatorio.
@@ -176,14 +177,23 @@
                                 equipo</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="status" class="form-label">Estado</label>
-                        <select name="status" id="status" class="form-control" formControlName="status">
-                            <option disabled selected>Seleccione una opción...</option>
-                            <option value="Presencial">Presencial</option>
-                            <option value="Remoto">Remoto</option>
-                            <option value="Híbrido">Híbrido</option>
-                        </select>
+                    <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px">
+                        <div>
+
+                            <label for="status" class="form-label">Modalidad</label>
+                            <select name="status" id="status" class="form-control" formControlName="status">
+                                <option disabled selected>Seleccione una opción...</option>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Remoto">Remoto</option>
+                                <option value="Híbrido">Híbrido</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="expectedCheckInTime" class="form-label">Horario de entrada</label>
+                            <input type="time" class="form-control" formControlName="expectedCheckInTime"
+                                placeholder="HH:MM" pattern="^(?:[01]\d|2[0-3]):[0-5]\d$" required>
+                        </div>
                     </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px">

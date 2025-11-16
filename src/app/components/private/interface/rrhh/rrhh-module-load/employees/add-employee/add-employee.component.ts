@@ -70,6 +70,7 @@ export class AddEmployeeComponent implements OnInit {
         }),
         department: new FormControl('', Validators.required),
         contractType: new FormControl('', Validators.required),
+        expectedCheckInTime: new FormControl('', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)])
       }),
       financialInformation: this.fb.group({
         grossSalary: new FormControl(null, Validators.required),
@@ -127,7 +128,7 @@ export class AddEmployeeComponent implements OnInit {
       response => {
         this.employeeToUpdate = response;
         this.isUpdate = this.employeeToUpdate != null
-        this.title = !this.isUpdate ? 'Agregar empleado' : 'Editar empleado';
+        this.title = !this.isUpdate ? 'Agregar empleado/a' : 'Editar empleado/a';
         this.loadingItemToUpdate()
       }
     )
@@ -227,6 +228,8 @@ export class AddEmployeeComponent implements OnInit {
     if (this.employeeToUpdate != null) {
       const formattedDateStartDate = new Date(this.employeeToUpdate.jobInfo.startDate).toISOString().split('T')[0]
       const formattedDateOfBirthday = new Date(this.employeeToUpdate.personalInfo.dateOfBirthday).toISOString().split('T')[0]
+      const formattedExpectedCheckIn = this.employeeToUpdate.jobInfo.expectedCheckInTime
+      console.log(formattedExpectedCheckIn)
       this.formAddEmployee.patchValue({
         ...this.employeeToUpdate,
         personalInfo: {
@@ -235,7 +238,8 @@ export class AddEmployeeComponent implements OnInit {
         },
         jobInfo: {
           ...this.employeeToUpdate.jobInfo,
-          startDate: formattedDateStartDate
+          startDate: formattedDateStartDate,
+          expectedCheckIn: formattedExpectedCheckIn
         }
       })
     }

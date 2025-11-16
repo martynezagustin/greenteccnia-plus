@@ -6,6 +6,8 @@ import { Employee } from '../../../../../interfaces/enterprise/rrhh/employees/em
 import { RrhhService } from '../rrhh/rrhh.service';
 import { RRHHSummary } from '../../../../../interfaces/enterprise/rrhh/models/rrhh-sumary.interface';
 import { SummaryEmployees } from '../../../../../interfaces/enterprise/rrhh/employees/dashboard/summary-employeees.interface';
+import { SurveyHistory } from '../../../../../interfaces/enterprise/rrhh/surveyGreen/surveyHistory/surveyHistory.interface';
+import { SurveyGreen } from '../../../../../interfaces/enterprise/rrhh/surveyGreen/surveyGreen.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class EmployeesService {
   employeeToEdit$ = this.employeeToEdit.asObservable()
 
   //para ver
-  employeeToView = new BehaviorSubject<Employee | null>(null)
+  employeeToView = new BehaviorSubject<string | null>(null)
   employeeToView$ = this.employeeToView.asObservable()
 
   //paridad de genero
@@ -40,9 +42,8 @@ export class EmployeesService {
       switchMap(() => this.getParityGender(enterpriseId))
     );
   }
-  getEmployee(enterpriseId: string, employeeId: string): Observable<Employee> {
-    console.log(employeeId)
-    return this.httpClient.get<Employee>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
+  getEmployee(enterpriseId: string, employeeId: string): Observable<{ employee: Employee, surveyGreen: SurveyGreen, alert: Boolean }> {
+    return this.httpClient.get<{ employee: Employee, surveyGreen: SurveyGreen, alert: Boolean}>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
   }
   getParityGender(enterpriseId: String | null): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/${enterpriseId}/employees/filter/by-gender-parity`, { withCredentials: true }).pipe(
@@ -71,10 +72,11 @@ export class EmployeesService {
     )
   }
   setEmployeeToEdit(employee: Employee | null) {
+    console.log(employee)
     this.employeeToEdit.next(employee)
   }
-  setEmployeeToView(employee: Employee | null) {
-    this.employeeToView.next(employee)
+  setEmployeeToView(employeeId: string | null) {
+    this.employeeToView.next(employeeId)
   }
   updateEmployee(enterpriseId: string, employeeId: string, data: Employee): Observable<any> {
     return this.httpClient.put<any>(`${this.baseUrl}/${enterpriseId}/employees/update-employee/${employeeId}`, data, { withCredentials: true }).pipe(
