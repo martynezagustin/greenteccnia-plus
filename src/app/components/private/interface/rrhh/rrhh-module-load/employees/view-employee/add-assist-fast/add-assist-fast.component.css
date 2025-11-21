@@ -1,0 +1,69 @@
+.modal-title {
+    font-family: Montserrat;
+    letter-spacing: -1.8px;
+    text-transform: none !important;
+    font-weight: 600;
+}
+
+.modal {
+    font-family: Montserrat;
+}
+
+.fast-mode {
+    background: linear-gradient(190deg, black, rgb(60, 60, 60));
+}
+.basic-info, .sustainable_grids{
+    display: grid;
+    grid-gap: 2px;
+}
+.basic-info{
+    grid-template-columns: 33% 33% 33%;
+}
+.sustainable_grids {
+        grid-template-columns: 50% 50%;
+}
+
+.form-control,
+.form-select {
+    background-color: springgreen;
+}
+
+.form-control:disabled, .form-select:disabled {
+    background-color: lightgreen;
+    color: gray;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-label,
+.form-control,
+.form-select {
+    letter-spacing: -1.4px;
+}
+
+.btn {
+    font-family: Montserrat;
+    letter-spacing: -1.4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.h5_form {
+    letter-spacing: -1.5px;
+    color: gray;
+}
+.modal-footer{
+    justify-content: center;
+}
+.success-message{
+    border: 2px solid green;
+}
+.error-message{
+    border: 2px solid red;
+}

@@ -1,1 +1,121 @@
-<p>add-assist-fast works!</p>
+<div class="modal fade" id="addAssistAlert" tabindex="-1" aria-labelledby="addAssistAlertLabel" aria-hidden="true">
+    <form [formGroup]="FormAddAssistFast" (ngSubmit)="handleSubmit()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <img _ngcontent-ng-c1837634532=""
+                        src="https://res.cloudinary.com/dtwek4wxj/image/upload/v1740788163/47419_b3g0v1.png" alt="Logo"
+                        width="40" class="d-inline-block align-text-top m-2">
+                    <h1 class="modal-title fs-5" id="addAssistAlertLabel">Añadir asistencia rápida</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div>
+                        <label for="status" class="form-label">🧐 Estado</label>
+                        <select name="status" id="status" class="form-control form-select select" (change)="onChangeStatusSelection()"
+                            formControlName="status">
+                            <option disabled selected>Selecciona una opción...</option>
+                            @for(option of optionsStatus; track option.viewValue){
+                            <option value={{option.value}}>{{option.viewValue}}</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="basic-info">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label form-label">📅 Fecha</label>
+                                <input type="date" formControlName="dateAssist" class="form-control" id="dateAssist">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label form-label">⌛ Hora de ingreso</label>
+                                <input type="time" class="form-control" placeholder="HH:MM" formControlName="checkIn"
+                                    pattern="^(?:[01]\d|2[0-3]):[0-5]\d$" required>
+                                <div class="mt-1">
+                                    <button class="btn btn-info" type="button" (click)="getHourCheckInEmployee()">⤴️POR
+                                        DEFECTO</button>
+                                </div>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label form-label">📤 Hora de salida</label>
+                                <input type="time" class="form-control" placeholder="HH:MM" formControlName="checkOut"
+                                    pattern="^(?:[01]\d|2[0-3]):[0-5]\d$" required>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <h5 class="h5_form">Información sustentable</h5>
+
+                        <div class="sustainable_info mt-1">
+                            <div class="sustainable_grids">
+
+                                <div>
+                                    <label for="transportationMode" class="form-label">Vehículo</label>
+                                    <select name="transportationMode" id="transportationMode" class="form-select"
+                                        formControlName="transportationMode" (change)="onChangeVehicleSelection()">
+                                        <option disabled selected>Selecciona una opción...</option>
+                                        @for(type of transportationModes; track type.viewValue){
+                                        <option value={{type.value}}>{{type.viewValue}}</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="fuelType" class="form-label">Combustible</label>
+                                    <select name="fuelType" id="fuelType" class="form-select"
+                                        formControlName="fuelType">
+                                        <option disabled selected>Selecciona una opción...</option>
+                                        @for(fuel of typeFuels; track fuel.viewValue){
+                                        <option value={{fuel.value}}>{{fuel.viewValue}}</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="mt-1">
+                                <label for="distanceKm" class="form-label">Distancia en KM's</label>
+                                <input type="number" name="distanceKm" id="distanceKm" formControlName="distanceKm"
+                                    class="form-control" placeholder="0">
+                            </div>
+                            <div>
+                                <label for="comments" class="form-label mt-1">Observaciones</label>
+                                <textarea class="form-control" name="comments" id="comments"
+                                    formControlName="observations"
+                                    placeholder="📄 Incluye observaciones para mejorar los datos de la asistencia de tu empleado."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if(successMessage){
+                <div class="alert alert-success m-2">
+                    {{successMessage}}
+                </div>
+                } @else {
+                @if(errorMessage){
+                <div class="alert alert-danger">
+                    {{errorMessage}}
+                </div>
+                }
+                }
+                @if (loading) {
+                <div class="d-flex fade-in-container justify-content-center m-3">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="!this.FormAddAssistFast.valid">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

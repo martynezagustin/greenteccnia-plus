@@ -30,7 +30,7 @@
                 <div class="technical-sheet__satisfaction box-data">
                     <h4 class="h4_index">ÍNDICE DE SATISFACCIÓN</h4>
                     <div class="text-center mt-2">
-                        <span class="index">{{surveyGreen?.lastSurvey?.lastSurvey?.totalScore}}</span>
+                        <span class="index">{{surveyGreen?.lastSurvey?.lastSurvey?.totalScore || '??'}}</span>
                     </div>
                 </div>
             </div>
@@ -54,8 +54,10 @@
         </div>
         <div class="body mt-2">
             <h3>📋 Asistencias</h3>
-            @if(!alert){
-                <span class="alert-assist mt-1 m-2">No hay asistencia del día de hoy. <span style='cursor:pointer' class="add-assist_alert-button"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">¿Deseas agregar un registro? 🤔</span> </span>
+            @if(alertAssist === true){
+            <span class="alert-assist mt-1 m-2">No hay asistencia del día de hoy. <span style='cursor:pointer'
+                    class="add-assist_alert-button" data-bs-toggle="modal" data-bs-target="#addAssistAlert"
+                    data-bs-whatever="@getbootstrap">¿Deseas agregar un registro? 🤔</span> </span>
             }
             @if(assists.length === 0){
             <div class="alert alert-danger p-2 mt-2 m-2">🚫 No hay asistencias registradas.</div>
@@ -79,8 +81,22 @@
                                 <td>{{assist.checkIn | date: 'HH:mm'}}</td>
                                 <td>{{assist.checkOut | date: 'HH:mm'}}</td>
                                 <td
-                                    [ngClass]="{'table-primary': assist.status === 'Presente', 'table-warning': assist.status === 'Vacaciones'}">
-                                    {{assist.status}}</td>
+                                    [ngClass]="{'table-primary': assist.status === 'on-time', 'table-warning': assist.status === 'vacations'}">
+                                    @switch(assist.status){
+                                    @case ('on-time'){
+                                    Presente
+                                    }
+                                    @case ('vacations'){
+                                    Vacaciones
+                                    }
+                                    @case ('license'){
+                                    Licencia
+                                    }
+                                    @case ('absent'){
+                                    Ausente
+                                    }
+                                    }
+                                </td>
                                 <td
                                     [ngClass]="{'table-s': assist.punctualityStatus === 'PUNTUAL', 'table-w': assist.punctualityStatus === 'TARDE', 'table-d': assist.punctualityStatus === 'MUY TARDE'}">
                                     {{assist.punctualityStatus}}</td>
@@ -126,10 +142,22 @@
         </div>
         <!--En esta parte, se incluirá satisfacción laboral-->
         <div class="body mt-2">
+            <!--ATENCION-->
+            <!--ATENCION-->
+            <!--ATENCION-->
+            <!--ATENCION-->
+            <!--ATENCION-->
+            <!--Navbar-->
+
+
+            <!--FIN ATENCION-->
+            <!--FIN ATENCION-->
+            <!--FIN ATENCION-->
+            <!--FIN ATENCION-->
+
             <div class="d-flex align-items-center">
                 <h3>💆‍♂️Satisfacción laboral</h3>
-                <button data-bs-target="#createSurvey" (click)="employee && setIdOffEmployee(employee._id)"
-                    data-bs-toggle="modal" class="btn btn-light p-1 m-2">+NUEVO
+                <button data-bs-target="#createSurvey" data-bs-toggle="modal" class="btn btn-light p-1 m-2">+NUEVO
                     REGISTRO</button>
             </div>
             <span class="powered-span-surveygreen">POWERED BY <span id="surveyGreen">SurveyGreen+</span></span>
@@ -178,9 +206,9 @@
                             <label class="form-label mb-1">Estados de ánimo más comunes</label>
                             <div class="d-flex flex-wrap justify-content-center">
                                 @for(mood of commonMoods; track mood._id){
-                                    <div class="tag_mood m-1">
-                                        <span>{{mood._id}} <span class="count">{{mood.count}}</span></span>
-                                    </div>
+                                <div class="tag_mood m-1">
+                                    <span>{{mood._id}}</span>
+                                </div>
                                 }
                             </div>
                         </div>
@@ -213,6 +241,14 @@
                     </div>
                 </div>
             </div>
+            <div class="box-data evolution_satisfaction_div mt-2">
+                <div class="text-center">
+                    <label class="form-label mt-1">📊 Puntajes históricos y evolución</label>
+                </div>
+                <div class="mt-2">
+                    <canvas class="evolution_satisfaction" baseChart [data]="lineChartData" chartType="line"></canvas>
+                </div>
+            </div>
             }
         </div>
         } @else {
@@ -229,31 +265,4 @@
 </div>
 
 <app-create-survey></app-create-survey>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
+<app-add-assist-fast [employee]="employee"></app-add-assist-fast>

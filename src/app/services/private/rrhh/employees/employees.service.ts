@@ -23,7 +23,7 @@ export class EmployeesService {
   employeeToEdit = new BehaviorSubject<Employee | null>(null)
   employeeToEdit$ = this.employeeToEdit.asObservable()
 
-  //para ver
+  //para obtener el ID para submódulos
   employeeToView = new BehaviorSubject<string | null>(null)
   employeeToView$ = this.employeeToView.asObservable()
 
@@ -42,8 +42,8 @@ export class EmployeesService {
       switchMap(() => this.getParityGender(enterpriseId))
     );
   }
-  getEmployee(enterpriseId: string, employeeId: string): Observable<{ employee: Employee, surveyGreen: SurveyGreen, alert: Boolean }> {
-    return this.httpClient.get<{ employee: Employee, surveyGreen: SurveyGreen, alert: Boolean}>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
+  getEmployee(enterpriseId: string, employeeId: string): Observable<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean }> {
+    return this.httpClient.get<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean}>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
   }
   getParityGender(enterpriseId: String | null): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/${enterpriseId}/employees/filter/by-gender-parity`, { withCredentials: true }).pipe(
@@ -77,6 +77,9 @@ export class EmployeesService {
   }
   setEmployeeToView(employeeId: string | null) {
     this.employeeToView.next(employeeId)
+  }
+  setIdToLocalStorage(employeeId: string) {
+    localStorage.setItem('employeeId', employeeId)
   }
   updateEmployee(enterpriseId: string, employeeId: string, data: Employee): Observable<any> {
     return this.httpClient.put<any>(`${this.baseUrl}/${enterpriseId}/employees/update-employee/${employeeId}`, data, { withCredentials: true }).pipe(

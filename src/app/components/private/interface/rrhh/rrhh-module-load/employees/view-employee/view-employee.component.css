@@ -26,6 +26,9 @@
     background: linear-gradient(180deg, rgb(10, 55, 10), rgb(5, 50, 25), rgb(5, 110, 4));
     width: 48rem;
 }
+.offcanvas-body{
+    padding: 0%;
+}
 
 .beta_tag {
     padding: 2px;
@@ -88,7 +91,14 @@
 .survey-data {
     grid-template-columns: 55% 45%;
 }
-
+.evolution_satisfaction_div{
+    background: none;
+    background-color: rgba(215,255,215,0.2)!important;
+    color: whitesmoke;
+}
+.evolution_satisfaction{
+    letter-spacing: normal;
+}
 .survey-data,
 .assist-data,
 .personal-data {
@@ -98,6 +108,7 @@
 
 .index {
     font-size: 3.5rem;
+    font-weight: 700;
 }
 
 .h4_index {
@@ -112,6 +123,7 @@ hr {
 
 .fact {
     font-weight: 600;
+    margin-bottom: 0%;
 }
 
 .form-label {
@@ -172,7 +184,7 @@ hr {
 }
 
 .survey_score {
-    font-size: 2rem;
+    font-size: 2.6rem;
 }
 
 /*estilos para CSS y puntaje*/
@@ -190,16 +202,19 @@ hr {
 .danger-score {
     color: rgb(240, 20, 20);
 }
-
-.negative-growth, .positive-growth{
-    font-weight: 300;
+.growth-score{
+    background-color: whitesmoke;
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
     letter-spacing: -0.6px;
 }
 .negative-growth{
     color: rgb(240, 20, 20);
 }
 .positive-growth{
-    color: rgb(0, 255, 64);
+    color: rgb(0, 145, 24);
 }
 .count{
     padding: 0.2rem;

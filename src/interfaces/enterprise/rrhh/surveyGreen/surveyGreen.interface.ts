@@ -10,5 +10,8 @@ export interface SurveyGreen {
     mostScoredSurvey: number,
     lowestScoredSurvey: number,
     averageScore: number,
-    commonMoods: {_id: string, count: number}[]
+    commonMoods: {_id: string, count: number, color: string}[],
+    surveysCurrentWeek: Survey[],
+    surveysCurrentMonth: Survey[],
+    surveysCurrentYear: Survey[]
 }

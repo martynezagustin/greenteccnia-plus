@@ -12,9 +12,14 @@ export interface Assist {
     checkOut: Date,
     hoursWorked: Number,
     lateMinutes: Number,
-    transportationMode: 'Bicicleta' | 'Transporte público' | 'Caminata' | 'Automóvil' | 'Motocicleta' | 'No aplica',
+    transportationMode: "bicycle" |
+    "public-transport" |
+    "on-foot" |
+    "car" |
+    "motorcycle" |
+    "none",
     distanceKm: Number,
-    fuelType: 'Nafta' | 'Diesel' | 'Eléctrico' | 'Gas Natural Comprimido' | 'No aplica',
+    fuelType: "naphta" | "diesel" | "electric" | "GNC" | "none",
     carbonFootprintForAssist: {
         value: Number,
         transport: Number,

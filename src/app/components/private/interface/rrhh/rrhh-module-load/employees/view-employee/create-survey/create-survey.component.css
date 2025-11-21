@@ -73,3 +73,9 @@ select{
 .star-widget .fa-star:checked ~ label{
     color: #fd4!important;
 }
+.success-message{
+    border: 2px solid green;
+}
+.error-message{
+    border: 2px solid red;
+}

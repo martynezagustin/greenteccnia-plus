@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SurveyService } from '../../../../../../../../services/private/rrhh/survey/survey.service';
 
@@ -12,10 +12,12 @@ import { SurveyService } from '../../../../../../../../services/private/rrhh/sur
 })
 export class CreateSurveyComponent implements OnInit {
   CreateSurvey!: FormGroup
-  enterpriseId!: string
+  enterpriseId: string = localStorage.getItem('enterpriseId') || ''
   employeeId!: string
   surveyModal!: any
   isModalVisible = false
+  loading: boolean = false
+  dateNow: Date = new Date()
   satisfactionOptions = [
     { icon: '😡', value: 1, label: 'Muy insatisfecho', color: 'btn-outline-dark' },
     { icon: '😔', value: 2, label: 'Insatisfecho', color: 'btn-outline-danger' },
@@ -24,8 +26,10 @@ export class CreateSurveyComponent implements OnInit {
     { icon: '😁', value: 5, label: 'Muy satisfecho', color: 'btn-outline-success' }
   ]
   ngOnInit(): void {
-    this.enterpriseId = localStorage.getItem('enterpriseId') || ''
-    this.employeeId = localStorage.getItem('employeeIdForSurvey') || ''
+    this.dateNow.setHours(0,0,0,0)
+    this.CreateSurvey.patchValue({
+      dateSurvey: this.dateNow.toISOString().split('T')[0]
+    })
   }
   selectedSatisfaction: number | null = null
   step = 1;
@@ -33,6 +37,8 @@ export class CreateSurveyComponent implements OnInit {
   categories: { id: string; name: string }[] = []
   workEnvironment: { id: string, name: string }[] = []
   moodOptions: { icon: string, label: string }[] = []
+  successMessage: string | null = null
+  errorMessage: string | null = null
   constructor(private fb: FormBuilder, private surveyService: SurveyService) {
     this.categories = [
       { id: "conditions", name: "Condiciones de trabajo" },
@@ -72,7 +78,7 @@ export class CreateSurveyComponent implements OnInit {
     }, {} as { [key: string]: any });
 
     const workEnvironmentControls = this.workEnvironment.reduce((acc, environment) => {
-      if(environment.id !== 'remote'){
+      if (environment.id !== 'remote') {
         acc[environment.id] = [2, Validators.required];
       } else {
         acc[environment.id] = [false, Validators.required]
@@ -80,17 +86,10 @@ export class CreateSurveyComponent implements OnInit {
       return acc;
     }, {} as { [key: string]: any });
 
-    const moodOptionsControls = this.moodOptions.reduce((acc, mood) => {
-      acc[mood.label] = [true];
-      return acc;
-    }, [] as { [key: string]: any })
-
-    console.log(workEnvironmentControls);
-
     this.CreateSurvey = this.fb.group({
       satisfaction: [null, Validators.required],
       relationshipWithTeam: [null, Validators.required],
-      surveyPeriod: [null, Validators.required],
+      dateSurvey: [null, Validators.required],
       categories: this.fb.group(categoryControls),
       workEnvironment: this.fb.group(workEnvironmentControls),
       mood: this.fb.array([])
@@ -98,13 +97,27 @@ export class CreateSurveyComponent implements OnInit {
 
   }
   handleSubmit() {
-    console.log("Moods limpios", this.CreateSurvey.value.mood)
+    //cargandooo
+    this.loading = true
+    //primero a lo primero, limpiemos los fields
+    this.successMessage = null
+    this.errorMessage = null
+    this.employeeId = localStorage.getItem('employeeIdForSurvey') || ''
+    console.log("Moods limpios", this.CreateSurvey.value)
+    console.log("Qué employeeId llega?", this.employeeId);
     this.surveyService.createSurvey(this.enterpriseId, this.employeeId, this.CreateSurvey.value).subscribe({
-      next: (response) => {
-        console.log('Encuesta creada con éxito:', response)
+      next: () => {
+        this.CreateSurvey.reset()
+        this.step = 1
+        this.successMessage = 'Encuesta creada con éxito.'
+        this.loading = false
+        setTimeout(() => {
+          this.successMessage = null
+        }, 3000);
       },
       error: (error) => {
-        console.error(error);
+        this.errorMessage = error.error.message || 'Error al crear la encuesta.'
+        this.loading = false
       }
     })
   }
@@ -117,10 +130,13 @@ export class CreateSurveyComponent implements OnInit {
   onMoodChange(event: any, mood: any) {
     const moodArray = this.CreateSurvey.get('mood') as FormArray
 
+    console.log(moodArray);
+    console.log("Evento:", event);
     if (event.target.checked) {
       moodArray.push(this.fb.control(mood.label))
     } else {
-      console.log("Acá no hay nada");
+      const index = moodArray.controls.findIndex(x => x.value === mood.label);
+      moodArray.removeAt(index);
     }
   }
 }

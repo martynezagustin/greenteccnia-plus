@@ -6,44 +6,71 @@ import jsPDF from 'jspdf';
 import { CommonModule } from '@angular/common';
 import { Assist } from '../../../../../../../../interfaces/enterprise/rrhh/assists/assist.interface';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
-import { SurveyService } from '../../../../../../../services/private/rrhh/survey/survey.service';
 import { SurveyGreen } from '../../../../../../../../interfaces/enterprise/rrhh/surveyGreen/surveyGreen.interface';
+import { AddAssistFastComponent } from "./add-assist-fast/add-assist-fast.component";
+import { ChartConfiguration, ChartData } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-view-employee',
-  imports: [CommonModule, CreateSurveyComponent],
+  imports: [CommonModule, CreateSurveyComponent, AddAssistFastComponent, NgChartsModule],
   templateUrl: './view-employee.component.html',
   styleUrl: './view-employee.component.css'
 })
+
+
 export class ViewEmployeeComponent implements OnInit {
   @ViewChild('employeeContent', { static: false }) employeeContent!: ElementRef
   enterpriseId: any = localStorage.getItem('enterpriseId')
   employee: Employee | null = null;
   surveyGreen: SurveyGreen | null = null
-  alert: Boolean | null = null
+  alertAssist: Boolean | null = null
   assists: Assist[] = []
-  commonMoods: {_id: string, count: number}[] = []
+  commonMoods: { _id: string, count: number }[] = []
   loading: boolean = false
-  constructor(private employeeService: EmployeesService, private surveyService: SurveyService) { }
+
+  //charts
+  public lineChartData: ChartData<'line'> = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
+    datasets: [
+      {
+        data: [5, 10, 8, 15, 20],
+        label: 'Ventas',
+        backgroundColor: 'violet',
+        borderColor: 'whitesmoke'
+      }
+    ]
+  };
+  public lineChartType: ChartConfiguration<'line'>['type'] = 'line'
+  public lineChartOptions: ChartConfiguration<'line'>['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true
+      },
+    }
+  }
+  constructor(private employeeService: EmployeesService) { }
   ngOnInit(): void {
-    this.loading = true
     this.employeeService.employeeToView$.subscribe(
       response => {
         if (response) {
+          this.loading = true
           this.employeeService.getEmployee(this.enterpriseId, response).subscribe(
             response => {
+              console.log("La response", response)
               this.employee = response.employee ?? null
               this.surveyGreen = response.surveyGreen ?? null
               this.commonMoods = this.surveyGreen?.commonMoods ?? []
-              this.alert = this.surveyGreen ? response.alert : null
-              console.log(this.commonMoods);
+              this.alertAssist = response.alertAssist
+
               this.assists = response.employee.assists.slice(0, 3) ?? []
-              console.log("El empleado que deberíamos ver es", this.employee);
+              this.employeeService.setIdToLocalStorage(response.employee._id ?? '')
               this.loading = false
             },
             err => {
               console.error(err);
-              
+
             }
           )
         }
@@ -108,8 +135,5 @@ export class ViewEmployeeComponent implements OnInit {
       month: '2-digit',
       day: '2-digit'
     });
-  }
-  setIdOffEmployee(id: string | undefined){
-    this.surveyService.setIdOffEmployeeForSurvey(id ?? '')
   }
 }

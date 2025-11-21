@@ -20,12 +20,6 @@
   @if(enterprise){
   <div class="fade-in-container">
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-microchip m-1"></i> <span>Tecnología</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-parachute-box m-1"></i> <span>Proveedores</span></a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#showOptionsFinance" aria-expanded="false"
         aria-controls="showOptionsFinance"><i class="fa-solid fa-comment-dollar m-1"></i> <span>
           Finanzas</span></a>
@@ -42,22 +36,7 @@
 
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-seedling m-1"></i> <span>Sostenibilidad</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-people-group m-1"></i> <span>Clientes</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-diagram-project m-1"></i> <span>Proyectos</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-restroom m-1"></i> <span>RRHH</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-handshake m-1"></i> <span>Negociaciones</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><i class="fa-solid fa-boxes-stacked m-1"></i> <span>Inventario</span></a>
+      <a class="nav-link" routerLink="/dashboard/rrhh"><i class="fa-solid fa-restroom m-1"></i> <span>RRHH</span></a>
     </li>
   </div>
   } @else if(errorMessage) {<li class="nav-item"><span
