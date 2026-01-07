@@ -1,0 +1,23 @@
+<div class="box_data" style="min-height: 340px;">
+    <h3 class="label_camp">{{currentIndex === 0 ?
+        '♂️♀️⚧️ Paridad de género - General' :
+        '♂️♀️⚧️ Paridad de género - '+ getNameDepartment()}}</h3>
+    @if(!errorMessage){
+    <div class="d-flex justify-content-center align-items-center mt-2">
+        <div>
+            <button type="button" (click)="prev()" class="btn-next-or-prev_gender-parity btn btn-info m-2" [disabled]="currentIndex === 0"><strong>&#8592;</strong></button>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div style="width: 285px;">
+                <apx-chart class="fade-in-container" #chart [series]="chartOptions.series!" [labels]="chartOptions.labels!"
+                    [chart]="chartOptions.chart!" [legend]="chartOptions.legend!"></apx-chart>
+            </div>
+        </div>
+        <div>
+            <button type="button" [disabled]="currentIndex === getTotalSteps()" (click)="next()" class="btn-next-or-prev_gender-parity btn btn-info m-2"><strong>&#8594;</strong></button>
+        </div>
+    </div>
+    } @else {
+    <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+    }
+</div>

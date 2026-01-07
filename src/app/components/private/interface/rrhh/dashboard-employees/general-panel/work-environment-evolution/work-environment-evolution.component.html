@@ -1,0 +1,15 @@
+<div class="text-start box_data" style="min-height: 275px;">
+    <div class="d-flex align-items-center justify-content-between">
+        <h3 class="label_camp">📊 Evolución del clima laboral</h3>
+        <span class="btn-dark">⚙️</span>
+    </div>
+    <div>
+        @if(!errorMessage){
+        <apx-chart class="mt-2" [series]="chartOptions.series || []" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
+            [dataLabels]="chartOptions.dataLabels!" [grid]="chartOptions.grid!" [stroke]="chartOptions.stroke!"
+            [title]="chartOptions.title!"></apx-chart>
+        } @else {
+        <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+        }
+    </div>
+</div>

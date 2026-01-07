@@ -1,7 +1,7 @@
 export interface Survey {
     enterpriseId: String,
     employeeId: String,
-    date: Date,
+    dateSurvey: Date,
     relationshipWithTeam: Number,
     satisfaction: Number,
     categoryId: String,

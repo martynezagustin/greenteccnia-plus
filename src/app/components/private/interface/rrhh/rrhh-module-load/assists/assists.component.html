@@ -1,1 +1,45 @@
-<p>assists works!</p>
+@if(!loading){
+
+@if(assists?.length !==0){
+<table class="table m-1 fade-in-container">
+    <thead>
+        <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Empleado</th>
+            <th scope="col">Entrada</th>
+            <th scope="col">Salida</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Trabajó</th>
+            <th scope="col">Puntualidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(assist of assists; track assist._id){
+        <tr>
+            <td style="color: black;">{{formatDate(assist.dateAssist)}}</td>
+            <td>{{assist.employeeId?.personalInfo?.name}} {{assist.employeeId?.personalInfo?.lastname}}</td>
+            <td>{{assist.checkIn | date: 'HH:mm'}}</td>
+            <td>{{assist.checkOut | date: 'HH:mm'}}</td>
+            <td>{{formatValuesOfStatus(assist.status)}}</td>
+            <td>{{assist.hoursWorked}} horas</td>
+            <td class="punctuality"
+                [ngClass]="{'green-punctuality': assist.punctualityStatus === 'PUNTUAL', 'orange-punctuality': assist.punctualityStatus === 'TARDE', 'red-punctuality': assist.punctualityStatus === 'MUY TARDE'}">
+                {{assist.punctualityStatus}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}@else{
+<div class="d-flex flex-column align-items-center fade-in-container">
+    <div class="alert alert-danger" role="alert">
+        <i class="fa-solid fa-circle-exclamation m-1"></i> No se han encontrado asistencias.
+    </div>
+</div>
+}
+} @else {
+<div class="d-flex justify-content-center fade-in-container mt-3">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+}

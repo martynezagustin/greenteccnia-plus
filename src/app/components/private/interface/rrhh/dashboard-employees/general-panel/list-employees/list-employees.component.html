@@ -1,0 +1,63 @@
+<div class="box_data">
+    <div>
+        <div class="mt-2 m-1 container-options">
+            <div style="display: grid; grid-template-columns: 50% 50%; grid-gap: 2px;">
+                <div>
+                    <label for="name" class="form-label">Buscar por nombre o apellido</label>
+                    <input type="text" [(ngModel)]="nameControl" name="name" id="name" class="form-control"
+                        placeholder="🔍 Ingresa un valor...">
+                </div>
+                <div>
+                    <label for="departmentControl" class="form-label">Filtrar por departamento</label>
+                    <select name="departmentControl" id="departmentControl" [(ngModel)]='departmentControl'
+                        class="form-control">
+                        @for(department of departments; track department){
+                        <option value={{department}}>{{department}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            @if(filteredEmployees.length !== 0){
+            <table class="table table-light p-2 mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Género</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Salario (en bruto)</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(employee of filteredEmployees; track employee._id){
+                    <tr>
+                        <td>{{employee.personalInfo.name}}</td>
+                        <td>{{employee.personalInfo.lastname}}</td>
+                        <td>{{employee.personalInfo.email}}</td>
+                        <td>{{employee.personalInfo.gender}}</td>
+                        <td>{{employee.jobInfo.status}}</td>
+                        <td><strong>$</strong>{{formatValue(employee.financialInformation.grossSalary)}}</td>
+                        <td>
+                            <i class="fa-solid fa-eye m-1" data-bs-toggle="offcanvas" data-bs-target="#viewEmployee" (click)="setEmployeeToView(employee._id)"
+                                aria-controls="viewEmployee"></i>
+                            <i style="color: red;" class="fa-solid fa-trash m-1" (click)="deleteEmployee(employee._id)"></i>
+                            <i class="fa-solid fa-pencil m-1" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
+                                aria-controls="addEmployee" (click)="setEmployeeToUpdate(employee)"></i>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            } @else {
+            <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i> No se han encontrado
+                empleados.
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<app-view-employee></app-view-employee>

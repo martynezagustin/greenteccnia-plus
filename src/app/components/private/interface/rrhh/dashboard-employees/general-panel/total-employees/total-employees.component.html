@@ -1,0 +1,9 @@
+<div class="text-start box_data box_data_first_row">
+    <h3 class="label_camp">👥 Total de empleados</h3>
+    <span class="number_date">{{currentTotalEmployees}}</span>
+    <div>
+        <span class="growth span_bottom" [ngClass]="{'red-growth': growth < 0, 'green-growth': growth > 0}">{{growth > 0 ? '🔼': '🔽'}} {{growth}}%
+            VS ÚLTIMO
+            AÑO</span>
+    </div>
+</div>

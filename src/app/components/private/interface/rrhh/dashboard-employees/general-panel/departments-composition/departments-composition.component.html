@@ -1,0 +1,13 @@
+<div class="box_data" style="min-height: 340px;">
+    <h3 class="label_camp">🏢 Composición por departamentos</h3>
+    @if(!errorMessage){
+
+        <div class="d-flex justify-content-center mt-2">
+            <div style="width: 285px;">
+                <apx-chart #chart [series]="chartOptions.series!" [labels]="chartOptions.labels!" [chart]="chartOptions.chart!" [legend]="chartOptions.legend!"></apx-chart>
+            </div>
+        </div>
+    } @else {
+        <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+    }
+</div>

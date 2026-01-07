@@ -9,7 +9,13 @@
     background-color: rgba(50, 255, 20, 0.4);
     border-radius: 10px 0px 0px 10px;
 }
-
+.dropdown-item{
+    cursor: pointer;
+}
+.dropdown-item:hover{
+    background:linear-gradient(rgb(102, 26, 174), rgb(92,45,166));
+    color: rgb(255, 190, 255);
+}
 .body h3 {
     color:
         /*rgba(3,33,3,0.9)*/
@@ -26,7 +32,8 @@
     background: linear-gradient(180deg, rgb(10, 55, 10), rgb(5, 50, 25), rgb(5, 110, 4));
     width: 48rem;
 }
-.offcanvas-body{
+
+.offcanvas-body {
     padding: 0%;
 }
 
@@ -51,18 +58,21 @@
     border: 1px solid springgreen;
 }
 
-.tag_mood, .tag{
+.tag_mood,
+.tag {
     padding: 5px;
     margin: 3px;
     border-radius: 6px;
     font-size: 0.8rem;
 }
+
 .tag {
     color: rgb(10, 55, 10);
     font-weight: 600;
     background: linear-gradient(190deg, white, rgb(210, 255, 200));
 }
-.tag_mood{
+
+.tag_mood {
     color: black;
     font-weight: 500;
     background: linear-gradient(190deg, rgb(150, 240, 30), rgb(230, 240, 230));
@@ -83,22 +93,27 @@
     grid-template-columns: 60% 40%;
 
 }
-.alert-assist{
+
+.alert-assist {
     font-weight: 600;
-    color: rgb(220,220,220);
+    color: rgb(220, 220, 220);
 }
 
 .survey-data {
     grid-template-columns: 55% 45%;
 }
-.evolution_satisfaction_div{
-    background: none;
-    background-color: rgba(215,255,215,0.2)!important;
-    color: whitesmoke;
+
+.evolution_satisfaction_div {
+    color: purple;
 }
-.evolution_satisfaction{
-    letter-spacing: normal;
+
+.chart {
+    background: linear-gradient(180deg, rgb(105, 255, 110), rgb(155,230,125));
+    padding: 1rem;
+    border-radius: 6px;
+    letter-spacing: 0px;
 }
+
 .survey-data,
 .assist-data,
 .personal-data {
@@ -125,16 +140,23 @@ hr {
     font-weight: 600;
     margin-bottom: 0%;
 }
-
-.form-label {
-    color: whitesmoke;
-}
-
 .btn-light,
 .btn-info {
     font-family: Montserrat;
     letter-spacing: -1.3px;
     font-weight: 700;
+}
+.btn-end-contract{
+    color: red;
+    font-family: Montserrat;
+    border: none;
+    letter-spacing: -1.1px;
+    font-weight: 600;
+    background-color: whitesmoke;
+}
+.btn-end-contract:hover{
+    background-color: red;
+    color: whitesmoke;
 }
 
 /*text colors*/
@@ -169,12 +191,6 @@ hr {
     background-color: rgb(40, 230, 10);
 }
 
-.powered-span-surveygreen {
-    color: whitesmoke;
-    margin-top: 1.4rem;
-    font-size: 0.9rem;
-    letter-spacing: -1px;
-}
 
 #surveyGreen {
     color: rgb(67, 255, 161);
@@ -182,15 +198,24 @@ hr {
     font-family: "Stack Sans Notch", sans-serif;
     border-radius: 4px;
 }
+.apexcharts-yaxis text {
+  fill: rgb(0,135,17) !important;
+  font-size: 12px !important;
+  font-family: Arial, sans-serif !important;
+}
+.apexcharts-xaxis text {
+  fill: rgb(0,135,17) !important;
+}
 
 .survey_score {
     font-size: 2.6rem;
 }
 
 /*estilos para CSS y puntaje*/
-.perfect-score{
-    color: rgb(25, 255, 25)!important;
+.perfect-score {
+    color: rgb(25, 255, 25) !important;
 }
+
 .success-score {
     color: springgreen;
 }
@@ -202,7 +227,8 @@ hr {
 .danger-score {
     color: rgb(240, 20, 20);
 }
-.growth-score{
+
+.growth-score {
     background-color: whitesmoke;
     padding: 0.3rem;
     border-radius: 5px;
@@ -210,24 +236,29 @@ hr {
     font-weight: 600;
     letter-spacing: -0.6px;
 }
-.negative-growth{
+
+.negative-growth {
     color: rgb(240, 20, 20);
 }
-.positive-growth{
+
+.positive-growth {
     color: rgb(0, 145, 24);
 }
-.count{
+
+.count {
     padding: 0.2rem;
     margin: 0.2rem;
     background-color: black;
     color: white;
     border-radius: 4px;
 }
-.add-assist_alert-button{
+
+.add-assist_alert-button {
     cursor: pointer;
     color: rgb(113, 255, 184);
 }
-.add_assist_alert-canvas{
+
+.add_assist_alert-canvas {
     background-color: whitesmoke;
     width: 20rem;
 }

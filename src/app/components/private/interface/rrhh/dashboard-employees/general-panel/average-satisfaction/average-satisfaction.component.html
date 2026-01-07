@@ -1,0 +1,12 @@
+<div class="text-start box_data" style="min-height: 200px;">
+    <h3 class="label_camp">😌 Satisfacción laboral</h3>
+    @if(!errorMessage){
+
+        <span class="number_date" [ngClass]="{'major_of_eight': (averageSatisfaction ?? 0) > 8, 'minor_of_six': (averageSatisfaction ?? 0) < 6}">{{averageSatisfaction ?? 0}}</span>
+        <div>
+            <span class="source_average-satisfaction">BASADO EN TUS ENCUESTAS</span>
+        </div>
+    } @else {
+        <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+    }
+</div>

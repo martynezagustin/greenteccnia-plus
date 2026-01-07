@@ -1,0 +1,21 @@
+table{
+    font-family: Montserrat;
+}
+.th{
+    letter-spacing: -1.8px;
+}
+.punctuality_index{
+    font-weight: 500;
+}
+.green-punctuality{
+    background-color: green;
+    color: whitesmoke;
+}
+.orange-punctuality{
+    background-color: orange;
+    color: black;
+}
+.red-punctuality{
+    background-color: rgb(200,30,30);
+    color: whitesmoke;
+}

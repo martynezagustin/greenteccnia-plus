@@ -52,7 +52,8 @@
                     <div>
                         <label for="address" class="form-label">Dirección</label>
                         <input [ngClass]="{'ng-error': address.invalid && address.touched}" type="text"
-                            class="form-control" placeholder="Av. Siempre Viva 123" formControlName="address" id="address">
+                            class="form-control" placeholder="Av. Siempre Viva 123" formControlName="address"
+                            id="address">
                         <div class="fade-in-container alert alert-danger mt-1"
                             [hidden]="address.valid || address.pristine">
                             <i class="fa-solid fa-triangle-exclamation m-1"></i> El domicilio es obligatorio.
@@ -123,11 +124,11 @@
             <fieldset formGroupName="jobInfo" class="grills mt-2">
                 <div style="display: grid; grid-template-columns: 25% 25% 50%; grid-gap: 2px">
                     <div>
-                        <label class="form-label" for="startDate">Fecha de inicio</label>
-                        <input type="date" name="startDate" formControlName="startDate" id="startDate"
-                            class="form-control">
+                        <label class="form-label" for="contractStartDate">Fecha de inicio</label>
+                        <input type="date" name="contractStartDate" formControlName="contractStartDate"
+                            id="contractStartDate" class="form-control">
                         <div class="fade-in-container alert alert-danger mt-1"
-                            [hidden]="startDate.valid || startDate.pristine">
+                            [hidden]="contractStartDate.valid || contractStartDate.pristine">
                             <i class="fa-solid fa-triangle-exclamation m-1"></i> Asigna una fecha de inicio laboral.
                         </div>
                     </div>
@@ -143,24 +144,18 @@
                     </div>
                     <div>
                         <label class="form-label" for="department">Departamento</label>
-                        <select name="department" formControlName="department" class="form-control" id="department">
-                            <option value="Administración">Administración</option>
-                            <option value="Recursos Humanos">Recursos Humanos</option>
-                            <option value="Finanzas">Finanzas</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Ventas">Ventas</option>
-                            <option value="Producción">Producción</option>
-                            <option value="Logística">Logística</option>
-                            <option value="Tecnología de la Información">Tecnología de la Información</option>
-                            <option value="Atención al Cliente">Atención al Cliente</option>
-                            <option value="Investigación y Desarrollo">Investigación y Desarrollo</option>
-                            <option value="Calidad">Calidad</option>
-                            <option value="Legal">Legal</option>
-                            <option value="Compras">Compras</option>
-                            <option value="Proyectos">Proyectos</option>
-                            <option value="Comunicación">Comunicación</option>
-                            <option value="Otro">Otro</option>
-                        </select>
+                        <div class="d-flex flex-column" formGroupName="department">
+                            <select [disabled]="!departments" name="department" formControlName="name" class="form-control" id="department">
+                                @for(department of departments; track department.name){
+                                    <option value="{{department.name}}">{{department.name}}</option>
+                                }
+                                @if(departments.length === 0 || !departments){
+                                    <option selected disabled>No hay departamentos añadidos.</option>
+                                }
+                            </select>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#departmentModal"
+                            class="btn mt-1 btn-success">+AÑADIR DEPARTAMENTO</button>
+                        </div>
                     </div>
                 </div>
                 <div style="display: grid; grid-template-columns: 50% 50%; grid-gap:2px" class="mt-1">
@@ -202,7 +197,7 @@
                             <div>
                                 <label class="form-label" for="CCT">Convenio</label>
                                 <select name="CCT" id="CCT" formControlName="name" class="form-control">
-                                    @for(cct of ccts;track cct){
+                                    @for(cct of ccts;track cct.name){
                                     <option value={{cct.name}}>{{cct.name}}</option>
                                     }
                                 </select>
@@ -220,7 +215,7 @@
                     <div formGroupName="syndicate" class="d-flex flex-column">
                         <label class="form-label" for="syndicate">Sindicato</label>
                         <select name="syndicate" formControlName="name" id="syndicate" class="form-control">
-                            @for(syndicate of syndicates; track syndicate){
+                            @for(syndicate of syndicates; track syndicate._id){
                             <option value={{syndicate.name}}>{{syndicate.name}}</option>
                             }
                         </select>
@@ -341,3 +336,4 @@
 <app-add-syndicate></app-add-syndicate>
 <app-add-art></app-add-art>
 <app-add-bank></app-add-bank>
+<app-add-department></app-add-department>

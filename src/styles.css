@@ -20,7 +20,6 @@ body {
 p {
     margin: 0%;
 }
-
 .btn-back {
     font-family: Montserrat;
     margin: 0.3rem;
@@ -92,4 +91,22 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.powered-span-surveygreen {
+    margin-top: 1.4rem;
+    font-size: 0.9rem;
+}
+#surveyGreen {
+    color: rgb(67, 255, 161);
+    font-weight: 400;
+    letter-spacing: -1px;
+    font-family: "Stack Sans Notch", sans-serif;
+    border-radius: 4px;
+}
+.apexcharts-legend-text{
+    font-family: Montserrat!important;
+    font-size: 0.8rem!important;
+    letter-spacing: -1px!important;
+    font-weight: 600!important;
 }

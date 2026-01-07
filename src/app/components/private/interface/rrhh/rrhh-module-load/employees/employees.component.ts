@@ -5,12 +5,11 @@ import { Employee } from '../../../../../../../interfaces/enterprise/rrhh/employ
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { formatValue } from '../../../../../../services/utilities/format-dates/formatNumbers';
 import Swal from 'sweetalert2';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
-import { ToastService } from '../../../../../../services/private/enterprise/misc/toast/toast.service';
 import { ViewEmployeeComponent } from "./view-employee/view-employee.component";
+import { CommonModule } from '@angular/common';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-employees',
@@ -19,6 +18,7 @@ import { ViewEmployeeComponent } from "./view-employee/view-employee.component";
   styleUrl: './employees.component.css'
 })
 export class EmployeesComponent implements OnInit, OnDestroy {
+  public destroy$ = new Subject<void>
   nameControl: string = '';
   departmentControl: string = '';
   enterpriseId!: any;
@@ -27,6 +27,8 @@ export class EmployeesComponent implements OnInit, OnDestroy {
   loading = false;
   deletedSuccessfully = '';
   deletedErrorMessage = '';
+  viewMore!: Boolean
+  createAvaiable!: boolean
   readonly departments = [
     "Administración", "Recursos Humanos", "Finanzas", "Marketing", "Ventas",
     "Producción", "Logística", "Tecnología de la Información", "Atención al Cliente",
@@ -34,53 +36,42 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     "Comunicación", "Otro"
   ];
 
-  private destroy$ = new Subject<void>();
-
   constructor(
     private employeesService: EmployeesService,
     private enterpriseService: EnterpriseService,
-    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
     this.enterpriseId = this.enterpriseService.getEnterpriseId();
     this.loadEmployees();
-
-    this.employeesService.employees$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: employees => {
-          this.employees = employees;
-          if (this.employees.length > 0) {
-            if (localStorage.getItem('shownToastEmployee') !== 'true') {
-              this.toastService.info('Con el medidor de satisfacción de GreenTeccnia+, podrás encuestar a tus empleados para medir su satisfacción laboral y así tomar medidas al respecto', '🤔 ¿Lo sabías?')
-              localStorage.setItem('shownToastEmployee', 'true')
-            }
-          }
-          console.log(employees)
-          this.errorMessage = '';
-        },
-        error: err => {
-          this.errorMessage = err.error?.message || 'Error al cargar empleados';
+    this.employeesService.employees$.pipe(takeUntil(this.destroy$)).subscribe(
+      response => {
+        if(response){
+          this.employees = response
         }
-      });
+      },
+      err => {
+        console.error(err);
+      }
+    )
   }
-
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroy$.next()
+    this.destroy$.complete()
   }
-
   private loadEmployees(): void {
     this.loading = true;
     this.errorMessage = '';
     this.employeesService.getAllEmployees(this.enterpriseId).subscribe({
-      next: employees => {
-        this.employees = employees;
+      next: res => {
+        this.employees = res.employees;
+        this.viewMore = res.viewMore
         this.loading = false;
       },
       error: err => {
         this.errorMessage = err.error?.message || 'Error al cargar empleados';
+        this.createAvaiable = err.error.createAvaiable
+        console.log(this.createAvaiable)
         this.loading = false;
       }
     });
@@ -91,11 +82,10 @@ export class EmployeesComponent implements OnInit, OnDestroy {
     return this.employees.filter(emp => {
       const fullName = (emp.personalInfo.name + " " + emp.personalInfo.lastname).toLowerCase();
       const matchName = fullName.includes(text);
-      const matchDept = !this.departmentControl || emp.jobInfo.department === this.departmentControl;
+      const matchDept = !this.departmentControl || emp.jobInfo.department.name === this.departmentControl;
       return matchName && matchDept;
     });
   }
-
   deleteEmployee(employeeId: string): void {
     Swal.fire({
       title: '<h2 style="font-family:Montserrat; letter-spacing:-1.2px">¿Estás seguro?</h2>',

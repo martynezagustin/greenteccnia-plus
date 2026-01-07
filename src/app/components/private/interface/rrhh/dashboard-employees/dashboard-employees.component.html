@@ -1,15 +1,15 @@
 <nav class="navbar bg-body-tertiary">
     <form class="container-fluid justify-content-start">
-        <button class="btn btn-outline-success me-2" type="button">📰 Panel general</button>
-        <button class="btn btn-outline-success me-2" type="button">🎯 Objetivos y cumplimiento</button>
+        <button class="btn btn-outline-success me-2" routerLink="general-panel" type="button">📰 Panel general</button>
+        <button class="btn btn-outline-success me-2" routerLink="objectives-and-accomplishment" type="button">🎯
+            Objetivos y cumplimiento</button>
+        <button class="btn btn-outline-success me-2" routerLink="satisfaction" type="button">😌
+            Satisfacción laboral
+        </button>
     </form>
 </nav>
 <section class="m-2">
-    <div class="d-flex align-items-center">
-        <h1 class="p-2"><i class="fa-solid fa-users m-1"></i> Empleados</h1>
-        <button class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#addEmployee"
-            aria-controls="addEmployee">+AGREGAR EMPLEADO</button>
-    </div>
+    <button class="btn btn-danger btn-back" (click)="back()"><i class="fa-solid fa-arrow-left m-1"></i> VOLVER</button>
     <router-outlet></router-outlet>
 </section>
 <app-add-employee></app-add-employee>

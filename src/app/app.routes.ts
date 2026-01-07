@@ -12,7 +12,6 @@ import { FormToRescuePasswordComponent } from './components/forgot-password/form
 import { SetNewPasswordComponent } from './components/forgot-password/set-new-password/set-new-password.component';
 import { VerifyRegisterComponent } from './components/verify-register/verify-register.component';
 import { WelcomeGreenteccniaComponent } from './components/welcome-greenteccnia/welcome-greenteccnia.component';
-import { DashboardEmployeesComponent } from './components/private/interface/rrhh/dashboard-employees/dashboard-employees.component';
 
 export const routes: Routes = [
     { path: "log-in", component: LogInFormComponent },

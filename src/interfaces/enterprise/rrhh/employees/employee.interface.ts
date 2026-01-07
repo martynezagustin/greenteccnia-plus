@@ -21,11 +21,14 @@ export interface Employee {
     punctualityHistory: PunctualityHistory,
     generalPunctualityIndex: Number,
     jobInfo: {
-        startDate: Date,
+        contractStartDate: Date,
         leavingDate: Date,
         position: string,
         status: 'Presencial' | 'Remoto' | 'Híbrido',
-        department: 'Administración' | 'Recursos Humanos' | 'Finanzas' | 'Marketing' | 'Ventas' | 'Producción' | 'Logística' | 'Tecnología de la Información' | 'Atención al Cliente' | 'Investigación y Desarrollo' | 'Calidad' | ' Legal' | 'Compras' | 'Proyectos' | 'Comunicación' | 'Otro',
+        department: {
+          id: string,
+          name: string  
+        },
         contractType: 'Contrato de trabajo a plazo fijo' | 'Contrato de trabajo a tiempo parcial' | 'Contrato de trabajo de temporada' | 'Contrato de trabajo eventual' | 'Contrato de trabajo de grupo o por equipo'
         CCT: {
             id: string,

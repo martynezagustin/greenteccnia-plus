@@ -1,0 +1,18 @@
+h1{
+    margin: 0%;
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    color: whitesmoke;
+    font-weight: 700;
+}
+.btn-success{
+    background: linear-gradient(180deg, green, rgb(0,155,67), rgb(0,100,10));
+    font-family: Montserrat;
+    font-weight: 600;
+    border: none;
+    letter-spacing: -1px;
+}
+.form-select{
+    font-family: Montserrat;
+    letter-spacing: -1px;
+}

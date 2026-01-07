@@ -47,6 +47,7 @@ option{
 }
 .form-label {
     font-weight: 600;
+    color: black;
     letter-spacing: -1.1px;
     margin: 0%;
     margin-top: 3px;

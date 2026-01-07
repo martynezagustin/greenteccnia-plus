@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment.prod';
 import { Employee } from '../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
 import { RrhhService } from '../rrhh/rrhh.service';
@@ -31,19 +31,32 @@ export class EmployeesService {
   parityGender = new BehaviorSubject<any | null>(null)
   parityGender$ = this.parityGender.asObservable()
 
-  addEmployee(enterpriseId: string, data: Employee): Observable<RRHHSummary> {
+  //el summary employees, print dashboard de la madre de todos los datos necesarios
+  summaryEmployees = new BehaviorSubject<SummaryEmployees | null>(null)
+  summaryEmployees$ = this.summaryEmployees.asObservable()
+
+  loadSummaryOnce(enterpriseId: string): void {
+    if (this.summaryEmployees.value) return
+
+    this.printDashboard(enterpriseId).subscribe(
+      response => {
+        this.summaryEmployees.next(response)
+      },
+      err => {
+        console.error("Ocurrió un error al cargar el summary de empledaos:", err)
+      }
+    )
+  }
+
+  addEmployee(enterpriseId: string, data: Employee) {
     return this.httpClient.post<Employee>(`${this.baseUrl}/${enterpriseId}/employees/add-employee`, data, { withCredentials: true }).pipe(
-      switchMap(() => this.getAllEmployees(enterpriseId)),
-      tap((employees) => {
-        this.employees.next(employees)
+      tap(() => {
+        this.reloadAllRRHH(enterpriseId)
       }),
-      //pedimos rrhh
-      switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId)),
-      switchMap(() => this.getParityGender(enterpriseId))
     );
   }
-  getEmployee(enterpriseId: string, employeeId: string): Observable<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean }> {
-    return this.httpClient.get<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean}>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
+  getEmployee(enterpriseId: string, employeeId: string): Observable<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean, punctualityIndex: number | null }> {
+    return this.httpClient.get<{ employee: Employee, surveyGreen: SurveyGreen, alertAssist: Boolean, punctualityIndex: number | null }>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}`, { withCredentials: true })
   }
   getParityGender(enterpriseId: String | null): Observable<any> {
     return this.httpClient.get<any>(`${this.baseUrl}/${enterpriseId}/employees/filter/by-gender-parity`, { withCredentials: true }).pipe(
@@ -56,9 +69,9 @@ export class EmployeesService {
     this.parityGender.next(data)
   }
   getAllEmployees(enterpriseId: string) {
-    return this.httpClient.get<Employee[]>(`${this.baseUrl}/${enterpriseId}/employees`, { withCredentials: true }).pipe(
-      tap((employees) => {
-        this.employees.next(employees)
+    return this.httpClient.get<{ employees: Employee[], viewMore: boolean, createAvaiable: boolean }>(`${this.baseUrl}/${enterpriseId}/employees`, { withCredentials: true }).pipe(
+      tap((res) => {
+        this.employees.next(res.employees)
       })
     )
   }
@@ -66,13 +79,13 @@ export class EmployeesService {
     return this.httpClient.delete<Employee[]>(`${this.baseUrl}/${enterpriseId}/employees/delete-employee/${employeeId}`, { withCredentials: true }).pipe(
       switchMap(() => this.getAllEmployees(enterpriseId)),
       tap((e) => {
-        this.employees.next(e)
+        this.employees.next(e.employees)
       }),
       switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId))
     )
   }
   setEmployeeToEdit(employee: Employee | null) {
-    console.log(employee)
+    console.log('Qué dato llega?', employee)
     this.employeeToEdit.next(employee)
   }
   setEmployeeToView(employeeId: string | null) {
@@ -83,14 +96,30 @@ export class EmployeesService {
   }
   updateEmployee(enterpriseId: string, employeeId: string, data: Employee): Observable<any> {
     return this.httpClient.put<any>(`${this.baseUrl}/${enterpriseId}/employees/update-employee/${employeeId}`, data, { withCredentials: true }).pipe(
-      tap((e) => {
-        this.employees.next(e)
-      }),
       switchMap(() => this.getAllEmployees(enterpriseId)),
       switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId))
     )
   }
   printDashboard(enterpriseId: string): Observable<SummaryEmployees> {
-    return this.httpClient.get<SummaryEmployees>(`${this.baseUrl}/${enterpriseId}/print/dashboard`, { withCredentials: true })
+    return this.httpClient.get<SummaryEmployees>(`${this.baseUrl}/${enterpriseId}/employees/print/dashboard`, { withCredentials: true })
+  }
+  endContract(enterpriseId: string, employeeId: string, note: string): Observable<Employee> {
+    return this.httpClient.put<Employee>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}/end-contract`, note, { withCredentials: true })
+  }
+  reloadAllRRHH(enterpriseId: string) {
+    forkJoin({
+      employees: this.getAllEmployees(enterpriseId),
+      rrhh: this.rrhhService.getApiDataRRHH(enterpriseId),
+      dashboard: this.printDashboard(enterpriseId),
+      gender: this.getParityGender(enterpriseId)
+    }).subscribe(({ employees, rrhh, dashboard, gender }) => {
+      this.employees.next(employees.employees),
+        this.summaryEmployees.next(dashboard)
+      this.parityGender.next(gender)
+    },
+      err => {
+        console.error(err)
+      }
+    )
   }
 }

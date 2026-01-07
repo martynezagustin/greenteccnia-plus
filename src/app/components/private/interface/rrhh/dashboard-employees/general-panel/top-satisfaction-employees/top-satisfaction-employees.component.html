@@ -1,0 +1,20 @@
+<div class="text-start box_data" style="min-height: 200px;">
+    <h3 class="label_camp">📊 Top empleados por satisfacción</h3>
+    @if(topEmployees.length !== 0){
+
+        <div>
+            <ol class="list_employees_satisfaction mt-3">
+                @for(employee of topEmployees; track employee.name){
+                    <li class="mt-1 list" >
+                        <div class="item_list">
+                            <span class="name_employee_and_lastname">{{employee.name}} {{employee.lastname}}</span>
+                            <span [ngClass]="{'major_of_eight': employee.index > 8, 'minor_of_six': employee.index < 6, 'minor_of_eight_and_major_of_six': employee.index <= 8 && employee.index >= 6 }">{{employee.index}}</span>
+                        </div>
+                    </li>
+                }
+            </ol>
+        </div>
+    } @else {
+        <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+    }
+</div>

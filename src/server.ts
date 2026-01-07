@@ -1,3 +1,4 @@
+import { APP_BASE_HREF } from '@angular/common';
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
@@ -33,21 +34,33 @@ app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
     index: false,
-    redirect: false,
   }),
 );
+
+app.use((req, res, next) => {
+  if (!req.url.startsWith('/api') && !req.url.includes('.')) {
+    res.sendFile('index.html', { root: browserDistFolder })
+  } else {
+    next()
+  }
+})
 
 /**
  * Handle all other requests by rendering the Angular application.
  */
-app.use('/**', (req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
-    .catch(next);
+app.get('*', async (req, res, next) => {
+  try {
+    const response = await angularApp.handle(req)
+    if (response) {
+      writeResponseToNodeResponse(response, res)
+    } else {
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
 });
+
 
 /**
  * Start the server if this module is the main entry point.

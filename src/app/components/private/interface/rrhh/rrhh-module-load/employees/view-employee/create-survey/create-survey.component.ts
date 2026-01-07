@@ -54,7 +54,6 @@ export class CreateSurveyComponent implements OnInit {
       { id: 'noiseLevel', name: '🔈 Nivel de ruido' },
       { id: 'ergonomics', name: '💺 Ergonomía' },
       { id: 'temperature', name: '🌡️ Confort térmico' },
-      { id: 'score', name: '💯 Puntaje general' }
     ]
 
     this.moodOptions = [
@@ -102,7 +101,7 @@ export class CreateSurveyComponent implements OnInit {
     //primero a lo primero, limpiemos los fields
     this.successMessage = null
     this.errorMessage = null
-    this.employeeId = localStorage.getItem('employeeIdForSurvey') || ''
+    this.employeeId = localStorage.getItem('employeeId') || ''
     console.log("Moods limpios", this.CreateSurvey.value)
     console.log("Qué employeeId llega?", this.employeeId);
     this.surveyService.createSurvey(this.enterpriseId, this.employeeId, this.CreateSurvey.value).subscribe({

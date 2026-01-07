@@ -5,53 +5,63 @@
         <button class="btn btn-danger btn-back" (click)="back()"><i
                 class="fa-solid fa-arrow-left m-1"></i>VOLVER</button>
         <div class="fade-in-container">
-            <h1 class="h1">Resumen de recursos humanos</h1>
+            <h1 class="h1">Resumen de Recursos Humanos</h1>
             <div class="container-boxes">
-                <div class="box fade-in-container">
-                    <span class="data data-employees-quantity">{{employeesLength}}</span>
-                    
-                    <h3>Empleados</h3>
+                <div class="grids">
+
+                    <div class="box fade-in-container">
+                        <h3><i class="fa-solid fa-user-group m-1"></i> Empleados</h3>
+                        <div class="d-flex align-items-center">
+                            <span class="data data-employees-quantity">{{employeesLength}}</span>
+                            @if(percentage > 0){
+                            <span [ngClass]="{'growth-green': percentage > 0, 'growth-red': percentage <= 0}"
+                                class="growth-employees p-2"><i class="fa-solid m-1"
+                                    [ngClass]="{'fa-angle-up': percentage > 0, 'fa-angle-down': percentage<0}"></i>{{percentage}}% <span [ngStyle]="{'color': percentage > 0 ? 'springgreen' : 'tomato'}">VS ÚLTIMO AÑO</span></span>
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="box fade-in-container">
+                        <h3><i class="fa-solid fa-triangle-exclamation m-1"></i> Accidentes laborales</h3>
+                        <div class="d-flex">
+                            @if(!accidents){
+                            <p class="mt-2"
+                                style="font-family: Poppins; letter-spacing: -1.2px; color: rgb(13, 180, 13);">
+                                <strong><i class="fa-solid fa-circle-check m-1"></i> No se han reportado
+                                    accidentes.</strong>
+                            </p>
+                            } @else {
+                            <span class="data">{{accidents}}</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="box fade-in-container">
+                        <h3><i class="fa-solid fa-receipt m-1"></i> Presupuesto en salarios</h3>
+                        <div>
+                            <span class="data">${{(shortenNumber(payroll))}}</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="box fade-in-container">
-                    <div>
+                    <h3><i class="fa-solid fa-person-half-dress m-1"></i> Paridad de género</h3>
+                    <div class="d-flex justify-content-center">
                         @if(!errorMessageCanvas){
 
-                        <canvas class="data" style="letter-spacing: -0.6px!important;" baseChart [data]="pieChartData"
-                            [labels]="pieChartLabels" [options]="pieChartOptions" [legend]="true" [type]="pieChartType"
-                            width="180">
-                        </canvas>
+                        <div style="width: 270px;">
+                            <apx-chart class="fade-in-container" #chart [series]="chartOptions.series!"
+                                [labels]="chartOptions.labels!" [chart]="chartOptions.chart!"
+                                [legend]="chartOptions.legend!"></apx-chart>
+                        </div>
                         } @else {
-                        <div class="m-3 mt-5">
+                        <div class="mt-2">
                             <div class="alert fade-in-container alert-danger"><i
                                     class="fa-solid fa-circle-exclamation m-1"></i> {{errorMessageCanvas}}</div>
                         </div>
                         }
                     </div>
-                    <h3><i class="fa-solid fa-person-half-dress m-1"></i> Paridad de género</h3>
-                </div>
-
-                <div class="box fade-in-container">
-                    <div class="d-flex justify-content-center">
-                        @if(!accidents){
-                        <p class="mt-4"
-                            style="font-family: Poppins; letter-spacing: -1.2px; color: rgb(13, 180, 13); font-size: 1.7rem;">
-                            <strong><i class="fa-solid fa-circle-check m-1"></i> No se han reportado
-                                accidentes.</strong>
-                        </p>
-                        } @else {
-                        <span class="data">{{accidents}}</span>
-                        }
-                    </div>
-                    <h3><i class="fa-solid fa-triangle-exclamation m-1"></i> Accidentes laborales</h3>
-                </div>
-
-                <div class="box fade-in-container">
-                    <div>
-
-                        <span class="data">${{(shortenNumber(payroll))}}</span>
-                    </div>
-                    <h3><i class="fa-solid fa-receipt m-1"></i> Presupuesto en salarios</h3>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { RrhhService } from '../../../../../services/private/rrhh/rrhh/rrhh.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-rrhh-module-load',
@@ -9,6 +10,7 @@ import { RrhhService } from '../../../../../services/private/rrhh/rrhh/rrhh.serv
   styleUrl: './rrhh-module-load.component.css'
 })
 export class RrhhModuleLoadComponent implements OnInit {
+  public destroy$ = new Subject<void>
   constructor(private rrhhService: RrhhService) { }
   title!: String
   view!: String
@@ -16,47 +18,38 @@ export class RrhhModuleLoadComponent implements OnInit {
     {
       employees: {
         title: 'Empleados',
-        view: 'Employees'
+        view: 'employees'
       }
     },
     {
       assists: {
         title: 'Asistencias',
-        view: "Assists"
+        view: "assists"
       }
     },
     {
       liquidations: {
         title: "Liquidaciones",
-        view: "Liquidations"
+        view: "liquidations"
       }
     },
     {
       accidents: {
         title: 'Accidentes',
-        view: "Accidents"
+        view: "accidents"
       }
     }
   ]
   ngOnInit(): void {
-    this.rrhhService.viewRRHHElement$.subscribe(
+    const titles: Record<string,string> = {
+      employees: 'Empleados',
+      assists: 'Asistencias',
+      liquidations: 'Liquidaciones',
+      accidents: 'Accidentes'
+    }
+    this.rrhhService.viewRRHHElement$.pipe(takeUntil(this.destroy$)).subscribe(
       response => {
-        switch (response) {
-          case 'employees':
-            this.title = 'Empleados'
-            break;
-          case 'accidents':
-            this.title = 'Accidentes'
-            break;
-          case 'assists':
-            this.title = 'Asistencias'
-            break;
-          case 'liquidations':
-            this.title = 'Liquidaciones'
-            break;
-          default:
-            break;
-        }
+        this.title = titles[response] ?? ''
         this.view = response 
       },
       err => {

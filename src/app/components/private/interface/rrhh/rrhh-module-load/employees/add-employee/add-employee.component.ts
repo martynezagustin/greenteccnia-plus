@@ -15,14 +15,19 @@ import { BankService } from '../../../../../../../services/private/rrhh/bank/ban
 import { Bank } from '../../../../../../../../interfaces/enterprise/rrhh/banks/bank.interface';
 import { AddBankComponent } from './add-bank/add-bank.component';
 import { Employee } from '../../../../../../../../interfaces/enterprise/rrhh/employees/employee.interface';
+import { AddDepartmentComponent } from "./add-department/add-department.component";
+import { DepartmentService } from '../../../../../../../services/private/rrhh/department/department.service';
+import { Department } from '../../../../../../../../interfaces/enterprise/rrhh/employees/department/department.interface';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-employee',
-  imports: [CommonModule, ReactiveFormsModule, AddCctComponent, AddSyndicateComponent, AddArtComponent, AddBankComponent],
+  imports: [CommonModule, ReactiveFormsModule, AddCctComponent, AddSyndicateComponent, AddArtComponent, AddBankComponent, AddDepartmentComponent],
   templateUrl: './add-employee.component.html',
   styleUrl: './add-employee.component.css'
 })
 export class AddEmployeeComponent implements OnInit {
+  public destroy$ = new Subject<void>
   formAddEmployee!: FormGroup
   enterpriseId!: any
   title!: String
@@ -31,14 +36,16 @@ export class AddEmployeeComponent implements OnInit {
   ccts: CCT[] = []
   arts: ART[] = []
   banks: Bank[] = []
+  departments: Department[] = []
   //mensajes de form
   messageError: String = ''
   successfullyMessage: String = ''
   loading: boolean = false
   //los usos del formulario
   isUpdate!: boolean
+  mode!: 'create' | 'edit'
   employeeToUpdate: Employee | null = null
-  constructor(private fb: FormBuilder, private employeeService: EmployeesService, private enterpriseService: EnterpriseService, private syndicateService: SyndicatesService, private cctService: CctService, private artService: ArtService, private bankService: BankService) {
+  constructor(private fb: FormBuilder, private employeeService: EmployeesService, private enterpriseService: EnterpriseService, private syndicateService: SyndicatesService, private cctService: CctService, private artService: ArtService, private bankService: BankService, private departmentService: DepartmentService) {
     this.formAddEmployee = this.fb.group({
       personalInfo: this.fb.group({
         name: new FormControl('', Validators.required),
@@ -54,7 +61,7 @@ export class AddEmployeeComponent implements OnInit {
         email: new FormControl('', [Validators.email, Validators.required])
       }),
       jobInfo: this.fb.group({
-        startDate: new FormControl(null, Validators.required),
+        contractStartDate: new FormControl(null, Validators.required),
         leavingDate: new FormControl(null),
         position: new FormControl('', Validators.required),
         status: new FormControl('', Validators.required),
@@ -68,7 +75,9 @@ export class AddEmployeeComponent implements OnInit {
         ART: this.fb.group({
           name: new FormControl('', Validators.required)
         }),
-        department: new FormControl('', Validators.required),
+        department: this.fb.group({
+          name: new FormControl('', Validators.required)
+        }),
         contractType: new FormControl('', Validators.required),
         expectedCheckInTime: new FormControl('', [Validators.required, Validators.pattern(/^([01]\d|2[0-3]):[0-5]\d$/)])
       }),
@@ -88,6 +97,7 @@ export class AddEmployeeComponent implements OnInit {
       this.getAllCCTs()
       this.getAllARTs()
       this.getAllBanks()
+      this.getAllDepartments()
       this.cctService.CCTs$.subscribe(
         response => {
           this.ccts = response ?? []
@@ -124,12 +134,17 @@ export class AddEmployeeComponent implements OnInit {
         }
       )
     }
-    this.employeeService.employeeToEdit$.subscribe(
+    this.employeeService.employeeToEdit$.pipe(takeUntil(this.destroy$)).subscribe(
       response => {
         this.employeeToUpdate = response;
         this.isUpdate = this.employeeToUpdate != null
         this.title = !this.isUpdate ? 'Agregar empleado/a' : 'Editar empleado/a';
-        this.loadingItemToUpdate()
+        if(this.isUpdate){
+          this.loadingItemToUpdate()
+        }
+        else{
+          this.formAddEmployee.reset()
+        }
       }
     )
   }
@@ -186,6 +201,16 @@ export class AddEmployeeComponent implements OnInit {
       }
     )
   }
+  getAllDepartments(){
+    this.departmentService.getAllDepartments(this.enterpriseId).subscribe(
+      response => {
+        this.departments = response ?? []
+      },
+      err => {
+        console.error(err)
+      }
+    )
+  }
   addEmployee() {
     this.employeeService.addEmployee(this.enterpriseId, this.formAddEmployee.value).subscribe(
       () => {
@@ -226,7 +251,7 @@ export class AddEmployeeComponent implements OnInit {
   }
   loadingItemToUpdate() {
     if (this.employeeToUpdate != null) {
-      const formattedDateStartDate = new Date(this.employeeToUpdate.jobInfo.startDate).toISOString().split('T')[0]
+      const formattedDateStartDate = new Date(this.employeeToUpdate.jobInfo.contractStartDate).toISOString().split('T')[0]
       const formattedDateOfBirthday = new Date(this.employeeToUpdate.personalInfo.dateOfBirthday).toISOString().split('T')[0]
       const formattedExpectedCheckIn = this.employeeToUpdate.jobInfo.expectedCheckInTime
       console.log(formattedExpectedCheckIn)
@@ -238,7 +263,7 @@ export class AddEmployeeComponent implements OnInit {
         },
         jobInfo: {
           ...this.employeeToUpdate.jobInfo,
-          startDate: formattedDateStartDate,
+          contractStartDate: formattedDateStartDate,
           expectedCheckIn: formattedExpectedCheckIn
         }
       })
@@ -269,8 +294,8 @@ export class AddEmployeeComponent implements OnInit {
   get email() {
     return this.formAddEmployee.get('personalInfo.email') as FormControl
   }
-  get startDate() {
-    return this.formAddEmployee.get('jobInfo.startDate') as FormControl
+  get contractStartDate() {
+    return this.formAddEmployee.get('jobInfo.contractStartDate') as FormControl
   }
   get position() {
     return this.formAddEmployee.get('jobInfo.position') as FormControl

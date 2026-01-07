@@ -1,13 +1,12 @@
+import { Employee } from "../employees/employee.interface"
+
 export interface Assist {
-    employee: {
-        name: String,
-        lastname: String
-    },
-    employeeId: String,
+    _id: string,
+    employeeId: Employee,
     enterpriseId: String,
     observations: String,
     dateAssist: Date,
-    status: String,
+    status: string,
     checkIn: Date,
     checkOut: Date,
     hoursWorked: Number,

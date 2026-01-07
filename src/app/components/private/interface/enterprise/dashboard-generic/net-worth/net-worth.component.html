@@ -41,11 +41,11 @@
         </button>
     </div>
     <div class="align-items-center justify-content-center d-flex">
-        <button (click)="showOptions()" class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
+        <button (click)="showOptions()" class="btn btn-dark mt-1 m-2"
             [ngStyle]="{'background-color': showOption ? 'rgb(100,100,100)' : 'rgb(40,40,40)'}">OPCIONES
             RÁPIDAS</button>
 
-        <a class="btn btn-dark mt-1 m-2" style="font-family: Poppins; font-weight: 800; letter-spacing: -1.2px;"
+        <a class="btn btn-dark mt-1 m-2"
             routerLink="finances" (click)="setDataDashboardFinance()">+IR AL RESUMEN</a>
     </div>
     @if(showOption){
@@ -53,11 +53,11 @@
         style="padding: 1rem; border-radius: 8px; background-color: rgb(205,205,205); position: fixed; left: 904px; box-shadow: 0px 0px 12px 1px black;">
         <button class="btn m-1" style="width: 60%; background-color: red; color: whitesmoke;"
             (click)="showOptions()"><strong class="m-1">X</strong> CERRAR</button>
-        <button class="btn btn-dark m-1" style="font-family: Montserrat; letter-spacing: -1.3px; font-weight: 800;"
+        <button class="btn btn-dark m-1"
             data-bs-toggle="offcanvas" data-bs-target="#offCanvasInterface" aria-controls="offCanvasInterface"
             (click)="setSelectedForm('active')">+
             AÑADIR UN ACTIVO</button>
-        <button class="btn btn-dark m-1" style="font-family: Montserrat; letter-spacing: -1.3px; font-weight: 800;"
+        <button class="btn btn-dark m-1"
             data-bs-toggle="offcanvas" data-bs-target="#offCanvasInterface" aria-controls="offCanvasInterface"
             (click)="setSelectedForm('passive')">+
             AÑADIR UN PASIVO</button>

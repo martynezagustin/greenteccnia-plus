@@ -1,0 +1,25 @@
+<div class="box_data" style="min-height: 275px;">
+    <h3 class="label_camp">⌛ Total de asistencias hoy {{currentIndex === 1 ? '-' + ' Por estado de puntualidad' : ''}}</h3>
+    <div class="d-flex align-items-center justify-content-center">
+        <div>
+            <button class="btn btn-info" (click)="prev()" [disabled]="currentIndex === 0">&#8592;</button>
+        </div>
+        <div>
+            @if(!errorMessage){
+
+            <div class="mt-2">
+                <div style="width: 305px;">
+                    <apx-chart #chart [series]="chartOptions.series!" [labels]="chartOptions.labels!"
+                        [chart]="chartOptions.chart!" [legend]="chartOptions.legend!"></apx-chart>
+                </div>
+            </div>
+            } @else {
+            <div class="alert fade-in-container alert-danger m-4"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}
+            </div>
+            }
+        </div>
+        <div>
+            <button class="btn btn-info" (click)="next()" [disabled]="currentIndex == 1">&#8594;</button>
+        </div>
+    </div>
+</div>

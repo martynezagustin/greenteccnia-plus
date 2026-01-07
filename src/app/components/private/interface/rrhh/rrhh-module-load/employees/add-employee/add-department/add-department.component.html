@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="departmentModalLabel">{{title}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formAddDepartment" (submit)="handleSubmit()">
+          <div>
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" class="form-control" placeholder="ej. 'Finanzas'" formControlName="name">
+          </div>
+          <div>
+            <label for="description" class="form-label mt-1">Descripción</label>
+            <textarea name="description" id="description" formControlName="description"
+              placeholder="Ingrese una descripción del departamento." class="form-control"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+        @if(!loading){
+        @if(errorMessage){
+        <div class="alert alert-danger">{{errorMessage}}</div>
+        }
+        @if(successfullyMessage){
+        <div class="alert alert-success">{{successfullyMessage}}</div>
+        }
+        } @else {
+        <div class="d-flex flex-column align-items-center mb-2">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="text-start box_data" style="min-height: 200px;">
+        <h3 class="label_camp">💯 Clima laboral</h3>
+
+    @if(!errorMessage){
+        <span class="number_date" [ngClass]="{'major_of_eight': (workEnvironmentCurrent ?? 0) > 8, 'minor_of_six': (workEnvironmentCurrent ?? 0) < 6, 'minor_of_eight_and_major_of_six': (workEnvironmentCurrent ?? 0) <= 8 && (workEnvironmentCurrent ?? 0) >= 6 }">{{workEnvironmentCurrent ?? 0}}</span>
+        <div>
+            <span [ngClass]="{'positive_index': (workEnvironmentCurrent ?? 0) > 8, 'negative_index': (workEnvironmentCurrent ?? 0) < 5, 'neutral_index': (workEnvironmentCurrent ?? 0) >= 5 && (workEnvironmentCurrent ?? 0) <= 8}">{{message}}</span>
+        </div>
+    } @else {
+        <div class="alert alert-danger"><i class="fa-solid fa-triangle-exclamation m-1"></i>{{errorMessage}}</div>
+    }
+</div>

@@ -10,7 +10,7 @@ import { RRHHSummary } from '../../../../../interfaces/enterprise/rrhh/models/rr
 export class RrhhService {
   private baseUrl: string = environment.apiUrl
 
-  private rrhhSumary = new BehaviorSubject<any | null>(null)
+  private rrhhSumary = new BehaviorSubject<RRHHSummary | null>(null)
   rrhhSummary$ = this.rrhhSumary.asObservable()
 
   private viewRRHHElement = new BehaviorSubject<"employees" | "assists" | "accidents" | "liquidations">("employees")
