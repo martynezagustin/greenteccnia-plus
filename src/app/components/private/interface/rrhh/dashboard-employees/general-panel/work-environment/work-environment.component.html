@@ -1,5 +1,5 @@
 <div class="text-start box_data" style="min-height: 200px;">
-        <h3 class="label_camp">💯 Clima laboral</h3>
+        <h3 class="label_camp mb-1">💯 Clima laboral</h3>
 
     @if(!errorMessage){
         <span class="number_date" [ngClass]="{'major_of_eight': (workEnvironmentCurrent ?? 0) > 8, 'minor_of_six': (workEnvironmentCurrent ?? 0) < 6, 'minor_of_eight_and_major_of_six': (workEnvironmentCurrent ?? 0) <= 8 && (workEnvironmentCurrent ?? 0) >= 6 }">{{workEnvironmentCurrent ?? 0}}</span>

@@ -5,7 +5,6 @@
     @if(!errorMessage){
     <div>
         <div>
-
             <div class="p-2">
                 <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions"
                     [legend]="true" [type]="pieChartType">
@@ -18,7 +17,7 @@
         <h4 class="h4-element">Participación de género en la empresa</h4>
     </div>
     } @else {
-        <p class="alert-danger">{{errorMessage}}</p>
+        <p class="alert-danger">⚠️ {{errorMessage}}</p>
     }
     <div class="d-flex align-items-center justify-content-center">
         <div>

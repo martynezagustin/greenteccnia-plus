@@ -1,0 +1,141 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addRRHHObjective" aria-labelledby="addRRHHObjectiveLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="addRRHHObjectiveLabel">🎯 Añadir objetivo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <form [formGroup]="formAddObjective" (submit)="handleSubmit()">
+            <div class="container_data_rrhh_objective">
+                <div>
+                    <label for="title" class="form-label">Título del objetivo</label>
+                    <input type="text" class="form-control" id="title" formControlName="title"
+                        placeholder="📄 Realizar el presupuesto de 2026">
+                </div>
+                <div class="mt-2">
+                    <label for="description" class="form-label">✍️ Describe tu objetivo</label>
+                    <textarea name="description" id="description" class="form-control" formControlName="description"
+                        rows="3"
+                        placeholder="Ej: El presupuesto debe incluir análisis de ingresos, egresos actuales, proyecciones para el próximo año y desglose por áreas.">
+                    </textarea>
+                </div>
+                <div class="grids_fiveteen mt-2">
+                    <div>
+                        <label for="startDate" class="form-label">📅 Fecha de inicio</label>
+                        <input type="date" formControlName="startDate" name="startDate" id="startDate"
+                            class="form-control">
+                    </div>
+                    <div>
+                        <label for="startDate" class="form-label">📅 Fecha de fin</label>
+                        <input type="date" formControlName="endDate" name="endDate" id="endDate" class="form-control">
+                    </div>
+                </div>
+                <hr class="hr-gray">
+                <div class="mt-2">
+                    <div class="grids_fiveteen">
+                        <div>
+                            <label for="priority" class="form-label">Prioridad del objetivo</label>
+                            <div class="d-flex">
+
+                                @for(priority of priorityValues; track priority.value){
+                                <div>
+                                    <input type="radio" name="priority" formControlName="priority"
+                                        class="custom_input_priority" [id]="priority.value" [value]="priority.value">
+                                    <label [ngStyle]="{'background-color': priority.bgColor, 'color': priority.color}"
+                                        [for]="priority.value" class="custom_label_priority">{{priority.view}}</label>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div>
+                                <label for="clasification" class="form-label">Clasificación</label>
+                                <select formControlName="clasification" name="clasification" id="clasification"
+                                    class="form-select">
+                                    @if(clasifications){
+                                    <option disabled selected>Seleccione una opción...</option>
+                                    @for(clasification of clasifications; track clasification.name){
+                                    <option [value]="clasification.name">{{clasification.name}}</option>
+                                    }
+                                    }
+                                </select>
+                            </div>
+                            <button class="btn btn-success mt-1" type="button" data-bs-toggle="modal"
+                                data-bs-target="#createClasification">+CLASIFICACIÓN</button>
+                        </div>
+                    </div>
+                </div>
+                <hr class="hr-gray">
+                <div class="to-do mt-2">
+                    <h2 class="h2_to-do text-center">Comienza con un <strong>To-Do</strong> de tareas 😉🧑‍💻</h2>
+                    <!-- Arranco tabla -->
+                    <table class="table mt-2 fade-in-container">
+                        <thead>
+                            @if(checklist.controls.length > 0){
+                                <tr>
+                                    <th class="th" scope="col"></th>
+                                    <th class="th" scope="col">Nombre</th>
+                                    <th class="th" scope="col">Inicio</th>
+                                    <th class="th" scope="col">Fin</th>
+                                    <th class="th" scope="col">Acción</th>
+                                </tr>
+                            }
+                        </thead>
+                        <tbody formArrayName="checklist">
+                            <!-- Finalizo tabla -->
+                            @for(task of checklist.controls; let i = $index; track task){
+
+                            <tr [formGroupName]="i" class="fade-in-container">
+                                
+
+                                    <th>
+                                          <input class="form-check-input" type="checkbox" value="" id="completed" formControlName="completed">
+
+                                    </th>
+                                    <td class="td">
+                                        <input type="text" name="title" placeholder="Escribe una tarea..."
+                                            formControlName="title" class="task-input m-1">
+                                    </td>
+                                    <td class="td">
+                                        <input type="date" name="startDate" formControlName=startDate id="startDate" class="task-date task-input m-1">
+                                    </td>
+                                    <td class="td">
+                                        <input type="date" name="endDate" formControlName="endDate" id="endDate" class="task-date task-input m-1">
+                                    </td>
+                                    <td class="td">
+                                        <i class="fa-solid fa-trash m-1 task-delete" (click)="deleteTask(i)"></i>
+                                    </td>
+                                
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="mt-2 d-flex align-items-center justify-content-center">
+                        <button type="button" class="btn btn-success" (click)="addTask()">✅Agregar tarea</button>
+                    </div>
+                    <!-- Acá irá el PROGRESO -->
+                    @if(checklist.length > 0){
+
+                    <div class="progress-container fade-in-container">
+                        <span class="progress-span">Progreso: {{progress}}%</span>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" [style.width.%]="progress"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            <hr>
+            <div>
+                <button type="button" class="btn btn-secondary btn_bottoms">&#10094;
+                    VOLVER</button>
+                <button class="btn btn-light btn_bottoms">GUARDAR COMO BORRADOR</button>
+                <button type="submit" class="btn btn-success btn_bottoms">✅ CREAR OBJETIVO</button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+<app-create-clasification></app-create-clasification>

@@ -1,0 +1,8 @@
+<div class="card-status_objective p-2">
+    <h3 class="h3_card_objectives">Progreso general</h3>
+    <div id="overallProgress">
+        @if(evolutionOveralProgressOptions){
+        <apx-chart [series]="evolutionOveralProgressOptions.series!" [stroke]="evolutionOveralProgressOptions.stroke!" [chart]="evolutionOveralProgressOptions.chart!" [tooltip]="evolutionOveralProgressOptions.tooltip!" [title]="evolutionOveralProgressOptions.title!" [subtitle]="evolutionOveralProgressOptions.subtitle!" [xaxis]="evolutionOveralProgressOptions.xaxis!"></apx-chart>
+        }
+    </div>
+</div>

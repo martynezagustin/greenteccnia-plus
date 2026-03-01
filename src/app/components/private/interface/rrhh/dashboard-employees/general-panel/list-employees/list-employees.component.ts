@@ -66,7 +66,10 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: "Cancelar"
     }).then(result => {
-      if (!result.isConfirmed) return;
+      if (!result.isConfirmed) {
+        console.log('El resultado no fue confirmado.')
+        return
+      };
       this.deletedSuccessfully = '';
       this.employeesService.deleteEmployee(this.enterpriseId, employeeId).subscribe({
         next: async () => {
@@ -80,7 +83,13 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
           this.deletedErrorMessage = err.error?.message || 'Error al eliminar empleado';
         }
       });
-    }).catch(console.error);
+    }).catch(async (err) => {
+      await Swal.fire({
+        title: `<h2 style="font-family:Montserrat; letter-spacing:-1.2px">${err.error.message}}</h2>`,
+        text: 'El empleado se eliminó correctamente.',
+        showCloseButton: true,
+      });
+    });
   }
   setEmployeeToUpdate(employee: Employee | null): void {
     this.employeesService.setEmployeeToEdit(employee);

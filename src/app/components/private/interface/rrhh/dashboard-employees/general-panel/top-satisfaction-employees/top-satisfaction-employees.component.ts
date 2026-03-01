@@ -13,6 +13,7 @@ export class TopSatisfactionEmployeesComponent implements OnInit, OnDestroy{
   public destroy$ = new Subject<void>
   topEmployees: {name: string, lastname: string, index: number}[] = []
   errorMessage!: String
+  loading!: Boolean
   constructor(private employeesService: EmployeesService){}
   ngOnInit(): void {
     this.errorMessage = ''

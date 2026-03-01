@@ -1,0 +1,52 @@
+h1{
+    margin: 0%;
+    font-family: Poppins;
+    letter-spacing: -1.4px;
+    color: whitesmoke;
+    font-weight: 700;
+}
+.btn-success{
+    background: linear-gradient(180deg, green, rgb(0,155,67), rgb(0,100,10));
+    font-family: Montserrat;
+    font-weight: 600;
+    border: none;
+    letter-spacing: -1px;
+}
+.form-select{
+    font-family: Montserrat;
+    letter-spacing: -1px;
+}
+.header-objectives{
+    display: grid;
+    grid-template-columns: 33% 27% 40%;
+}
+.h3_card_objectives{
+    font-size: 1.15rem;
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: -1.2px;
+    color: black;
+    text-align: center;
+    margin-bottom: 0.8rem;
+}
+.card-status_objective{
+    background: linear-gradient(180deg, rgba(0,255,127,0.8), rgba(210,255,210,0.8));
+    color: black;
+    border-radius: 7px;
+    padding: 0.8rem;
+    margin-right: 2px;
+}
+.number-card{
+    margin: 0.2rem;
+    font-size: 3.7rem;
+}
+.p_advertising {
+    color: springgreen;
+    margin: 1.3rem 0% 0% 0%;
+    font-family: Montserrat;
+    letter-spacing: -1.3px;
+    text-align: center;
+}
+.hr-springgreen{
+    color: springgreen;
+}

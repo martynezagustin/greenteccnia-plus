@@ -1,0 +1,45 @@
+<div class="modal fade" id="weightModal" tabindex="-1" aria-labelledby="weightModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="weightModalLabel">Configuración de pesos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="formUpdateWeight" (submit)="handleSubmit()">
+                <div class="modal-body">
+                    <div>
+                        <label for="satisfaction" class="form-label">Satisfacción</label>
+                        <input type="number" class="form-control" formControlName="satisfaction">
+                    </div>
+                    <!-- relación con el equipo -->
+                    <div class="mt-1">
+                        <label for="relationshipWithTeam" class="form-label">Relación con el equipo</label>
+                        <input type="number" class="form-control" formControlName="relationshipWithTeam">
+                    </div>
+                    <!-- Entorno de trabajo -->
+                    <div class="mt-1">
+                        <label for="workEnvironment" class="form-label">Entorno de trabajo</label>
+                        <input type="number" class="form-control" formControlName="workEnvironment">
+                    </div>
+                </div>
+                @if(loading){
+                <div class="d-flex justify-content-center m-2">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                }
+                @if(successMessage){
+                <div class="alert alert-success fade-in-container">{{successMessage}}</div>
+                }
+                @if(errorMessage){
+                <div class="alert alert-danger fade-in-container">{{errorMessage}}</div>
+                }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

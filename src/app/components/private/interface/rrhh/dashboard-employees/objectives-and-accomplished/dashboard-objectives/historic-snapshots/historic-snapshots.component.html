@@ -1,0 +1,9 @@
+<div class="card-status_objective">
+    <h3 class="h3_card_objectives">Evolución en el tiempo</h3>
+    <div id="snapshots">
+        @if(evolutionStatusObjectivesOptions){
+        <apx-chart #snapshots [series]="evolutionStatusObjectivesOptions.series!" [xaxis]="evolutionStatusObjectivesOptions.xaxis!" [colors]="evolutionStatusObjectives.colors"
+            [chart]="evolutionStatusObjectivesOptions.chart!" [yaxis]="evolutionStatusObjectivesOptions.yaxis!" [stroke]="evolutionStatusObjectives.stroke"></apx-chart>
+        }
+    </div>
+</div>

@@ -161,9 +161,12 @@
             <!--FIN ATENCION-->
 
             <div class="d-flex align-items-center">
-                <h3>💆‍♂️Satisfacción laboral</h3>
-                <button data-bs-target="#createSurvey" data-bs-toggle="modal" class="btn btn-light p-1 m-2">+NUEVO
-                    REGISTRO</button>
+                <h3 class="h3">💆‍♂️Satisfacción laboral</h3>
+                <div class="m-1">
+                    <button data-bs-target="#createSurvey" data-bs-toggle="modal" style="margin-right: 4px;" class="btn btn-light p-1">+NUEVO
+                        REGISTRO</button>
+                        <button class="btn btn-info p-1" data-bs-toggle="modal" data-bs-target="#weightModal"><i class="fa-solid fa-gear m-1"></i>AJUSTAR PESOS</button>
+                    </div>
             </div>
             <span class="powered-span-surveygreen">POWERED BY <span id="surveyGreen">SurveyGreen+</span></span>
             <div>
@@ -206,7 +209,7 @@
                         </div>
                         }
                     </div>
-                    <div class="box-data">
+                    <div class="box-data mt-1">
                         <div>
                             <label class="form-label mb-1">Estados de ánimo más comunes</label>
                             <div class="d-flex flex-wrap justify-content-center">
@@ -248,7 +251,7 @@
             </div>
             <div class="box-data evolution_satisfaction_div mt-2">
                 <div class="text-center">
-                    <label class="form-label mt-1">📊 Puntajes históricos y evolución</label>
+                    <label class="form-label label-survey mt-1">📊 Puntajes históricos y evolución</label>
                 </div>
 
                 <!-- Example single danger button -->
@@ -317,3 +320,4 @@
 
 <app-create-survey></app-create-survey>
 <app-add-assist-fast [employee]="employee"></app-add-assist-fast>
+<app-weights></app-weights>

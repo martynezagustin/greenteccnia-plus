@@ -1,0 +1,17 @@
+<div class="card-status_objective p-2">
+    <h3 class="h3_card_objectives">Evolución del último objetivo</h3>
+    @if(!errorMessage){
+
+    <div id="lastObjectiveProgress">
+        @if(evolutionLastObjectiveAggregated){
+        <apx-chart [series]="evolutionLastObjectiveAggregated.series!"
+            [stroke]="evolutionLastObjectiveAggregated.stroke!" [chart]="evolutionLastObjectiveAggregated.chart!"
+            [tooltip]="evolutionLastObjectiveAggregated.tooltip!" [title]="evolutionLastObjectiveAggregated.title!"
+            [subtitle]="evolutionLastObjectiveAggregated.subtitle!"
+            [xaxis]="evolutionLastObjectiveAggregated.xaxis!"></apx-chart>
+        }
+    </div>
+    } @else {
+        <div class="alert alert-danger">{{errorMessage}}</div>
+    }
+</div>

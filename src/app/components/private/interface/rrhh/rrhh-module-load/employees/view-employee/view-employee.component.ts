@@ -9,6 +9,7 @@ import { AddAssistFastComponent } from "./add-assist-fast/add-assist-fast.compon
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTitleSubtitle, ApexStroke, ApexGrid, NgApexchartsModule } from 'ng-apexcharts'
 import { Survey } from '../../../../../../../../interfaces/enterprise/rrhh/surveyGreen/survey/survey.interface';
 import Swal from 'sweetalert2';
+import { WeightsComponent } from './create-survey/weights/weights.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -22,7 +23,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-view-employee',
-  imports: [CommonModule, CreateSurveyComponent, AddAssistFastComponent, NgApexchartsModule],
+  imports: [CommonModule, CreateSurveyComponent, AddAssistFastComponent, WeightsComponent, NgApexchartsModule],
   templateUrl: './view-employee.component.html',
   styleUrl: './view-employee.component.css'
 })

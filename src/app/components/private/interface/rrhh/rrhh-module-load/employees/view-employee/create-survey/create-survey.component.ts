@@ -115,8 +115,10 @@ export class CreateSurveyComponent implements OnInit {
         }, 3000);
       },
       error: (error) => {
-        this.errorMessage = error.error.message || 'Error al crear la encuesta.'
         this.loading = false
+        setTimeout(() => {
+          this.errorMessage = error.error.message || 'Error al crear la encuesta.'
+        }, 2000);
       }
     })
   }

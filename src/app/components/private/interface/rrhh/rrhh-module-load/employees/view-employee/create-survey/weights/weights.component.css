@@ -1,0 +1,16 @@
+.modal-title{
+    font-weight: 600;
+    color: whitesmoke;
+    text-transform: capitalize;
+}
+.modal-header{
+    background: linear-gradient(to right, rgb(80, 10, 80), rgb(120,22,120), lightpink);
+}
+.form-label{
+    font-weight: 500;
+    color: purple;
+}
+.btn{
+    font-family: Montserrat;
+    letter-spacing: -1px;
+}

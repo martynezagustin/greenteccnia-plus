@@ -37,7 +37,7 @@
                         <hr>
                         <div>
                             <label for="dateSurvey" class="form-label">¿En qué fecha se registra?</label>
-                            <input type="date" id="dateSurvey" class="form-control" formControlName="dateSurvey" >
+                            <input type="date" id="dateSurvey" class="form-control" formControlName="dateSurvey">
                         </div>
                     </div>
                     }
@@ -111,6 +111,9 @@
                 <div class="alert fade-in-container alert-success m-3">
                     {{successMessage}}
                 </div>
+                }
+                @if(errorMessage){
+                <div class="alert alert-danger fade-in-container m-3">{{errorMessage}}</div>
                 }
                 <div class="modal-footer">
                     @if(step > 1){

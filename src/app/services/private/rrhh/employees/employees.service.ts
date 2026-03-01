@@ -35,6 +35,10 @@ export class EmployeesService {
   summaryEmployees = new BehaviorSubject<SummaryEmployees | null>(null)
   summaryEmployees$ = this.summaryEmployees.asObservable()
 
+  //misc para employees
+  loadingEmployees = new BehaviorSubject<Boolean>(true)
+  loadingEmployees$ = this.loadingEmployees.asObservable()
+
   loadSummaryOnce(enterpriseId: string): void {
     if (this.summaryEmployees.value) return
 
@@ -77,11 +81,9 @@ export class EmployeesService {
   }
   deleteEmployee(enterpriseId: string, employeeId: string): Observable<any> {
     return this.httpClient.delete<Employee[]>(`${this.baseUrl}/${enterpriseId}/employees/delete-employee/${employeeId}`, { withCredentials: true }).pipe(
-      switchMap(() => this.getAllEmployees(enterpriseId)),
-      tap((e) => {
-        this.employees.next(e.employees)
+      tap(() => {
+        this.reloadAllRRHH(enterpriseId)
       }),
-      switchMap(() => this.rrhhService.getApiDataRRHH(enterpriseId))
     )
   }
   setEmployeeToEdit(employee: Employee | null) {
@@ -107,18 +109,21 @@ export class EmployeesService {
     return this.httpClient.put<Employee>(`${this.baseUrl}/${enterpriseId}/employees/${employeeId}/end-contract`, note, { withCredentials: true })
   }
   reloadAllRRHH(enterpriseId: string) {
+    this.loadingEmployees.next(true)
     forkJoin({
       employees: this.getAllEmployees(enterpriseId),
       rrhh: this.rrhhService.getApiDataRRHH(enterpriseId),
       dashboard: this.printDashboard(enterpriseId),
       gender: this.getParityGender(enterpriseId)
-    }).subscribe(({ employees, rrhh, dashboard, gender }) => {
-      this.employees.next(employees.employees),
-        this.summaryEmployees.next(dashboard)
-      this.parityGender.next(gender)
+    }).subscribe(({ employees, dashboard, gender }) => {
+      this.employees.next(employees.employees);
+      this.summaryEmployees.next(dashboard);
+      this.parityGender.next(gender);
+      this.loadingEmployees.next(false)
     },
       err => {
         console.error(err)
+        this.loadingEmployees.next(false)
       }
     )
   }

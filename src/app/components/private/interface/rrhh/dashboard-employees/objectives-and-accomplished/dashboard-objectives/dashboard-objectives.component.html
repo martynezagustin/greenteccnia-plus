@@ -1,0 +1,54 @@
+<div class="fade-in-container">
+    <div class="p-2 d-flex align-items-center">
+        <h1>🎯 Objetivos y cumplimiento</h1>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-success m-1" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#addRRHHObjective" aria-controls="addRRHHObjective">+OBJETIVO</button>
+        </div>
+    </div>
+</div>
+@if(!loading){
+
+<div class="header-objectives">
+
+    <div class="card-status_objective align-items-center">
+        <h3 class="h3_card_objectives">Composición de objetivos</h3>
+        <!--The content below is only a placeholder and can be replaced.-->
+        <div class="d-flex justify-content-center">
+            <div style="width: 310px;">
+                @if(chartOptions){
+                <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [colors]="chartOptions.colors"
+                    [labels]="chartOptions.labels" [legend]="chartOptions.legend" [stroke]="chartOptions.stroke"
+                    [responsive]="chartOptions.responsive!"></apx-chart>
+                }
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <div>
+            <app-overall-progress></app-overall-progress>
+        </div>
+        <div class="mt-1">
+            <app-card-last-objective-progress></app-card-last-objective-progress>
+        </div>
+    </div>
+    
+</div>
+<hr class="hr-springgreen">
+<div class="mt-1">
+    <app-historic-snapshots></app-historic-snapshots>
+</div>
+} @else {
+<div class="justify-center fade-in-container">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div>
+        <p class="p_advertising">Aguarde un instante, se están cargando y procesando los datos.</p>
+    </div>
+</div>
+}
+<app-form-add-objective></app-form-add-objective>

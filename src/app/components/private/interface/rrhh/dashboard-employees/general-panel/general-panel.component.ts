@@ -12,6 +12,7 @@ import { AssistsTodayComponent } from "./assists-today/assists-today.component";
 import { WorkEnvironmentComponent } from './work-environment/work-environment.component';
 import { WorkEnvironmentEvolutionComponent } from "./work-environment-evolution/work-environment-evolution.component";
 import { ListEmployeesComponent } from "./list-employees/list-employees.component";
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-general-panel',
@@ -20,24 +21,31 @@ import { ListEmployeesComponent } from "./list-employees/list-employees.componen
   styleUrls: ['../dashboard-employees.component.css', './general-panel.component.css']
 })
 export class GeneralPanelComponent implements OnInit {
+  public destroyRef = new Subject<void>
   summaryEmployees: SummaryEmployees | null = null
   errorMessage: string = ''
   //misc
-  loading: Boolean = true
+  loading!: Boolean
   constructor(private employeesService: EmployeesService) { }
   ngOnInit(): void {
     this.errorMessage = ''
-    this.employeesService.summaryEmployees$.subscribe(
-      response => {
-        if(!response) return
-        this.summaryEmployees = response
-        this.loading = false
-      },
-      err => {
-        this.errorMessage = err.error?.message || 'Ha ocurrido un error inesperado. Inténtelo más tarde.'
-        this.loading = false
-      }
+    this.employeesService.loadingEmployees$.pipe(takeUntil(this.destroyRef)).subscribe(
+      loading => this.loading = loading
     )
+    console.log('Cómo llega el loading', this.loading)
+    this.employeesService.summaryEmployees$
+      .pipe(takeUntil(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          if(!response) return
+          this.summaryEmployees = response
+          console.log('El summaryEmployees', this.summaryEmployees)
+          this.loading = false
+        },
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Ha ocurrido un error inesperado. Inténtelo más tarde.'
+        }
+      })
   }
   setNullEmployeeToEdit(){
     this.employeesService.setEmployeeToEdit(null)
