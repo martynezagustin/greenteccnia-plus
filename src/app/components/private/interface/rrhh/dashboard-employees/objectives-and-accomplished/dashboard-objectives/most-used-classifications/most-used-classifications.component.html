@@ -1,0 +1,9 @@
+
+    <div class="card-status_objective p-2">
+        <h3 class="h3_card_objectives">Clasificaciones más usadas</h3>
+        @if(!errorMessage){
+            <apx-chart [series]="mostUsedClassifications.series!" [dataLabels]="mostUsedClassifications.dataLabels!" [tooltip]="mostUsedClassifications.tooltip!" [chart]="mostUsedClassifications.chart!" [colors]="mostUsedClassifications.colors" [stroke]="mostUsedClassifications.stroke!"></apx-chart>
+        } @else {
+            <div class="alert alert-danger">{{errorMessage}}</div>
+        }
+    </div>

@@ -26,7 +26,7 @@
 }
 
 .nav-link {
-    padding: 11px;
+    padding: 7px;
     cursor: pointer;
 }
 
@@ -41,7 +41,15 @@
     background-color: rgb(35, 35, 35);
     color: whitesmoke;
 }
-
+h5{
+    font-size: 1rem;
+    background-color: rgb(50,50,50);
+    color: rgb(240,255,237);
+    padding: 5px;
+    font-weight: 500;
+    font-family: Montserrat;
+    letter-spacing: -1px;
+}
 .nav-sublink:hover {
     background-color: rgb(5, 73, 5)!important;
     color: #7ed957;

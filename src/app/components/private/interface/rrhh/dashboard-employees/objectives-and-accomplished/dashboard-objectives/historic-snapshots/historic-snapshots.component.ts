@@ -35,6 +35,7 @@ export class HistoricSnapshotsComponent implements OnDestroy, OnInit {
   public evolutionStatusObjectivesOptions!: Partial<ChartOptions>
   public destroyRef = new Subject<void>()
   evolutionStatusObjectives!: any
+  errorMessage!: String
   constructor(private objectiveService: ObjectiveService) { }
   ngOnDestroy(): void {
     this.destroyRef.next()
@@ -50,11 +51,16 @@ export class HistoricSnapshotsComponent implements OnDestroy, OnInit {
         }
       },
       err => {
+        this.errorMessage = 'Ocurrió un error al cargar los datos del dashboard.'
         console.error(err);
       }
     )
   }
   printSnapshots(response: any) {
+    if(!response.categories || !response.series || response.categories.length === 0 || response.series.length === 0){
+      this.errorMessage= 'No se encontraron datos para mostrar en el gráfico de evolución de objetivos.'
+      return
+    }
     this.evolutionStatusObjectivesOptions = {
       chart: {
         height: 350,

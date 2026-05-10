@@ -50,13 +50,15 @@
                         <div class="d-flex flex-column">
                             <div>
                                 <label for="clasification" class="form-label">Clasificación</label>
-                                <select formControlName="clasification" name="clasification" id="clasification"
+                                <select formControlName="classification" name="clasification" id="clasification"
                                     class="form-select">
-                                    @if(clasifications){
+                                    @if(classifications){
                                     <option disabled selected>Seleccione una opción...</option>
-                                    @for(clasification of clasifications; track clasification.name){
+                                    @for(clasification of classifications; track clasification.name){
                                     <option [value]="clasification.name">{{clasification.name}}</option>
                                     }
+                                    } @else {
+                                        <option disabled selected>{{errorMessageClasification}}</option>
                                     }
                                 </select>
                             </div>
@@ -86,8 +88,6 @@
                             @for(task of checklist.controls; let i = $index; track task){
 
                             <tr [formGroupName]="i" class="fade-in-container">
-                                
-
                                     <th>
                                           <input class="form-check-input" type="checkbox" value="" id="completed" formControlName="completed">
 

@@ -1,3 +1,5 @@
+import { RRHHTask } from "./task/task.interface"
+
 export interface DashboardObjectivesData {
     metrics: [],
     composition: number[],
@@ -15,5 +17,6 @@ export interface DashboardObjectivesData {
         evolutionLastObjectiveAggregated: any[],
         actualProgress: number,
         color: string
-    }
+    },
+    mostUsedClassifications: String
 }

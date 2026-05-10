@@ -19,13 +19,25 @@
 
   @if(enterprise){
   <div class="fade-in-container">
+    <h5>Finanzas</h5>
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#showOptionsFinance" aria-expanded="false"
         aria-controls="showOptionsFinance">💰<span>
-          Finanzas</span></a>
+          Activos</span></a>
+    </li>
+    <hr>
+    <h5>Recursos Humanos</h5>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="rrhh">🏢<span>Panel</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="rrhh">🏢<span>RRHH</span></a>
+      <a class="nav-link" routerLink="rrhh">⚠️<span>Accidentes</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="rrhh">🧾<span>Liquidaciones</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="rrhh">👥<span>Empleados</span></a>
     </li>
   </div>
   } @else if(errorMessage) {<li class="nav-item"><span

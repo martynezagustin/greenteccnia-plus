@@ -11,18 +11,23 @@
 
 <div class="header-objectives">
 
-    <div class="card-status_objective align-items-center">
+    <div class="card-status_objective align-items-center p-2">
         <h3 class="h3_card_objectives">Composición de objetivos</h3>
         <!--The content below is only a placeholder and can be replaced.-->
-        <div class="d-flex justify-content-center">
-            <div style="width: 310px;">
-                @if(chartOptions){
-                <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [colors]="chartOptions.colors"
-                    [labels]="chartOptions.labels" [legend]="chartOptions.legend" [stroke]="chartOptions.stroke"
-                    [responsive]="chartOptions.responsive!"></apx-chart>
-                }
+        @if(!errorMessageComposition){
+
+            <div class="d-flex justify-content-center">
+                <div style="width: 310px;">
+                    @if(chartOptions){
+                        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [colors]="chartOptions.colors"
+                        [labels]="chartOptions.labels" [legend]="chartOptions.legend" [stroke]="chartOptions.stroke"
+                        [responsive]="chartOptions.responsive!"></apx-chart>
+                    }
+                </div>
             </div>
-        </div>
+        } @else {
+            <div class="alert alert-danger">{{errorMessageComposition}}</div>
+        }
 
     </div>
     <div>
@@ -33,7 +38,10 @@
             <app-card-last-objective-progress></app-card-last-objective-progress>
         </div>
     </div>
-    
+    <div >
+        <app-most-used-clasification></app-most-used-clasification>
+    </div>
+
 </div>
 <hr class="hr-springgreen">
 <div class="mt-1">

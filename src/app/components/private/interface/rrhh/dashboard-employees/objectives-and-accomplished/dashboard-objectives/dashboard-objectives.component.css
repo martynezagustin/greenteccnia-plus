@@ -36,6 +36,10 @@ h1{
     padding: 0.8rem;
     margin-right: 2px;
 }
+.KPI_section{
+    display: grid;
+    grid-template-columns: 55% 45%;
+}
 .number-card{
     margin: 0.2rem;
     font-size: 3.7rem;

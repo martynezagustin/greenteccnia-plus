@@ -6,8 +6,8 @@ import { Employee } from '../../../../../../../../interfaces/enterprise/rrhh/emp
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ObjectiveService } from '../../../../../../../services/private/rrhh/objective/objective.service';
 import Swal from 'sweetalert2';
-import { ClasificationService } from '../../../../../../../services/private/rrhh/objective/clasification/clasification.service';
-import { Clasification } from '../../../../../../../../interfaces/enterprise/rrhh/objective/clasification/clasification.interface';
+import { ClassificationService } from '../../../../../../../services/private/rrhh/objective/classification/classification.service';
+import { Classification } from '../../../../../../../../interfaces/enterprise/rrhh/objective/clasification/classification.interface';
 
 @Component({
   selector: 'app-form-add-objective',
@@ -19,7 +19,7 @@ export class FormAddObjectiveComponent implements OnInit {
   enterpriseId: any = localStorage.getItem('enterpriseId')
   group!: any
   employees!: Employee[]
-  clasifications!: Clasification[] | null
+  classifications!: Classification[] | null
   loadingScope!: Boolean
   errorMessageClasification!: String
   formAddObjective!: FormGroup
@@ -29,29 +29,29 @@ export class FormAddObjectiveComponent implements OnInit {
     { value: 'HIGH', view: 'ALTA', bgColor: '#ff693f', color: 'white' },
     { value: 'CRITICAL', view: 'CRÍTICA', bgColor: 'red', color: 'white' }
   ]
-  constructor(private fb: FormBuilder, private rrhhObjectiveService: ObjectiveService, private clasificationService: ClasificationService) {
+  constructor(private fb: FormBuilder, private rrhhObjectiveService: ObjectiveService, private classificationService: ClassificationService) {
     this.formAddObjective = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
-      clasification: ['', Validators.required],
+      classification: ['', Validators.required],
       priority: ['', Validators.required],
       checklist: this.fb.array([])
     })
   }
   ngOnInit(): void {
-    this.clasificationService.getAllClasifications(this.enterpriseId).subscribe(
+    this.classificationService.getAllClassifications(this.enterpriseId).subscribe(
       response => {
-        this.clasifications = response
+        this.classifications = response
       },
       err => {
         this.errorMessageClasification = err.error.message || 'Ha ocurrido un error con las clasificaciones.'
       }
     )
-    this.clasificationService.clasifications$.subscribe(
+    this.classificationService.classifications$.subscribe(
       response => {
-        this.clasifications = response
+        this.classifications = response
       },
       err => {
         this.errorMessageClasification = err.error.message || 'Ha ocurrido un error con las clasificaciones.'

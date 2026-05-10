@@ -1,11 +1,11 @@
-import { Clasification } from "./clasification/clasification.interface";
+import { Classification } from "./clasification/classification.interface";
 
 export interface Definition {
     objectiveId: String,
     title: String,
     description: String,
     //tipos de objetivo
-    clasification: Clasification,
+    clasification: Classification,
     //quién es el responsable de cumplir? (owner)
     scope: { //polimórfico, te permite cualquier tipo de schemaId
         scopeType: 'COMPANY'| 'DEPARTMENT'| 'EMPLOYEE',

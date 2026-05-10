@@ -1,4 +1,4 @@
-export interface Clasification{
+export interface Classification{
     enterpriseId: string;
     name: string;
     description: string

@@ -12,6 +12,7 @@ import { HistoricSnapshotsComponent } from "./historic-snapshots/historic-snapsh
 import { Subject, takeUntil } from 'rxjs';
 import { OverallProgressComponent } from "./overall-progress/overall-progress.component";
 import { CardLastObjectiveProgressComponent } from "./card-last-objective-progress/card-last-objective-progress.component";
+import { MostUsedClassificationsComponent } from "./most-used-classifications/most-used-classifications.component";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -26,7 +27,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-dashboard-objectives',
-  imports: [FormAddObjectiveComponent, ChartComponent, HistoricSnapshotsComponent, OverallProgressComponent, CardLastObjectiveProgressComponent],
+  imports: [FormAddObjectiveComponent, ChartComponent, HistoricSnapshotsComponent, OverallProgressComponent, CardLastObjectiveProgressComponent, MostUsedClassificationsComponent],
   templateUrl: './dashboard-objectives.component.html',
   styleUrl: './dashboard-objectives.component.css',
 })
@@ -44,18 +45,23 @@ export class DashboardObjectivesComponent implements OnInit {
   public chartOptions!: Partial<ChartOptions>
   enterpriseId: any = localStorage.getItem('enterpriseId')
   dashboard!: DashboardObjectivesData | null
+  errorMessageComposition!: String
   constructor(private objectiveService: ObjectiveService) { }
   ngOnInit(): void {
     this.loading = true
     this.objectiveService.printDashboard(this.enterpriseId).subscribe(
-      response =>{
+      response => {
         this.dashboard = response
-          this.printComposition(this.dashboard?.composition)
-          
-        }
-      )
-    }
-    printComposition(composition: any) {
+        this.printComposition(this.dashboard?.composition)
+      }
+    )
+  }
+  printComposition(composition: any) {
+    if (composition.length === 0) {
+      console.log('Si')
+      this.errorMessageComposition = 'No se pueden graficar datos.'
+      this.loading = false
+    } else {
       let labelsNormalized
       const labels = composition.map((item: any) => item.status)
       labelsNormalized = this.normalizeLabels(labels)
@@ -63,9 +69,9 @@ export class DashboardObjectivesComponent implements OnInit {
       this.chartOptions = this.buildCompositionChart(composition)
       this.loading = false
     }
-    
-    normalizeLabels(response: any) {
-    console.log('Llega el response', response)
+  }
+
+  normalizeLabels(response: any) {
     return response.map((s: any) => {
       return this.references[s] || s
     })
@@ -79,22 +85,22 @@ export class DashboardObjectivesComponent implements OnInit {
         type: "donut"
       },
       responsive:
-      [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
+        [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
               }
             }
           }
         ]
       ,
       dataLabels: {
-        enabled:false
+        enabled: false
       },
       stroke: {
         width: 0,
