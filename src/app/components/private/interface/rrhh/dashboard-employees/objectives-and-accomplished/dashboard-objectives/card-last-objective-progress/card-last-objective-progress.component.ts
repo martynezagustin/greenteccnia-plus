@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ApexChart, ChartComponent } from 'ng-apexcharts';
+import { ApexChart, ApexNonAxisChartSeries, ApexStroke, ApexTitleSubtitle, ApexTooltip, ApexXAxis, ChartComponent } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { ObjectiveService } from '../../../../../../../../services/private/rrhh/objective/objective.service';
 

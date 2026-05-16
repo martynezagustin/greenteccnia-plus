@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { EmployeesService } from '../../../../../../../services/private/rrhh/employees/employees.service';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexGrid, ApexStroke, ApexTitleSubtitle, ApexXAxis, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexGrid, ApexStroke, ApexTitleSubtitle, ApexXAxis, ApexYAxis, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { WorkEnvironmentSnapshot } from '../../../../../../../../interfaces/enterprise/rrhh/employees/workEnvironment/workEnvironmentSnapshot.interface';
 import { Subject, takeUntil } from 'rxjs';
 

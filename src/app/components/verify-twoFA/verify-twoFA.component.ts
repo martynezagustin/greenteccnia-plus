@@ -40,6 +40,7 @@ export class VerifyLoginComponent implements OnInit {
       () => {
         console.log("Esta el token?", document.cookie.includes("token"))
         if (this.warn) {
+          console.log("Tendrìa que navegarte al dashboard.")
           this.router.navigate(["/confirm-device"])
         } else {
           const request = localStorage.getItem("setVerify2FA")

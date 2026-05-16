@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ObjectiveService } from '../../../../../../../../services/private/rrhh/objective/objective.service';
-import { ApexTooltip, ChartComponent, ApexChart, ApexStroke } from 'ng-apexcharts';
+import { ApexTooltip, ChartComponent, ApexChart, ApexStroke, ApexNonAxisChartSeries, ApexTitleSubtitle, ApexDataLabels, ApexXAxis } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { error } from 'console';
 

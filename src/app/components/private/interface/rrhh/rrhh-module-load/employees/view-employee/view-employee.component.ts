@@ -10,6 +10,7 @@ import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabe
 import { Survey } from '../../../../../../../../interfaces/enterprise/rrhh/surveyGreen/survey/survey.interface';
 import Swal from 'sweetalert2';
 import { WeightsComponent } from './create-survey/weights/weights.component';
+import ApexCharts from 'apexcharts';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

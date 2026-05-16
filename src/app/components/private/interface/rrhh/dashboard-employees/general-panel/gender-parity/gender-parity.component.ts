@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { EmployeesService } from '../../../../../../../services/private/rrhh/employees/employees.service';
-import { ChartComponent } from 'ng-apexcharts';
+import { ApexLegend, ApexNonAxisChartSeries, ChartComponent } from 'ng-apexcharts';
 import { ApexChart } from 'ng-apexcharts'
 import { DepartmentGenderParity } from '../../../../../../../../interfaces/enterprise/rrhh/employees/dashboard/bases-summary-employees.interface';
 import { Subject, takeUntil } from 'rxjs';

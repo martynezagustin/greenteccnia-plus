@@ -4,6 +4,8 @@ import {
   ApexChart,
   ChartComponent,
   ApexTitleSubtitle,
+  ApexStroke,
+  ApexTooltip,
   XAxisAnnotations,
   ApexXAxis
 } from 'ng-apexcharts';
