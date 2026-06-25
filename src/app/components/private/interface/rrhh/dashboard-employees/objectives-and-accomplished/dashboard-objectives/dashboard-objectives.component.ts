@@ -13,6 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { OverallProgressComponent } from "./overall-progress/overall-progress.component";
 import { CardLastObjectiveProgressComponent } from "./card-last-objective-progress/card-last-objective-progress.component";
 import { MostUsedClassificationsComponent } from "./most-used-classifications/most-used-classifications.component";
+import { LastObjectiveInfoComponent } from './last-objective-info/last-objective-info.component';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -27,7 +28,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-dashboard-objectives',
-  imports: [FormAddObjectiveComponent, ChartComponent, HistoricSnapshotsComponent, OverallProgressComponent, CardLastObjectiveProgressComponent, MostUsedClassificationsComponent],
+  imports: [FormAddObjectiveComponent, ChartComponent, HistoricSnapshotsComponent, OverallProgressComponent, CardLastObjectiveProgressComponent, MostUsedClassificationsComponent, LastObjectiveInfoComponent],
   templateUrl: './dashboard-objectives.component.html',
   styleUrl: './dashboard-objectives.component.css',
 })

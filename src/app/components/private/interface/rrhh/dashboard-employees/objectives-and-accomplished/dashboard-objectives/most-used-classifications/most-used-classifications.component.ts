@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ObjectiveService } from '../../../../../../../../services/private/rrhh/objective/objective.service';
-import { ApexTooltip, ChartComponent, ApexChart, ApexStroke, ApexNonAxisChartSeries, ApexTitleSubtitle, ApexDataLabels, ApexXAxis } from 'ng-apexcharts';
+import { ApexTooltip, ChartComponent, ApexChart, ApexStroke, ApexNonAxisChartSeries, ApexTitleSubtitle, ApexDataLabels, ApexXAxis, ApexPlotOptions } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { error } from 'console';
 
@@ -10,8 +10,9 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
   dataLabels: ApexDataLabels;
   chart: ApexChart;
-  colors: any
+  colors: any;
   stroke: ApexStroke;
+  plotOptions: ApexPlotOptions;
   tooltip: ApexTooltip,
 }
 
@@ -42,29 +43,49 @@ export class MostUsedClassificationsComponent implements OnInit, OnDestroy {
     this.destroyRef.complete() //acá la completás la suscripción y listo
   }
   printMostUsedClasifications(response: any) {
-    console.log('El response',response)
-    if(!response.series.data || response.series.data.length === 0){
-      this.errorMessage = 'No se pueden graficar datos si no se han ingresado objetivos.'
-      return
-    }
+    console.log(response.data)
     this.mostUsedClassifications = {
       series: response.series,
       chart: {
         type: 'treemap',
+        height: 280,
         toolbar: {
           show: false
-        },
-        height: 280
+        }
       },
+      plotOptions: {
+        treemap: {
+          distributed: true
+        }
+      },
+      colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8'],
       dataLabels: {
-        enabled: true
+        enabled: true,
+        style: {
+          fontSize: '14px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 'bold',
+          colors: ['#fff']
+        }
       },
-      stroke:{
-        width: 0
+      xaxis: {
+        categories: response.categories
       },
-      colors: ['#0d581d', 'rgb(62, 146, 109)', 'rgb(30,30,30)', 'rgba(23,192,99,0.7)'],
+      title: {
+        text: 'Clasificaciones más utilizadas',
+        align: 'center',
+        style: {
+          fontSize: '16px',
+          fontWeight: 'bold',
+          color: '#263238'
+        }
+      },
+      stroke: {
+        width: 1,
+        colors: ['#fff']
+      },
       tooltip: {
-        custom: ({ series, seriesIndex, dataPointIndex, w }) => {
+        custom: ({ seriesIndex, dataPointIndex, w }) => {
           const item = w.config.series[seriesIndex].data[dataPointIndex];
           return `
               <div style="padding:10px">

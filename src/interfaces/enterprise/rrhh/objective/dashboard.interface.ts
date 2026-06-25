@@ -6,7 +6,7 @@ export interface DashboardObjectivesData {
     objectives: [],
     evolutionStatusObjectives: {},
     overallProgress: {
-        evolutionOverallProgress: any[], 
+        evolutionOverallProgress: any[],
         actualProgress: {
             value: number,
             bgColor: string,
@@ -17,6 +17,17 @@ export interface DashboardObjectivesData {
         evolutionLastObjectiveAggregated: any[],
         actualProgress: number,
         color: string
+    },
+    lastObjectiveInfo: {
+        title: String,
+        description: String,
+        startDate: Date,
+        endDate: Date,
+        classification: String,
+        checklist: RRHHTask[],
+        status: String,
+        progress: Number,
+        priority: String,
     },
     mostUsedClassifications: String
 }

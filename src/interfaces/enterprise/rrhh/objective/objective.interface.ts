@@ -4,12 +4,13 @@ import { Metric } from "./metric.interface";
 import { Operative } from "./operative.interface";
 
 export interface RRHHObjective {
-    enterpriseId: String,
-    definition: Definition,
-    metrics: Metric,
-    operative: Operative,
-    dateStart: Date,
-    dateEnd: Date,
-    snapshots: [String],
-    createdBy: User
+    title: String,
+    description: String,
+    startDate: Date,
+    endDate: Date,
+    classification: String,
+    status: String,
+    progress: Number,
+    priority: String,
+    snapshots: [String]
 }

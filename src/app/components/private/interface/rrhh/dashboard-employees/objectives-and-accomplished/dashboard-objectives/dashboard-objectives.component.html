@@ -9,7 +9,7 @@
 </div>
 @if(!loading){
 
-<div class="header-objectives">
+<div class="header-objectives" style="min-height: 100%">
 
     <div class="card-status_objective align-items-center p-2">
         <h3 class="h3_card_objectives">Composición de objetivos</h3>
@@ -39,12 +39,18 @@
         </div>
     </div>
     <div >
-        <app-most-used-clasification></app-most-used-clasification>
+        <div>
+            <app-most-used-clasification></app-most-used-clasification>
+        </div>
+        <div class="mt-1">
+            
+        </div>
     </div>
 
 </div>
 <hr class="hr-springgreen">
-<div class="mt-1">
+<div class="mt-1" style="display: grid;grid-template-columns: 50% 55%;">
+    <app-last-objective-info></app-last-objective-info>
     <app-historic-snapshots></app-historic-snapshots>
 </div>
 } @else {

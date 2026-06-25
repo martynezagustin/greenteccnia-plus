@@ -60,6 +60,7 @@ export class FormAddObjectiveComponent implements OnInit {
   }
   //testeando el primer handlesubmit
   handleSubmit() {
+    console.log(this.formAddObjective.value)
     let timerInterval: any;
     Swal.fire({
       title: "<h1 style='font-family:Montserrat;letter-spacing:-1.2px;font-size:1.5rem;font-weight:700'>🎯 Creando objetivo</h1>",

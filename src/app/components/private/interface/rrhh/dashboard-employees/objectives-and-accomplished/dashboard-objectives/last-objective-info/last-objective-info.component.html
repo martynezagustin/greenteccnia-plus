@@ -1,0 +1,50 @@
+<div class="card-status_objective" style="padding: 0%;">
+    <nav class="header-card-info-objective d-flex align-items-center">
+        <div>
+            <h3 class="h3_card_objectives p-3 text-start" style="color: springgreen!important; margin: 0%;">🎯Objetivo:
+                {{lastObjectiveInfo.title || 'N/A'}}</h3>
+        </div>
+        <div class="priority text-center" style="padding: 0%; margin: 0%;">
+            @switch(lastObjectiveInfo.priority){
+            @case('CRITICAL'){
+            <span class="badge bg-danger">Prioridad Crítica</span>
+            }
+            @case('HIGH'){
+
+            <span class="badge bg-warning">Prioridad Alta</span>
+            }
+
+            @case('MEDIUM'){
+            <span class="badge bg-info">Prioridad Media</span>
+            }
+            @case('LOW'){
+
+            <span class="badge bg-success">Prioridad Baja</span>
+            }
+
+            @default {
+
+            <span class="badge bg-secondary">N/A</span>
+            }
+            }
+        </div>
+    </nav>
+    <div class="p-3 progress-div">
+        <h4 class="h4_class_objectives">PROGRESO: {{calculateProgress !== undefined ?
+            calculateProgress + '%': 'N/A'}}</h4>
+        <div class="progress-container">
+            <div class="progress-bar" [style.width.%]="calculateProgress || 0"></div>
+        </div>
+    </div>
+    <div class="tasks-container p-3">
+        @for(task of tasks; track task.title){
+        <div class="task-item d-flex align-items-center">
+            <input class="form-check-input p-1" type="checkbox" [checked]="task.completed"
+                (change)="toggleTaskCompletion(task)">
+            <label class="form-check-label" for="flexCheckDefault">
+                {{task.title}}
+            </label>
+        </div>
+        }
+    </div>
+</div>
